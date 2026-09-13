@@ -28,7 +28,7 @@ try {
   await page.getByRole('button',{name:'เลือกลิฟต์ W-01'}).waitFor();
   await page.clock.setFixedTime(new Date('2026-09-14T03:00:00.000Z'));
   assert.equal(await page.getByRole('button',{name:/เลือกลิฟต์ W-/}).count(),5);
-  assert.ok(await page.getByText('TEST ENVIRONMENT · ข้อมูลจำลองเท่านั้น').isVisible());
+  assert.ok(await page.getByTestId('mode-indicator').isVisible());
   check('Five shafts and TEST/SIMULATED banner','1440x1100 Chrome; all five shafts visible');
   await shot('hud-desktop.png');
 
@@ -87,7 +87,7 @@ try {
 
   await page.getByLabel('เลือกสถานการณ์จำลอง').selectOption('normal');
   await page.getByRole('button',{name:'สาธิต',exact:true}).click();
-  assert.ok(await page.getByText('DEMO — โหมดสาธิต — ข้อมูลจำลองเพื่อการนำเสนอ').isVisible());
+  assert.ok(await page.getByTestId('mode-indicator').getByText('DEMO',{exact:true}).isVisible());
   await shot('hud-demo.png');
   await page.getByRole('button',{name:'ออกจาก DEMO'}).click();
   assert.ok(await page.getByText('TEST · SIMULATED').isVisible());

@@ -5,6 +5,7 @@ import { createMockAdapter } from '../../realtime/client';
 import { fixtureScenarios, type ScenarioId } from '../../fixtures/scenarios';
 import { toElevatorViewModel } from '../../model/viewModel';
 import { DemoBanner } from '../demo/DemoBanner';
+import { FullscreenButton } from '../display/FullscreenButton';
 import { ShaftOverview } from '../elevators/ShaftOverview';
 import { ElevatorDetail } from '../elevators/ElevatorDetail';
 import { RecentEvents } from '../events/RecentEvents';
@@ -37,9 +38,9 @@ export function OperationsHud() {
   return <main className="app-shell">
     <header className="app-header"><div className="brand"><span className="brand-symbol" aria-hidden="true"><i /><i /><i /></span><div><span className="brand-name">The Whizdom</span><span className="brand-subtitle">LMS-NG / OPERATIONS CONTROL</span></div></div>
       <div className="site-context"><span className="eyebrow">BUILDING / SITE</span><strong>Whizdom · TEST replica</strong><span>5 ELEVATORS / 1 SIMULATED GATEWAY</span></div>
-      <div className="header-time"><NumericDisplay>{clock.toLocaleTimeString('en-GB', { timeZone: 'Asia/Bangkok', hour12: false })}</NumericDisplay><span>{clock.toLocaleDateString('en-GB', { timeZone: 'Asia/Bangkok', day: '2-digit', month: 'short', year: 'numeric' })} · ICT</span></div>
+      <div className="display-controls"><DemoBanner demo={demo} /><FullscreenButton /></div><div className="header-time"><NumericDisplay>{clock.toLocaleTimeString('en-GB', { timeZone: 'Asia/Bangkok', hour12: false })}</NumericDisplay><span>{clock.toLocaleDateString('en-GB', { timeZone: 'Asia/Bangkok', day: '2-digit', month: 'short', year: 'numeric' })} · ICT</span></div>
     </header>
-    <DemoBanner demo={demo} />
+
     <div className="page-title"><div><div className="eyebrow">VERTICAL MOBILITY / MONITORING</div><h1>Operations HUD <span>ภาพรวมระบบลิฟต์</span></h1></div><div className="gateway-health"><span className="eyebrow">MOCK GATEWAY</span><Badge tone={state.gateways[0]?.connectionState === 'ONLINE' ? 'green' : state.gateways[0]?.connectionState === 'OFFLINE' ? 'red' : 'amber'} dot>{state.gateways[0]?.connectionState ?? 'UNKNOWN'}</Badge></div></div>
     <section className="kpi-grid" aria-label="สรุปข้อมูลจำลอง">
       <div className="kpi"><span className="eyebrow">FLEET / ลิฟต์ทั้งหมด</span><div><NumericDisplay>{String(state.elevators.length).padStart(2,'0')}</NumericDisplay><span>ELEVATORS</span></div><small>ชุดข้อมูลจำลอง 5 ตัว</small></div>

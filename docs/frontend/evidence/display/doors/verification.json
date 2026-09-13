@@ -1,0 +1,36 @@
+{
+  "status": "PASS",
+  "browser": "153.0.8010.36",
+  "checks": [
+    {
+      "name": "All five glyphs render; unknown W05 remains unplaced and neutral",
+      "result": "PASS"
+    },
+    {
+      "name": "RUNNING panes are closed with dark surfaces",
+      "result": "PASS"
+    },
+    {
+      "name": "STOPPED slides both panes apart once and does not move the floor",
+      "result": "PASS"
+    },
+    {
+      "name": "Returning to RUNNING closes both panes",
+      "result": "PASS"
+    },
+    {
+      "name": "Stale data snaps to neutral with no opening animation",
+      "result": "PASS"
+    },
+    {
+      "name": "Reduced motion preserves open pose without sliding",
+      "result": "PASS"
+    },
+    {
+      "name": "Mobile layout has no page overflow and retains unknown-position labels",
+      "result": "PASS"
+    }
+  ],
+  "pageErrors": [],
+  "scope": "Local SIMULATED motion metaphor only; no physical door state is claimed"
+}

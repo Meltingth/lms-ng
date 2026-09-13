@@ -1,0 +1,2181 @@
+{
+  "status": "PASS",
+  "browser": "153.0.8010.36",
+  "results": [
+    {
+      "name": "full-hd",
+      "result": "PASS",
+      "viewport": {
+        "name": "full-hd",
+        "width": 1920,
+        "height": 1080,
+        "dpr": 1
+      },
+      "normal": {
+        "width": 1920,
+        "height": 1080,
+        "scrollWidth": 1920,
+        "scrollHeight": 1080,
+        "panels": {
+          ".app-header": {
+            "x": 26,
+            "y": 12,
+            "width": 1868,
+            "height": 62,
+            "bottom": 74,
+            "right": 1894,
+            "scrollHeight": 61,
+            "clientHeight": 61
+          },
+          ".kpi-grid": {
+            "x": 26,
+            "y": 132,
+            "width": 1868,
+            "height": 88,
+            "bottom": 220,
+            "right": 1894,
+            "scrollHeight": 86,
+            "clientHeight": 86
+          },
+          ".workspace-grid": {
+            "x": 26,
+            "y": 230,
+            "width": 1868,
+            "height": 557,
+            "bottom": 787,
+            "right": 1894,
+            "scrollHeight": 557,
+            "clientHeight": 557
+          },
+          ".shaft-grid": {
+            "x": 26,
+            "y": 263,
+            "width": 1514,
+            "height": 496,
+            "bottom": 759,
+            "right": 1540,
+            "scrollHeight": 496,
+            "clientHeight": 496
+          },
+          ".detail-panel": {
+            "x": 1564,
+            "y": 230,
+            "width": 330,
+            "height": 557,
+            "bottom": 787,
+            "right": 1894,
+            "scrollHeight": 555,
+            "clientHeight": 555
+          },
+          ".simulation-controls": {
+            "x": 26,
+            "y": 797,
+            "width": 1868,
+            "height": 50,
+            "bottom": 847,
+            "right": 1894,
+            "scrollHeight": 48,
+            "clientHeight": 48
+          },
+          ".lower-grid": {
+            "x": 26,
+            "y": 867,
+            "width": 1868,
+            "height": 145,
+            "bottom": 1012,
+            "right": 1894,
+            "scrollHeight": 145,
+            "clientHeight": 145
+          },
+          ".health-footer": {
+            "x": 26,
+            "y": 1022,
+            "width": 1868,
+            "height": 22,
+            "bottom": 1044,
+            "right": 1894,
+            "scrollHeight": 21,
+            "clientHeight": 21
+          }
+        },
+        "shafts": [
+          {
+            "x": 26,
+            "y": 263,
+            "width": 293.1875,
+            "height": 496,
+            "bottom": 759,
+            "right": 319.1875,
+            "scrollHeight": 494,
+            "clientHeight": 494
+          },
+          {
+            "x": 331.1875,
+            "y": 263,
+            "width": 293.203125,
+            "height": 496,
+            "bottom": 759,
+            "right": 624.390625,
+            "scrollHeight": 494,
+            "clientHeight": 494
+          },
+          {
+            "x": 636.390625,
+            "y": 263,
+            "width": 293.203125,
+            "height": 496,
+            "bottom": 759,
+            "right": 929.59375,
+            "scrollHeight": 494,
+            "clientHeight": 494
+          },
+          {
+            "x": 941.59375,
+            "y": 263,
+            "width": 293.203125,
+            "height": 496,
+            "bottom": 759,
+            "right": 1234.796875,
+            "scrollHeight": 494,
+            "clientHeight": 494
+          },
+          {
+            "x": 1246.796875,
+            "y": 263,
+            "width": 293.203125,
+            "height": 496,
+            "bottom": 759,
+            "right": 1540,
+            "scrollHeight": 494,
+            "clientHeight": 494
+          }
+        ],
+        "mode": "flex"
+      },
+      "stale": {
+        "width": 1920,
+        "height": 1080,
+        "scrollWidth": 1920,
+        "scrollHeight": 1080,
+        "panels": {
+          ".app-header": {
+            "x": 26,
+            "y": 12,
+            "width": 1868,
+            "height": 62,
+            "bottom": 74,
+            "right": 1894,
+            "scrollHeight": 61,
+            "clientHeight": 61
+          },
+          ".kpi-grid": {
+            "x": 26,
+            "y": 132,
+            "width": 1868,
+            "height": 88,
+            "bottom": 220,
+            "right": 1894,
+            "scrollHeight": 86,
+            "clientHeight": 86
+          },
+          ".workspace-grid": {
+            "x": 26,
+            "y": 230,
+            "width": 1868,
+            "height": 557,
+            "bottom": 787,
+            "right": 1894,
+            "scrollHeight": 557,
+            "clientHeight": 557
+          },
+          ".shaft-grid": {
+            "x": 26,
+            "y": 263,
+            "width": 1514,
+            "height": 496,
+            "bottom": 759,
+            "right": 1540,
+            "scrollHeight": 496,
+            "clientHeight": 496
+          },
+          ".detail-panel": {
+            "x": 1564,
+            "y": 230,
+            "width": 330,
+            "height": 557,
+            "bottom": 787,
+            "right": 1894,
+            "scrollHeight": 555,
+            "clientHeight": 555
+          },
+          ".simulation-controls": {
+            "x": 26,
+            "y": 797,
+            "width": 1868,
+            "height": 50,
+            "bottom": 847,
+            "right": 1894,
+            "scrollHeight": 48,
+            "clientHeight": 48
+          },
+          ".lower-grid": {
+            "x": 26,
+            "y": 867,
+            "width": 1868,
+            "height": 145,
+            "bottom": 1012,
+            "right": 1894,
+            "scrollHeight": 145,
+            "clientHeight": 145
+          },
+          ".health-footer": {
+            "x": 26,
+            "y": 1022,
+            "width": 1868,
+            "height": 22,
+            "bottom": 1044,
+            "right": 1894,
+            "scrollHeight": 21,
+            "clientHeight": 21
+          }
+        },
+        "shafts": [
+          {
+            "x": 26,
+            "y": 263,
+            "width": 293.1875,
+            "height": 496,
+            "bottom": 759,
+            "right": 319.1875,
+            "scrollHeight": 494,
+            "clientHeight": 494
+          },
+          {
+            "x": 331.1875,
+            "y": 263,
+            "width": 293.203125,
+            "height": 496,
+            "bottom": 759,
+            "right": 624.390625,
+            "scrollHeight": 494,
+            "clientHeight": 494
+          },
+          {
+            "x": 636.390625,
+            "y": 263,
+            "width": 293.203125,
+            "height": 496,
+            "bottom": 759,
+            "right": 929.59375,
+            "scrollHeight": 494,
+            "clientHeight": 494
+          },
+          {
+            "x": 941.59375,
+            "y": 263,
+            "width": 293.203125,
+            "height": 496,
+            "bottom": 759,
+            "right": 1234.796875,
+            "scrollHeight": 494,
+            "clientHeight": 494
+          },
+          {
+            "x": 1246.796875,
+            "y": 263,
+            "width": 293.203125,
+            "height": 496,
+            "bottom": 759,
+            "right": 1540,
+            "scrollHeight": 494,
+            "clientHeight": 494
+          }
+        ],
+        "mode": "flex"
+      },
+      "gap": {
+        "width": 1920,
+        "height": 1080,
+        "scrollWidth": 1920,
+        "scrollHeight": 1080,
+        "panels": {
+          ".app-header": {
+            "x": 26,
+            "y": 12,
+            "width": 1868,
+            "height": 62,
+            "bottom": 74,
+            "right": 1894,
+            "scrollHeight": 61,
+            "clientHeight": 61
+          },
+          ".kpi-grid": {
+            "x": 26,
+            "y": 132,
+            "width": 1868,
+            "height": 88,
+            "bottom": 220,
+            "right": 1894,
+            "scrollHeight": 86,
+            "clientHeight": 86
+          },
+          ".workspace-grid": {
+            "x": 26,
+            "y": 230,
+            "width": 1868,
+            "height": 526,
+            "bottom": 756,
+            "right": 1894,
+            "scrollHeight": 526,
+            "clientHeight": 526
+          },
+          ".shaft-grid": {
+            "x": 26,
+            "y": 263,
+            "width": 1514,
+            "height": 465,
+            "bottom": 728,
+            "right": 1540,
+            "scrollHeight": 465,
+            "clientHeight": 465
+          },
+          ".detail-panel": {
+            "x": 1564,
+            "y": 230,
+            "width": 330,
+            "height": 526,
+            "bottom": 756,
+            "right": 1894,
+            "scrollHeight": 524,
+            "clientHeight": 524
+          },
+          ".simulation-controls": {
+            "x": 26,
+            "y": 766,
+            "width": 1868,
+            "height": 50,
+            "bottom": 816,
+            "right": 1894,
+            "scrollHeight": 48,
+            "clientHeight": 48
+          },
+          ".lower-grid": {
+            "x": 26,
+            "y": 867,
+            "width": 1868,
+            "height": 145,
+            "bottom": 1012,
+            "right": 1894,
+            "scrollHeight": 145,
+            "clientHeight": 145
+          },
+          ".health-footer": {
+            "x": 26,
+            "y": 1022,
+            "width": 1868,
+            "height": 22,
+            "bottom": 1044,
+            "right": 1894,
+            "scrollHeight": 21,
+            "clientHeight": 21
+          }
+        },
+        "shafts": [
+          {
+            "x": 26,
+            "y": 263,
+            "width": 293.1875,
+            "height": 465,
+            "bottom": 728,
+            "right": 319.1875,
+            "scrollHeight": 463,
+            "clientHeight": 463
+          },
+          {
+            "x": 331.1875,
+            "y": 263,
+            "width": 293.203125,
+            "height": 465,
+            "bottom": 728,
+            "right": 624.390625,
+            "scrollHeight": 463,
+            "clientHeight": 463
+          },
+          {
+            "x": 636.390625,
+            "y": 263,
+            "width": 293.203125,
+            "height": 465,
+            "bottom": 728,
+            "right": 929.59375,
+            "scrollHeight": 463,
+            "clientHeight": 463
+          },
+          {
+            "x": 941.59375,
+            "y": 263,
+            "width": 293.203125,
+            "height": 465,
+            "bottom": 728,
+            "right": 1234.796875,
+            "scrollHeight": 463,
+            "clientHeight": 463
+          },
+          {
+            "x": 1246.796875,
+            "y": 263,
+            "width": 293.203125,
+            "height": 465,
+            "bottom": 728,
+            "right": 1540,
+            "scrollHeight": 463,
+            "clientHeight": 463
+          }
+        ],
+        "mode": "flex"
+      }
+    },
+    {
+      "name": "native-fullscreen-enter-exit",
+      "result": "PASS"
+    },
+    {
+      "name": "4k",
+      "result": "PASS",
+      "viewport": {
+        "name": "4k",
+        "width": 3840,
+        "height": 2160,
+        "dpr": 1
+      },
+      "normal": {
+        "width": 3840,
+        "height": 2160,
+        "scrollWidth": 3840,
+        "scrollHeight": 2160,
+        "panels": {
+          ".app-header": {
+            "x": 52,
+            "y": 24,
+            "width": 3736,
+            "height": 124,
+            "bottom": 148,
+            "right": 3788,
+            "scrollHeight": 122,
+            "clientHeight": 122
+          },
+          ".kpi-grid": {
+            "x": 52,
+            "y": 264,
+            "width": 3736,
+            "height": 176,
+            "bottom": 440,
+            "right": 3788,
+            "scrollHeight": 172,
+            "clientHeight": 172
+          },
+          ".workspace-grid": {
+            "x": 52,
+            "y": 460,
+            "width": 3736,
+            "height": 1114,
+            "bottom": 1574,
+            "right": 3788,
+            "scrollHeight": 1114,
+            "clientHeight": 1114
+          },
+          ".shaft-grid": {
+            "x": 52,
+            "y": 526,
+            "width": 3028,
+            "height": 992,
+            "bottom": 1518,
+            "right": 3080,
+            "scrollHeight": 992,
+            "clientHeight": 992
+          },
+          ".detail-panel": {
+            "x": 3128,
+            "y": 460,
+            "width": 660,
+            "height": 1114,
+            "bottom": 1574,
+            "right": 3788,
+            "scrollHeight": 1112,
+            "clientHeight": 1112
+          },
+          ".simulation-controls": {
+            "x": 52,
+            "y": 1594,
+            "width": 3736,
+            "height": 100,
+            "bottom": 1694,
+            "right": 3788,
+            "scrollHeight": 96,
+            "clientHeight": 96
+          },
+          ".lower-grid": {
+            "x": 52,
+            "y": 1734,
+            "width": 3736,
+            "height": 290,
+            "bottom": 2024,
+            "right": 3788,
+            "scrollHeight": 290,
+            "clientHeight": 290
+          },
+          ".health-footer": {
+            "x": 52,
+            "y": 2044,
+            "width": 3736,
+            "height": 44,
+            "bottom": 2088,
+            "right": 3788,
+            "scrollHeight": 42,
+            "clientHeight": 42
+          }
+        },
+        "shafts": [
+          {
+            "x": 52,
+            "y": 526,
+            "width": 586.390625,
+            "height": 992,
+            "bottom": 1518,
+            "right": 638.390625,
+            "scrollHeight": 988,
+            "clientHeight": 988
+          },
+          {
+            "x": 662.390625,
+            "y": 526,
+            "width": 586.40625,
+            "height": 992,
+            "bottom": 1518,
+            "right": 1248.796875,
+            "scrollHeight": 988,
+            "clientHeight": 988
+          },
+          {
+            "x": 1272.796875,
+            "y": 526,
+            "width": 586.390625,
+            "height": 992,
+            "bottom": 1518,
+            "right": 1859.1875,
+            "scrollHeight": 988,
+            "clientHeight": 988
+          },
+          {
+            "x": 1883.1875,
+            "y": 526,
+            "width": 586.40625,
+            "height": 992,
+            "bottom": 1518,
+            "right": 2469.59375,
+            "scrollHeight": 988,
+            "clientHeight": 988
+          },
+          {
+            "x": 2493.59375,
+            "y": 526,
+            "width": 586.40625,
+            "height": 992,
+            "bottom": 1518,
+            "right": 3080,
+            "scrollHeight": 988,
+            "clientHeight": 988
+          }
+        ],
+        "mode": "flex"
+      },
+      "stale": {
+        "width": 3840,
+        "height": 2160,
+        "scrollWidth": 3840,
+        "scrollHeight": 2160,
+        "panels": {
+          ".app-header": {
+            "x": 52,
+            "y": 24,
+            "width": 3736,
+            "height": 124,
+            "bottom": 148,
+            "right": 3788,
+            "scrollHeight": 122,
+            "clientHeight": 122
+          },
+          ".kpi-grid": {
+            "x": 52,
+            "y": 264,
+            "width": 3736,
+            "height": 176,
+            "bottom": 440,
+            "right": 3788,
+            "scrollHeight": 172,
+            "clientHeight": 172
+          },
+          ".workspace-grid": {
+            "x": 52,
+            "y": 460,
+            "width": 3736,
+            "height": 1114,
+            "bottom": 1574,
+            "right": 3788,
+            "scrollHeight": 1114,
+            "clientHeight": 1114
+          },
+          ".shaft-grid": {
+            "x": 52,
+            "y": 526,
+            "width": 3028,
+            "height": 992,
+            "bottom": 1518,
+            "right": 3080,
+            "scrollHeight": 992,
+            "clientHeight": 992
+          },
+          ".detail-panel": {
+            "x": 3128,
+            "y": 460,
+            "width": 660,
+            "height": 1114,
+            "bottom": 1574,
+            "right": 3788,
+            "scrollHeight": 1112,
+            "clientHeight": 1112
+          },
+          ".simulation-controls": {
+            "x": 52,
+            "y": 1594,
+            "width": 3736,
+            "height": 100,
+            "bottom": 1694,
+            "right": 3788,
+            "scrollHeight": 96,
+            "clientHeight": 96
+          },
+          ".lower-grid": {
+            "x": 52,
+            "y": 1734,
+            "width": 3736,
+            "height": 290,
+            "bottom": 2024,
+            "right": 3788,
+            "scrollHeight": 290,
+            "clientHeight": 290
+          },
+          ".health-footer": {
+            "x": 52,
+            "y": 2044,
+            "width": 3736,
+            "height": 44,
+            "bottom": 2088,
+            "right": 3788,
+            "scrollHeight": 42,
+            "clientHeight": 42
+          }
+        },
+        "shafts": [
+          {
+            "x": 52,
+            "y": 526,
+            "width": 586.390625,
+            "height": 992,
+            "bottom": 1518,
+            "right": 638.390625,
+            "scrollHeight": 988,
+            "clientHeight": 988
+          },
+          {
+            "x": 662.390625,
+            "y": 526,
+            "width": 586.40625,
+            "height": 992,
+            "bottom": 1518,
+            "right": 1248.796875,
+            "scrollHeight": 988,
+            "clientHeight": 988
+          },
+          {
+            "x": 1272.796875,
+            "y": 526,
+            "width": 586.390625,
+            "height": 992,
+            "bottom": 1518,
+            "right": 1859.1875,
+            "scrollHeight": 988,
+            "clientHeight": 988
+          },
+          {
+            "x": 1883.1875,
+            "y": 526,
+            "width": 586.40625,
+            "height": 992,
+            "bottom": 1518,
+            "right": 2469.59375,
+            "scrollHeight": 988,
+            "clientHeight": 988
+          },
+          {
+            "x": 2493.59375,
+            "y": 526,
+            "width": 586.40625,
+            "height": 992,
+            "bottom": 1518,
+            "right": 3080,
+            "scrollHeight": 988,
+            "clientHeight": 988
+          }
+        ],
+        "mode": "flex"
+      },
+      "gap": {
+        "width": 3840,
+        "height": 2160,
+        "scrollWidth": 3840,
+        "scrollHeight": 2160,
+        "panels": {
+          ".app-header": {
+            "x": 52,
+            "y": 24,
+            "width": 3736,
+            "height": 124,
+            "bottom": 148,
+            "right": 3788,
+            "scrollHeight": 122,
+            "clientHeight": 122
+          },
+          ".kpi-grid": {
+            "x": 52,
+            "y": 264,
+            "width": 3736,
+            "height": 176,
+            "bottom": 440,
+            "right": 3788,
+            "scrollHeight": 172,
+            "clientHeight": 172
+          },
+          ".workspace-grid": {
+            "x": 52,
+            "y": 460,
+            "width": 3736,
+            "height": 1052,
+            "bottom": 1512,
+            "right": 3788,
+            "scrollHeight": 1052,
+            "clientHeight": 1052
+          },
+          ".shaft-grid": {
+            "x": 52,
+            "y": 526,
+            "width": 3028,
+            "height": 930,
+            "bottom": 1456,
+            "right": 3080,
+            "scrollHeight": 930,
+            "clientHeight": 930
+          },
+          ".detail-panel": {
+            "x": 3128,
+            "y": 460,
+            "width": 660,
+            "height": 1052,
+            "bottom": 1512,
+            "right": 3788,
+            "scrollHeight": 1050,
+            "clientHeight": 1050
+          },
+          ".simulation-controls": {
+            "x": 52,
+            "y": 1532,
+            "width": 3736,
+            "height": 100,
+            "bottom": 1632,
+            "right": 3788,
+            "scrollHeight": 96,
+            "clientHeight": 96
+          },
+          ".lower-grid": {
+            "x": 52,
+            "y": 1734,
+            "width": 3736,
+            "height": 290,
+            "bottom": 2024,
+            "right": 3788,
+            "scrollHeight": 290,
+            "clientHeight": 290
+          },
+          ".health-footer": {
+            "x": 52,
+            "y": 2044,
+            "width": 3736,
+            "height": 44,
+            "bottom": 2088,
+            "right": 3788,
+            "scrollHeight": 42,
+            "clientHeight": 42
+          }
+        },
+        "shafts": [
+          {
+            "x": 52,
+            "y": 526,
+            "width": 586.390625,
+            "height": 930,
+            "bottom": 1456,
+            "right": 638.390625,
+            "scrollHeight": 926,
+            "clientHeight": 926
+          },
+          {
+            "x": 662.390625,
+            "y": 526,
+            "width": 586.40625,
+            "height": 930,
+            "bottom": 1456,
+            "right": 1248.796875,
+            "scrollHeight": 926,
+            "clientHeight": 926
+          },
+          {
+            "x": 1272.796875,
+            "y": 526,
+            "width": 586.390625,
+            "height": 930,
+            "bottom": 1456,
+            "right": 1859.1875,
+            "scrollHeight": 926,
+            "clientHeight": 926
+          },
+          {
+            "x": 1883.1875,
+            "y": 526,
+            "width": 586.40625,
+            "height": 930,
+            "bottom": 1456,
+            "right": 2469.59375,
+            "scrollHeight": 926,
+            "clientHeight": 926
+          },
+          {
+            "x": 2493.59375,
+            "y": 526,
+            "width": 586.40625,
+            "height": 930,
+            "bottom": 1456,
+            "right": 3080,
+            "scrollHeight": 926,
+            "clientHeight": 926
+          }
+        ],
+        "mode": "flex"
+      }
+    },
+    {
+      "name": "4k-dpi-200",
+      "result": "PASS",
+      "viewport": {
+        "name": "4k-dpi-200",
+        "width": 1920,
+        "height": 1080,
+        "dpr": 2
+      },
+      "normal": {
+        "width": 1920,
+        "height": 1080,
+        "scrollWidth": 1920,
+        "scrollHeight": 1080,
+        "panels": {
+          ".app-header": {
+            "x": 26,
+            "y": 12,
+            "width": 1868,
+            "height": 62,
+            "bottom": 74,
+            "right": 1894,
+            "scrollHeight": 61,
+            "clientHeight": 61
+          },
+          ".kpi-grid": {
+            "x": 26,
+            "y": 132,
+            "width": 1868,
+            "height": 88,
+            "bottom": 220,
+            "right": 1894,
+            "scrollHeight": 86,
+            "clientHeight": 86
+          },
+          ".workspace-grid": {
+            "x": 26,
+            "y": 230,
+            "width": 1868,
+            "height": 557,
+            "bottom": 787,
+            "right": 1894,
+            "scrollHeight": 557,
+            "clientHeight": 557
+          },
+          ".shaft-grid": {
+            "x": 26,
+            "y": 263,
+            "width": 1514,
+            "height": 496,
+            "bottom": 759,
+            "right": 1540,
+            "scrollHeight": 496,
+            "clientHeight": 496
+          },
+          ".detail-panel": {
+            "x": 1564,
+            "y": 230,
+            "width": 330,
+            "height": 557,
+            "bottom": 787,
+            "right": 1894,
+            "scrollHeight": 555,
+            "clientHeight": 555
+          },
+          ".simulation-controls": {
+            "x": 26,
+            "y": 797,
+            "width": 1868,
+            "height": 50,
+            "bottom": 847,
+            "right": 1894,
+            "scrollHeight": 48,
+            "clientHeight": 48
+          },
+          ".lower-grid": {
+            "x": 26,
+            "y": 867,
+            "width": 1868,
+            "height": 145,
+            "bottom": 1012,
+            "right": 1894,
+            "scrollHeight": 145,
+            "clientHeight": 145
+          },
+          ".health-footer": {
+            "x": 26,
+            "y": 1022,
+            "width": 1868,
+            "height": 22,
+            "bottom": 1044,
+            "right": 1894,
+            "scrollHeight": 21,
+            "clientHeight": 21
+          }
+        },
+        "shafts": [
+          {
+            "x": 26,
+            "y": 263,
+            "width": 293.1875,
+            "height": 496,
+            "bottom": 759,
+            "right": 319.1875,
+            "scrollHeight": 494,
+            "clientHeight": 494
+          },
+          {
+            "x": 331.1875,
+            "y": 263,
+            "width": 293.203125,
+            "height": 496,
+            "bottom": 759,
+            "right": 624.390625,
+            "scrollHeight": 494,
+            "clientHeight": 494
+          },
+          {
+            "x": 636.390625,
+            "y": 263,
+            "width": 293.203125,
+            "height": 496,
+            "bottom": 759,
+            "right": 929.59375,
+            "scrollHeight": 494,
+            "clientHeight": 494
+          },
+          {
+            "x": 941.59375,
+            "y": 263,
+            "width": 293.203125,
+            "height": 496,
+            "bottom": 759,
+            "right": 1234.796875,
+            "scrollHeight": 494,
+            "clientHeight": 494
+          },
+          {
+            "x": 1246.796875,
+            "y": 263,
+            "width": 293.203125,
+            "height": 496,
+            "bottom": 759,
+            "right": 1540,
+            "scrollHeight": 494,
+            "clientHeight": 494
+          }
+        ],
+        "mode": "flex"
+      },
+      "stale": {
+        "width": 1920,
+        "height": 1080,
+        "scrollWidth": 1920,
+        "scrollHeight": 1080,
+        "panels": {
+          ".app-header": {
+            "x": 26,
+            "y": 12,
+            "width": 1868,
+            "height": 62,
+            "bottom": 74,
+            "right": 1894,
+            "scrollHeight": 61,
+            "clientHeight": 61
+          },
+          ".kpi-grid": {
+            "x": 26,
+            "y": 132,
+            "width": 1868,
+            "height": 88,
+            "bottom": 220,
+            "right": 1894,
+            "scrollHeight": 86,
+            "clientHeight": 86
+          },
+          ".workspace-grid": {
+            "x": 26,
+            "y": 230,
+            "width": 1868,
+            "height": 557,
+            "bottom": 787,
+            "right": 1894,
+            "scrollHeight": 557,
+            "clientHeight": 557
+          },
+          ".shaft-grid": {
+            "x": 26,
+            "y": 263,
+            "width": 1514,
+            "height": 496,
+            "bottom": 759,
+            "right": 1540,
+            "scrollHeight": 496,
+            "clientHeight": 496
+          },
+          ".detail-panel": {
+            "x": 1564,
+            "y": 230,
+            "width": 330,
+            "height": 557,
+            "bottom": 787,
+            "right": 1894,
+            "scrollHeight": 555,
+            "clientHeight": 555
+          },
+          ".simulation-controls": {
+            "x": 26,
+            "y": 797,
+            "width": 1868,
+            "height": 50,
+            "bottom": 847,
+            "right": 1894,
+            "scrollHeight": 48,
+            "clientHeight": 48
+          },
+          ".lower-grid": {
+            "x": 26,
+            "y": 867,
+            "width": 1868,
+            "height": 145,
+            "bottom": 1012,
+            "right": 1894,
+            "scrollHeight": 145,
+            "clientHeight": 145
+          },
+          ".health-footer": {
+            "x": 26,
+            "y": 1022,
+            "width": 1868,
+            "height": 22,
+            "bottom": 1044,
+            "right": 1894,
+            "scrollHeight": 21,
+            "clientHeight": 21
+          }
+        },
+        "shafts": [
+          {
+            "x": 26,
+            "y": 263,
+            "width": 293.1875,
+            "height": 496,
+            "bottom": 759,
+            "right": 319.1875,
+            "scrollHeight": 494,
+            "clientHeight": 494
+          },
+          {
+            "x": 331.1875,
+            "y": 263,
+            "width": 293.203125,
+            "height": 496,
+            "bottom": 759,
+            "right": 624.390625,
+            "scrollHeight": 494,
+            "clientHeight": 494
+          },
+          {
+            "x": 636.390625,
+            "y": 263,
+            "width": 293.203125,
+            "height": 496,
+            "bottom": 759,
+            "right": 929.59375,
+            "scrollHeight": 494,
+            "clientHeight": 494
+          },
+          {
+            "x": 941.59375,
+            "y": 263,
+            "width": 293.203125,
+            "height": 496,
+            "bottom": 759,
+            "right": 1234.796875,
+            "scrollHeight": 494,
+            "clientHeight": 494
+          },
+          {
+            "x": 1246.796875,
+            "y": 263,
+            "width": 293.203125,
+            "height": 496,
+            "bottom": 759,
+            "right": 1540,
+            "scrollHeight": 494,
+            "clientHeight": 494
+          }
+        ],
+        "mode": "flex"
+      },
+      "gap": {
+        "width": 1920,
+        "height": 1080,
+        "scrollWidth": 1920,
+        "scrollHeight": 1080,
+        "panels": {
+          ".app-header": {
+            "x": 26,
+            "y": 12,
+            "width": 1868,
+            "height": 62,
+            "bottom": 74,
+            "right": 1894,
+            "scrollHeight": 61,
+            "clientHeight": 61
+          },
+          ".kpi-grid": {
+            "x": 26,
+            "y": 132,
+            "width": 1868,
+            "height": 88,
+            "bottom": 220,
+            "right": 1894,
+            "scrollHeight": 86,
+            "clientHeight": 86
+          },
+          ".workspace-grid": {
+            "x": 26,
+            "y": 230,
+            "width": 1868,
+            "height": 526,
+            "bottom": 756,
+            "right": 1894,
+            "scrollHeight": 526,
+            "clientHeight": 526
+          },
+          ".shaft-grid": {
+            "x": 26,
+            "y": 263,
+            "width": 1514,
+            "height": 465,
+            "bottom": 728,
+            "right": 1540,
+            "scrollHeight": 465,
+            "clientHeight": 465
+          },
+          ".detail-panel": {
+            "x": 1564,
+            "y": 230,
+            "width": 330,
+            "height": 526,
+            "bottom": 756,
+            "right": 1894,
+            "scrollHeight": 524,
+            "clientHeight": 524
+          },
+          ".simulation-controls": {
+            "x": 26,
+            "y": 766,
+            "width": 1868,
+            "height": 50,
+            "bottom": 816,
+            "right": 1894,
+            "scrollHeight": 48,
+            "clientHeight": 48
+          },
+          ".lower-grid": {
+            "x": 26,
+            "y": 867,
+            "width": 1868,
+            "height": 145,
+            "bottom": 1012,
+            "right": 1894,
+            "scrollHeight": 145,
+            "clientHeight": 145
+          },
+          ".health-footer": {
+            "x": 26,
+            "y": 1022,
+            "width": 1868,
+            "height": 22,
+            "bottom": 1044,
+            "right": 1894,
+            "scrollHeight": 21,
+            "clientHeight": 21
+          }
+        },
+        "shafts": [
+          {
+            "x": 26,
+            "y": 263,
+            "width": 293.1875,
+            "height": 465,
+            "bottom": 728,
+            "right": 319.1875,
+            "scrollHeight": 463,
+            "clientHeight": 463
+          },
+          {
+            "x": 331.1875,
+            "y": 263,
+            "width": 293.203125,
+            "height": 465,
+            "bottom": 728,
+            "right": 624.390625,
+            "scrollHeight": 463,
+            "clientHeight": 463
+          },
+          {
+            "x": 636.390625,
+            "y": 263,
+            "width": 293.203125,
+            "height": 465,
+            "bottom": 728,
+            "right": 929.59375,
+            "scrollHeight": 463,
+            "clientHeight": 463
+          },
+          {
+            "x": 941.59375,
+            "y": 263,
+            "width": 293.203125,
+            "height": 465,
+            "bottom": 728,
+            "right": 1234.796875,
+            "scrollHeight": 463,
+            "clientHeight": 463
+          },
+          {
+            "x": 1246.796875,
+            "y": 263,
+            "width": 293.203125,
+            "height": 465,
+            "bottom": 728,
+            "right": 1540,
+            "scrollHeight": 463,
+            "clientHeight": 463
+          }
+        ],
+        "mode": "flex"
+      }
+    },
+    {
+      "name": "full-hd-window",
+      "result": "PASS",
+      "viewport": {
+        "name": "full-hd-window",
+        "width": 1920,
+        "height": 940,
+        "dpr": 1
+      },
+      "normal": {
+        "width": 1920,
+        "height": 940,
+        "scrollWidth": 1920,
+        "scrollHeight": 940,
+        "panels": {
+          ".app-header": {
+            "x": 22.625,
+            "y": 10.4375,
+            "width": 1874.75,
+            "height": 53.953125,
+            "bottom": 64.390625,
+            "right": 1897.375,
+            "scrollHeight": 53,
+            "clientHeight": 53
+          },
+          ".kpi-grid": {
+            "x": 22.625,
+            "y": 114.859375,
+            "width": 1874.75,
+            "height": 76.578125,
+            "bottom": 191.4375,
+            "right": 1897.375,
+            "scrollHeight": 75,
+            "clientHeight": 75
+          },
+          ".workspace-grid": {
+            "x": 22.625,
+            "y": 200.140625,
+            "width": 1874.75,
+            "height": 484.875,
+            "bottom": 685.015625,
+            "right": 1897.375,
+            "scrollHeight": 485,
+            "clientHeight": 485
+          },
+          ".shaft-grid": {
+            "x": 22.625,
+            "y": 228.84375,
+            "width": 1566.65625,
+            "height": 431.8125,
+            "bottom": 660.65625,
+            "right": 1589.28125,
+            "scrollHeight": 432,
+            "clientHeight": 432
+          },
+          ".detail-panel": {
+            "x": 1610.15625,
+            "y": 200.140625,
+            "width": 287.21875,
+            "height": 484.875,
+            "bottom": 685.015625,
+            "right": 1897.375,
+            "scrollHeight": 483,
+            "clientHeight": 483
+          },
+          ".simulation-controls": {
+            "x": 22.625,
+            "y": 693.71875,
+            "width": 1874.75,
+            "height": 43.515625,
+            "bottom": 737.234375,
+            "right": 1897.375,
+            "scrollHeight": 42,
+            "clientHeight": 42
+          },
+          ".lower-grid": {
+            "x": 22.625,
+            "y": 754.640625,
+            "width": 1874.75,
+            "height": 126.203125,
+            "bottom": 880.84375,
+            "right": 1897.375,
+            "scrollHeight": 126,
+            "clientHeight": 126
+          },
+          ".health-footer": {
+            "x": 22.625,
+            "y": 889.546875,
+            "width": 1874.75,
+            "height": 19.140625,
+            "bottom": 908.6875,
+            "right": 1897.375,
+            "scrollHeight": 18,
+            "clientHeight": 18
+          }
+        },
+        "shafts": [
+          {
+            "x": 22.625,
+            "y": 228.84375,
+            "width": 304.96875,
+            "height": 431.8125,
+            "bottom": 660.65625,
+            "right": 327.59375,
+            "scrollHeight": 430,
+            "clientHeight": 430
+          },
+          {
+            "x": 338.03125,
+            "y": 228.84375,
+            "width": 304.984375,
+            "height": 431.8125,
+            "bottom": 660.65625,
+            "right": 643.015625,
+            "scrollHeight": 430,
+            "clientHeight": 430
+          },
+          {
+            "x": 653.453125,
+            "y": 228.84375,
+            "width": 304.984375,
+            "height": 431.8125,
+            "bottom": 660.65625,
+            "right": 958.4375,
+            "scrollHeight": 430,
+            "clientHeight": 430
+          },
+          {
+            "x": 968.875,
+            "y": 228.84375,
+            "width": 304.984375,
+            "height": 431.8125,
+            "bottom": 660.65625,
+            "right": 1273.859375,
+            "scrollHeight": 430,
+            "clientHeight": 430
+          },
+          {
+            "x": 1284.296875,
+            "y": 228.84375,
+            "width": 304.984375,
+            "height": 431.8125,
+            "bottom": 660.65625,
+            "right": 1589.28125,
+            "scrollHeight": 430,
+            "clientHeight": 430
+          }
+        ],
+        "mode": "flex"
+      },
+      "stale": {
+        "width": 1920,
+        "height": 940,
+        "scrollWidth": 1920,
+        "scrollHeight": 940,
+        "panels": {
+          ".app-header": {
+            "x": 22.625,
+            "y": 10.4375,
+            "width": 1874.75,
+            "height": 53.953125,
+            "bottom": 64.390625,
+            "right": 1897.375,
+            "scrollHeight": 53,
+            "clientHeight": 53
+          },
+          ".kpi-grid": {
+            "x": 22.625,
+            "y": 114.859375,
+            "width": 1874.75,
+            "height": 76.578125,
+            "bottom": 191.4375,
+            "right": 1897.375,
+            "scrollHeight": 75,
+            "clientHeight": 75
+          },
+          ".workspace-grid": {
+            "x": 22.625,
+            "y": 200.140625,
+            "width": 1874.75,
+            "height": 484.875,
+            "bottom": 685.015625,
+            "right": 1897.375,
+            "scrollHeight": 485,
+            "clientHeight": 485
+          },
+          ".shaft-grid": {
+            "x": 22.625,
+            "y": 228.84375,
+            "width": 1566.65625,
+            "height": 431.8125,
+            "bottom": 660.65625,
+            "right": 1589.28125,
+            "scrollHeight": 432,
+            "clientHeight": 432
+          },
+          ".detail-panel": {
+            "x": 1610.15625,
+            "y": 200.140625,
+            "width": 287.21875,
+            "height": 484.875,
+            "bottom": 685.015625,
+            "right": 1897.375,
+            "scrollHeight": 483,
+            "clientHeight": 483
+          },
+          ".simulation-controls": {
+            "x": 22.625,
+            "y": 693.71875,
+            "width": 1874.75,
+            "height": 43.515625,
+            "bottom": 737.234375,
+            "right": 1897.375,
+            "scrollHeight": 42,
+            "clientHeight": 42
+          },
+          ".lower-grid": {
+            "x": 22.625,
+            "y": 754.640625,
+            "width": 1874.75,
+            "height": 126.203125,
+            "bottom": 880.84375,
+            "right": 1897.375,
+            "scrollHeight": 126,
+            "clientHeight": 126
+          },
+          ".health-footer": {
+            "x": 22.625,
+            "y": 889.546875,
+            "width": 1874.75,
+            "height": 19.140625,
+            "bottom": 908.6875,
+            "right": 1897.375,
+            "scrollHeight": 18,
+            "clientHeight": 18
+          }
+        },
+        "shafts": [
+          {
+            "x": 22.625,
+            "y": 228.84375,
+            "width": 304.96875,
+            "height": 431.8125,
+            "bottom": 660.65625,
+            "right": 327.59375,
+            "scrollHeight": 430,
+            "clientHeight": 430
+          },
+          {
+            "x": 338.03125,
+            "y": 228.84375,
+            "width": 304.984375,
+            "height": 431.8125,
+            "bottom": 660.65625,
+            "right": 643.015625,
+            "scrollHeight": 430,
+            "clientHeight": 430
+          },
+          {
+            "x": 653.453125,
+            "y": 228.84375,
+            "width": 304.984375,
+            "height": 431.8125,
+            "bottom": 660.65625,
+            "right": 958.4375,
+            "scrollHeight": 430,
+            "clientHeight": 430
+          },
+          {
+            "x": 968.875,
+            "y": 228.84375,
+            "width": 304.984375,
+            "height": 431.8125,
+            "bottom": 660.65625,
+            "right": 1273.859375,
+            "scrollHeight": 430,
+            "clientHeight": 430
+          },
+          {
+            "x": 1284.296875,
+            "y": 228.84375,
+            "width": 304.984375,
+            "height": 431.8125,
+            "bottom": 660.65625,
+            "right": 1589.28125,
+            "scrollHeight": 430,
+            "clientHeight": 430
+          }
+        ],
+        "mode": "flex"
+      },
+      "gap": {
+        "width": 1920,
+        "height": 940,
+        "scrollWidth": 1920,
+        "scrollHeight": 940,
+        "panels": {
+          ".app-header": {
+            "x": 22.625,
+            "y": 10.4375,
+            "width": 1874.75,
+            "height": 53.953125,
+            "bottom": 64.390625,
+            "right": 1897.375,
+            "scrollHeight": 53,
+            "clientHeight": 53
+          },
+          ".kpi-grid": {
+            "x": 22.625,
+            "y": 114.859375,
+            "width": 1874.75,
+            "height": 76.578125,
+            "bottom": 191.4375,
+            "right": 1897.375,
+            "scrollHeight": 75,
+            "clientHeight": 75
+          },
+          ".workspace-grid": {
+            "x": 22.625,
+            "y": 200.140625,
+            "width": 1874.75,
+            "height": 458.71875,
+            "bottom": 658.859375,
+            "right": 1897.375,
+            "scrollHeight": 459,
+            "clientHeight": 459
+          },
+          ".shaft-grid": {
+            "x": 22.625,
+            "y": 228.84375,
+            "width": 1566.65625,
+            "height": 405.65625,
+            "bottom": 634.5,
+            "right": 1589.28125,
+            "scrollHeight": 406,
+            "clientHeight": 406
+          },
+          ".detail-panel": {
+            "x": 1610.15625,
+            "y": 200.140625,
+            "width": 287.21875,
+            "height": 458.71875,
+            "bottom": 658.859375,
+            "right": 1897.375,
+            "scrollHeight": 457,
+            "clientHeight": 457
+          },
+          ".simulation-controls": {
+            "x": 22.625,
+            "y": 667.5625,
+            "width": 1874.75,
+            "height": 43.515625,
+            "bottom": 711.078125,
+            "right": 1897.375,
+            "scrollHeight": 42,
+            "clientHeight": 42
+          },
+          ".lower-grid": {
+            "x": 22.625,
+            "y": 754.640625,
+            "width": 1874.75,
+            "height": 126.203125,
+            "bottom": 880.84375,
+            "right": 1897.375,
+            "scrollHeight": 126,
+            "clientHeight": 126
+          },
+          ".health-footer": {
+            "x": 22.625,
+            "y": 889.546875,
+            "width": 1874.75,
+            "height": 19.140625,
+            "bottom": 908.6875,
+            "right": 1897.375,
+            "scrollHeight": 18,
+            "clientHeight": 18
+          }
+        },
+        "shafts": [
+          {
+            "x": 22.625,
+            "y": 228.84375,
+            "width": 304.96875,
+            "height": 405.65625,
+            "bottom": 634.5,
+            "right": 327.59375,
+            "scrollHeight": 404,
+            "clientHeight": 404
+          },
+          {
+            "x": 338.03125,
+            "y": 228.84375,
+            "width": 304.984375,
+            "height": 405.65625,
+            "bottom": 634.5,
+            "right": 643.015625,
+            "scrollHeight": 404,
+            "clientHeight": 404
+          },
+          {
+            "x": 653.453125,
+            "y": 228.84375,
+            "width": 304.984375,
+            "height": 405.65625,
+            "bottom": 634.5,
+            "right": 958.4375,
+            "scrollHeight": 404,
+            "clientHeight": 404
+          },
+          {
+            "x": 968.875,
+            "y": 228.84375,
+            "width": 304.984375,
+            "height": 405.65625,
+            "bottom": 634.5,
+            "right": 1273.859375,
+            "scrollHeight": 404,
+            "clientHeight": 404
+          },
+          {
+            "x": 1284.296875,
+            "y": 228.84375,
+            "width": 304.984375,
+            "height": 405.65625,
+            "bottom": 634.5,
+            "right": 1589.28125,
+            "scrollHeight": 404,
+            "clientHeight": 404
+          }
+        ],
+        "mode": "flex"
+      }
+    },
+    {
+      "name": "full-hd-dpi-150",
+      "result": "PASS",
+      "viewport": {
+        "name": "full-hd-dpi-150",
+        "width": 1280,
+        "height": 720,
+        "dpr": 1.5
+      },
+      "normal": {
+        "width": 1280,
+        "height": 720,
+        "scrollWidth": 1280,
+        "scrollHeight": 720,
+        "panels": {
+          ".app-header": {
+            "x": 17.328125,
+            "y": 8,
+            "width": 1245.34375,
+            "height": 41.328125,
+            "bottom": 49.328125,
+            "right": 1262.671875,
+            "scrollHeight": 40,
+            "clientHeight": 40
+          },
+          ".kpi-grid": {
+            "x": 17.328125,
+            "y": 87.96875,
+            "width": 1245.34375,
+            "height": 58.65625,
+            "bottom": 146.625,
+            "right": 1262.671875,
+            "scrollHeight": 57,
+            "clientHeight": 57
+          },
+          ".workspace-grid": {
+            "x": 17.328125,
+            "y": 153.28125,
+            "width": 1245.34375,
+            "height": 371.46875,
+            "bottom": 524.75,
+            "right": 1262.671875,
+            "scrollHeight": 371,
+            "clientHeight": 371
+          },
+          ".shaft-grid": {
+            "x": 17.328125,
+            "y": 175.265625,
+            "width": 1009.34375,
+            "height": 330.828125,
+            "bottom": 506.09375,
+            "right": 1026.671875,
+            "scrollHeight": 331,
+            "clientHeight": 331
+          },
+          ".detail-panel": {
+            "x": 1042.671875,
+            "y": 153.28125,
+            "width": 220,
+            "height": 371.46875,
+            "bottom": 524.75,
+            "right": 1262.671875,
+            "scrollHeight": 369,
+            "clientHeight": 369
+          },
+          ".simulation-controls": {
+            "x": 17.328125,
+            "y": 531.40625,
+            "width": 1245.34375,
+            "height": 33.328125,
+            "bottom": 564.734375,
+            "right": 1262.671875,
+            "scrollHeight": 31,
+            "clientHeight": 31
+          },
+          ".lower-grid": {
+            "x": 17.328125,
+            "y": 578.046875,
+            "width": 1245.34375,
+            "height": 96.65625,
+            "bottom": 674.703125,
+            "right": 1262.671875,
+            "scrollHeight": 97,
+            "clientHeight": 97
+          },
+          ".health-footer": {
+            "x": 17.328125,
+            "y": 681.359375,
+            "width": 1245.34375,
+            "height": 14.65625,
+            "bottom": 696.015625,
+            "right": 1262.671875,
+            "scrollHeight": 14,
+            "clientHeight": 14
+          }
+        },
+        "shafts": [
+          {
+            "x": 17.328125,
+            "y": 175.265625,
+            "width": 195.46875,
+            "height": 330.828125,
+            "bottom": 506.09375,
+            "right": 212.796875,
+            "scrollHeight": 329,
+            "clientHeight": 329
+          },
+          {
+            "x": 220.796875,
+            "y": 175.265625,
+            "width": 195.46875,
+            "height": 330.828125,
+            "bottom": 506.09375,
+            "right": 416.265625,
+            "scrollHeight": 329,
+            "clientHeight": 329
+          },
+          {
+            "x": 424.265625,
+            "y": 175.265625,
+            "width": 195.46875,
+            "height": 330.828125,
+            "bottom": 506.09375,
+            "right": 619.734375,
+            "scrollHeight": 329,
+            "clientHeight": 329
+          },
+          {
+            "x": 627.734375,
+            "y": 175.265625,
+            "width": 195.46875,
+            "height": 330.828125,
+            "bottom": 506.09375,
+            "right": 823.203125,
+            "scrollHeight": 329,
+            "clientHeight": 329
+          },
+          {
+            "x": 831.203125,
+            "y": 175.265625,
+            "width": 195.46875,
+            "height": 330.828125,
+            "bottom": 506.09375,
+            "right": 1026.671875,
+            "scrollHeight": 329,
+            "clientHeight": 329
+          }
+        ],
+        "mode": "flex"
+      },
+      "stale": {
+        "width": 1280,
+        "height": 720,
+        "scrollWidth": 1280,
+        "scrollHeight": 720,
+        "panels": {
+          ".app-header": {
+            "x": 17.328125,
+            "y": 8,
+            "width": 1245.34375,
+            "height": 41.328125,
+            "bottom": 49.328125,
+            "right": 1262.671875,
+            "scrollHeight": 40,
+            "clientHeight": 40
+          },
+          ".kpi-grid": {
+            "x": 17.328125,
+            "y": 87.96875,
+            "width": 1245.34375,
+            "height": 58.65625,
+            "bottom": 146.625,
+            "right": 1262.671875,
+            "scrollHeight": 57,
+            "clientHeight": 57
+          },
+          ".workspace-grid": {
+            "x": 17.328125,
+            "y": 153.28125,
+            "width": 1245.34375,
+            "height": 371.46875,
+            "bottom": 524.75,
+            "right": 1262.671875,
+            "scrollHeight": 371,
+            "clientHeight": 371
+          },
+          ".shaft-grid": {
+            "x": 17.328125,
+            "y": 175.265625,
+            "width": 1009.34375,
+            "height": 330.828125,
+            "bottom": 506.09375,
+            "right": 1026.671875,
+            "scrollHeight": 331,
+            "clientHeight": 331
+          },
+          ".detail-panel": {
+            "x": 1042.671875,
+            "y": 153.28125,
+            "width": 220,
+            "height": 371.46875,
+            "bottom": 524.75,
+            "right": 1262.671875,
+            "scrollHeight": 369,
+            "clientHeight": 369
+          },
+          ".simulation-controls": {
+            "x": 17.328125,
+            "y": 531.40625,
+            "width": 1245.34375,
+            "height": 33.328125,
+            "bottom": 564.734375,
+            "right": 1262.671875,
+            "scrollHeight": 31,
+            "clientHeight": 31
+          },
+          ".lower-grid": {
+            "x": 17.328125,
+            "y": 578.046875,
+            "width": 1245.34375,
+            "height": 96.65625,
+            "bottom": 674.703125,
+            "right": 1262.671875,
+            "scrollHeight": 97,
+            "clientHeight": 97
+          },
+          ".health-footer": {
+            "x": 17.328125,
+            "y": 681.359375,
+            "width": 1245.34375,
+            "height": 14.65625,
+            "bottom": 696.015625,
+            "right": 1262.671875,
+            "scrollHeight": 14,
+            "clientHeight": 14
+          }
+        },
+        "shafts": [
+          {
+            "x": 17.328125,
+            "y": 175.265625,
+            "width": 195.46875,
+            "height": 330.828125,
+            "bottom": 506.09375,
+            "right": 212.796875,
+            "scrollHeight": 329,
+            "clientHeight": 329
+          },
+          {
+            "x": 220.796875,
+            "y": 175.265625,
+            "width": 195.46875,
+            "height": 330.828125,
+            "bottom": 506.09375,
+            "right": 416.265625,
+            "scrollHeight": 329,
+            "clientHeight": 329
+          },
+          {
+            "x": 424.265625,
+            "y": 175.265625,
+            "width": 195.46875,
+            "height": 330.828125,
+            "bottom": 506.09375,
+            "right": 619.734375,
+            "scrollHeight": 329,
+            "clientHeight": 329
+          },
+          {
+            "x": 627.734375,
+            "y": 175.265625,
+            "width": 195.46875,
+            "height": 330.828125,
+            "bottom": 506.09375,
+            "right": 823.203125,
+            "scrollHeight": 329,
+            "clientHeight": 329
+          },
+          {
+            "x": 831.203125,
+            "y": 175.265625,
+            "width": 195.46875,
+            "height": 330.828125,
+            "bottom": 506.09375,
+            "right": 1026.671875,
+            "scrollHeight": 329,
+            "clientHeight": 329
+          }
+        ],
+        "mode": "flex"
+      },
+      "gap": {
+        "width": 1280,
+        "height": 720,
+        "scrollWidth": 1280,
+        "scrollHeight": 720,
+        "panels": {
+          ".app-header": {
+            "x": 17.328125,
+            "y": 8,
+            "width": 1245.34375,
+            "height": 41.328125,
+            "bottom": 49.328125,
+            "right": 1262.671875,
+            "scrollHeight": 40,
+            "clientHeight": 40
+          },
+          ".kpi-grid": {
+            "x": 17.328125,
+            "y": 87.96875,
+            "width": 1245.34375,
+            "height": 58.65625,
+            "bottom": 146.625,
+            "right": 1262.671875,
+            "scrollHeight": 57,
+            "clientHeight": 57
+          },
+          ".workspace-grid": {
+            "x": 17.328125,
+            "y": 153.28125,
+            "width": 1245.34375,
+            "height": 350.15625,
+            "bottom": 503.4375,
+            "right": 1262.671875,
+            "scrollHeight": 350,
+            "clientHeight": 350
+          },
+          ".shaft-grid": {
+            "x": 17.328125,
+            "y": 175.265625,
+            "width": 1009.34375,
+            "height": 309.515625,
+            "bottom": 484.78125,
+            "right": 1026.671875,
+            "scrollHeight": 310,
+            "clientHeight": 310
+          },
+          ".detail-panel": {
+            "x": 1042.671875,
+            "y": 153.28125,
+            "width": 220,
+            "height": 350.15625,
+            "bottom": 503.4375,
+            "right": 1262.671875,
+            "scrollHeight": 348,
+            "clientHeight": 348
+          },
+          ".simulation-controls": {
+            "x": 17.328125,
+            "y": 510.09375,
+            "width": 1245.34375,
+            "height": 33.328125,
+            "bottom": 543.421875,
+            "right": 1262.671875,
+            "scrollHeight": 31,
+            "clientHeight": 31
+          },
+          ".lower-grid": {
+            "x": 17.328125,
+            "y": 578.046875,
+            "width": 1245.34375,
+            "height": 96.65625,
+            "bottom": 674.703125,
+            "right": 1262.671875,
+            "scrollHeight": 97,
+            "clientHeight": 97
+          },
+          ".health-footer": {
+            "x": 17.328125,
+            "y": 681.359375,
+            "width": 1245.34375,
+            "height": 14.65625,
+            "bottom": 696.015625,
+            "right": 1262.671875,
+            "scrollHeight": 14,
+            "clientHeight": 14
+          }
+        },
+        "shafts": [
+          {
+            "x": 17.328125,
+            "y": 175.265625,
+            "width": 195.46875,
+            "height": 309.515625,
+            "bottom": 484.78125,
+            "right": 212.796875,
+            "scrollHeight": 308,
+            "clientHeight": 308
+          },
+          {
+            "x": 220.796875,
+            "y": 175.265625,
+            "width": 195.46875,
+            "height": 309.515625,
+            "bottom": 484.78125,
+            "right": 416.265625,
+            "scrollHeight": 308,
+            "clientHeight": 308
+          },
+          {
+            "x": 424.265625,
+            "y": 175.265625,
+            "width": 195.46875,
+            "height": 309.515625,
+            "bottom": 484.78125,
+            "right": 619.734375,
+            "scrollHeight": 308,
+            "clientHeight": 308
+          },
+          {
+            "x": 627.734375,
+            "y": 175.265625,
+            "width": 195.46875,
+            "height": 309.515625,
+            "bottom": 484.78125,
+            "right": 823.203125,
+            "scrollHeight": 308,
+            "clientHeight": 308
+          },
+          {
+            "x": 831.203125,
+            "y": 175.265625,
+            "width": 195.46875,
+            "height": 309.515625,
+            "bottom": 484.78125,
+            "right": 1026.671875,
+            "scrollHeight": 308,
+            "clientHeight": 308
+          }
+        ],
+        "mode": "flex"
+      }
+    },
+    {
+      "name": "mobile-no-horizontal-overflow",
+      "result": "PASS"
+    }
+  ],
+  "pageErrors": [],
+  "scope": "Local SIMULATED UI. No Dell deployment or workstation startup installation was performed."
+}

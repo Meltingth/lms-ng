@@ -11,7 +11,7 @@ describe('Operations HUD truthfulness and interaction', () => {
   it('shows five selectable shafts with explicit TEST / SIMULATED provenance', () => {
     setup();
     expect(screen.getAllByRole('button', {name:/เลือกลิฟต์ W-/})).toHaveLength(5);
-    expect(screen.getByText('TEST ENVIRONMENT · ข้อมูลจำลองเท่านั้น')).toBeVisible();
+    expect(screen.getByTestId('mode-indicator')).toHaveAccessibleName('TEST / SIMULATED — ข้อมูลจำลองเท่านั้น');
     expect(screen.getByText('TEST · SIMULATED')).toBeVisible();
     expect(screen.queryByText('LIVE · LIVE')).not.toBeInTheDocument();
   });
@@ -80,7 +80,7 @@ describe('Operations HUD truthfulness and interaction', () => {
   });
   it('isolates DEMO and resets its fixture session on exit', () => {
     setup(); fireEvent.click(screen.getByRole('button',{name:'สาธิต'}));
-    expect(screen.getByText('DEMO — โหมดสาธิต — ข้อมูลจำลองเพื่อการนำเสนอ')).toBeVisible();
+    expect(screen.getByTestId('mode-indicator')).toHaveAccessibleName('DEMO / SIMULATED — โหมดสาธิต — ข้อมูลจำลองเพื่อการนำเสนอ');
     expect(screen.getByText('DEMO · SIMULATED')).toBeVisible();
     fireEvent.click(screen.getByRole('button',{name:/เดินข้อมูล 1 ขั้น/}));
     fireEvent.click(screen.getByRole('button',{name:'ออกจาก DEMO'}));

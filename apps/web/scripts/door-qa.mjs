@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 import assert from 'node:assert/strict';
 
-const out=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../../../docs/frontend/evidence/doors');
+const out=process.env.HUD_QA_OUTPUT_DIR ? path.resolve(process.env.HUD_QA_OUTPUT_DIR) : path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../../../docs/frontend/evidence/doors');
 await mkdir(out,{recursive:true});
 const executablePath=process.env.HUD_BROWSER_EXECUTABLE || ['C:/Program Files/Google/Chrome/Application/chrome.exe','C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe'].find(existsSync);
 const browser=await chromium.launch({headless:true,...(executablePath?{executablePath}:{})});

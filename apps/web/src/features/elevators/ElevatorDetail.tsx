@@ -9,8 +9,7 @@ export function ElevatorDetail({ state, selectedId }: { state: RealtimeState; se
   const time = lift.sourceObservedAt ? new Date(lift.sourceObservedAt).toLocaleTimeString('th-TH', { timeZone: 'Asia/Bangkok', hour12: false }) : 'UNKNOWN';
   return <HudFrame className="detail-panel" label="รายละเอียดลิฟต์ที่เลือก">
     <SectionHeading index="02" title="LIFT DETAIL" aside={<span>SELECTED</span>} />
-    <div className="detail-identity"><div><h3>{lift.elevatorCode}</h3><p>{lift.elevatorCode === 'W-05' ? 'Service elevator' : 'Passenger elevator'}</p></div><span className="detail-glyph" aria-hidden="true">⟷</span></div>
-    <SourceBadge origin={lift.origin} viewMode={lift.viewMode} />
+    <div className="detail-identity"><div><h3>{lift.elevatorCode}</h3><p>{lift.elevatorCode === 'W-05' ? 'Service elevator' : 'Passenger elevator'}</p></div><SourceBadge origin={lift.origin} viewMode={lift.viewMode} /></div>
     <div className="detail-floor"><span>{lift.floorKind === 'UNCALIBRATED' || lift.floorKind === 'TRANSIT' ? 'RAW CODE · FLOOR UNCONFIRMED' : lift.floorDisplay === null ? 'FLOOR UNKNOWN' : 'CONFIRMED FLOOR'}</span><NumericDisplay>{vm.floorLabel}</NumericDisplay><small>{lift.floorKind ?? 'UNKNOWN'} · {lift.direction}</small></div>
     <dl className="detail-facts">
       <div><dt>การเชื่อมต่อ</dt><dd><ConnectionBadge value={lift.connectionState} /></dd></div>
