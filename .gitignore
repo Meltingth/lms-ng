@@ -10,3 +10,8 @@ __pycache__/
 
 # npm
 # package-lock.json is TRACKED intentionally (reproducible installs) -- do not add it here.
+
+# Local frontend build and browser output
+apps/web/dist/
+apps/web/test-results/
+apps/web/playwright-report/

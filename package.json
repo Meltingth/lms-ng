@@ -2,11 +2,23 @@
   "name": "lms-ng",
   "private": true,
   "version": "0.0.0",
-  "description": "LMS-NG platform monorepo (contracts round: validators only)",
+  "description": "LMS-NG platform monorepo with local TEST HUD foundation",
   "type": "module",
-  "engines": { "node": ">=16.20.2" },
+  "engines": {
+    "node": ">=22.12.0"
+  },
   "devDependencies": {
     "ajv": "8.17.1",
     "ajv-formats": "3.0.1"
+  },
+  "workspaces": [
+    "apps/web",
+    "packages/ui-kit"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspace @lms-ng/web",
+    "build": "npm run build --workspace @lms-ng/web",
+    "test": "npm run test --workspace @lms-ng/web",
+    "typecheck": "npm run typecheck --workspace @lms-ng/web"
   }
 }
