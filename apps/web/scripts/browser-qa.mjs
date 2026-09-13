@@ -80,7 +80,7 @@ try {
 
   await page.getByLabel('เลือกสถานการณ์จำลอง').selectOption('stale');
   assert.equal(await car.getAttribute('data-animating'),'false');
-  assert.ok(await page.getByTestId('shaft-W-01').getByText(/STALE/).isVisible());
+  assert.ok(await page.getByTestId('shaft-W-01').locator('.freshness').getByText(/STALE/).isVisible());
   assert.equal(await car.evaluate(node=>getComputedStyle(node).transitionDuration),'0s');
   await shot('hud-stale.png');
   check('Stale telemetry cancels CSS transition','Transition duration 0s; retained confirmed position and visible age');

@@ -1,11 +1,13 @@
 import type { ElevatorStatus, GatewayStatus, Frame, UiEvent } from '../model/types';
 import { FIXTURE_EPOCH, TEST_SITE_ID, type ScenarioId } from '../fixtures/scenarios';
 import { validateFrame } from './validation';
+import { elapsedAge } from '../model/freshness';
 
 export interface RealtimeState {
   elevators: ElevatorStatus[]; gateways: GatewayStatus[];
   transport: 'connected' | 'disconnected' | 'resyncing'; source: 'live' | 'demo';
   events: UiEvent[]; telemetryReceivedAt: Record<string, number>; telemetryAgeAtReceipt: Record<string, number | null>;
+  heartbeatReceivedAt: Record<string, number>; heartbeatAgeAtReceipt: Record<string, number | null>;
   nowMs: number; scenario: ScenarioId; revision: string | null; resnapshotCount: number;
   sessionId: string; lastError: string | null;
 }
@@ -27,11 +29,14 @@ function freeze<T>(value:T):T {
 export function createRealtimeStore(options: { now?: () => number; siteId?: string } = {}): RealtimeStore {
   const clock = options.now ?? (() => performance.now());
   const siteId = options.siteId ?? TEST_SITE_ID;
-  let state: RealtimeState = freeze({elevators:[],gateways:[],transport:'resyncing',source:'live',events:[],telemetryReceivedAt:{},telemetryAgeAtReceipt:{},nowMs:clock(),scenario:'normal',revision:null,resnapshotCount:0,sessionId:'fixture-test-session',lastError:null});
+  let state: RealtimeState = freeze({elevators:[],gateways:[],transport:'resyncing',source:'live',events:[],telemetryReceivedAt:{},telemetryAgeAtReceipt:{},heartbeatReceivedAt:{},heartbeatAgeAtReceipt:{},nowMs:clock(),scenario:'normal',revision:null,resnapshotCount:0,sessionId:'fixture-test-session',lastError:null});
   const listeners = new Set<() => void>();
   let identity: {server:string; dataset:string; subscription:string} | null = null;
   let gatewayRevisions: Record<string,bigint> = {};
   let eventSequence = 0;
+  // Evidence watermarks survive an older/unknown DTO so replay cannot become a new observation.
+  let sourceEvidence:Record<string,{observedAt:string|null;producerEpoch:number|null|undefined;ageSec:number|null;receivedAt:number}>={};
+  let heartbeatEvidence:Record<string,{observedAt:string|null;ageSec:number|null;receivedAt:number}>={};
   const monotonicNow = () => Math.max(state.nowMs, clock());
   const publish = (patch:Partial<RealtimeState>) => { state=freeze({...state,...patch,nowMs:monotonicNow()}); listeners.forEach(listener=>listener()); };
   const event = (label:string,kind:UiEvent['kind']='info') => [...state.events,{id:String(++eventSequence),at:new Date(Date.parse(FIXTURE_EPOCH)+Math.max(0,monotonicNow())).toISOString(),label,kind}].slice(-EVENT_LIMIT);
@@ -39,14 +44,36 @@ export function createRealtimeStore(options: { now?: () => number; siteId?: stri
   const resync = (reason:string):ReceiveResult => {publish({transport:'resyncing',lastError:reason,resnapshotCount:state.resnapshotCount+1,events:event(reason,'warning')});return 'resync';};
   const permitted = (lift:ElevatorStatus) => lift.origin === 'SIMULATED' && lift.viewMode === (state.source==='demo'?'DEMO':'TEST') && (lift.siteId===undefined || lift.siteId===siteId);
   const trackTelemetry = (lift:ElevatorStatus, previous:ElevatorStatus|undefined, receipts:Record<string,number>, ages:Record<string,number|null>) => {
-    const now = monotonicNow();
-    const incomingAge = typeof lift.freshnessSec==='number' && Number.isFinite(lift.freshnessSec) && lift.freshnessSec>=0 ? lift.freshnessSec : null;
-    // Reconciliation and status changes must not renew telemetry with an identical observation identity.
-    const sameObservation = previous && previous.sourceObservedAt===lift.sourceObservedAt && previous.serverReceivedAt===lift.serverReceivedAt;
-    const previousAge = ages[lift.elevatorId];
-    const elapsedAge = previousAge == null ? null : previousAge + Math.max(0,now-(receipts[lift.elevatorId]??now))/1000;
-    ages[lift.elevatorId] = sameObservation && elapsedAge!==null ? (incomingAge===null?null:Math.max(elapsedAge,incomingAge)) : incomingAge;
-    receipts[lift.elevatorId] = now;
+    const now=monotonicNow();
+    const incomingAge=typeof lift.freshnessSec==='number' && Number.isFinite(lift.freshnessSec) && lift.freshnessSec>=0?lift.freshnessSec:null;
+    const held=previous?sourceEvidence[lift.elevatorId]:undefined;
+    const previousObservedAt=held?.observedAt?Date.parse(held.observedAt):NaN;
+    const incomingObservedAt=lift.sourceObservedAt?Date.parse(lift.sourceObservedAt):NaN;
+    // A new serverReceivedAt is a receipt, not proof of a new valid ST.
+    const sameOrOlder=held && held.producerEpoch===lift.producerEpoch && (held.observedAt===lift.sourceObservedAt || (Number.isFinite(previousObservedAt) && (!Number.isFinite(incomingObservedAt) || incomingObservedAt<=previousObservedAt)));
+    const heldAge=held?elapsedAge(held.ageSec,held.receivedAt,now):null;
+    const minimumAge=sameOrOlder && heldAge!==null?Math.max(heldAge,incomingAge??0):incomingAge;
+    ages[lift.elevatorId]=incomingAge===null?null:minimumAge;
+    receipts[lift.elevatorId]=now;
+    // Keep a stable monotonic anchor across reconciliation; missing age is not new proof.
+    const preserveHeld=held && (incomingAge===null || (sameOrOlder && heldAge!==null && heldAge>=incomingAge));
+    sourceEvidence[lift.elevatorId]=preserveHeld?held:{observedAt:sameOrOlder?held.observedAt:lift.sourceObservedAt,producerEpoch:lift.producerEpoch,ageSec:minimumAge,receivedAt:now};
+  };
+  const trackHeartbeat = (gateway:GatewayStatus, previous:GatewayStatus|undefined, sentAt:string, receipts:Record<string,number>, ages:Record<string,number|null>) => {
+    // Both timestamps are server-domain evidence. Browser wall clock and snapshot receipt are not heartbeat proof.
+    const now=monotonicNow();
+    const sentMs=Date.parse(sentAt);const heartbeatMs=gateway.lastHeartbeatAt?Date.parse(gateway.lastHeartbeatAt):NaN;
+    const incomingAge=Number.isFinite(sentMs) && Number.isFinite(heartbeatMs) && sentMs>=heartbeatMs?(sentMs-heartbeatMs)/1000:null;
+    const held=previous?heartbeatEvidence[gateway.gatewayId]:undefined;
+    const previousHeartbeatMs=held?.observedAt?Date.parse(held.observedAt):NaN;
+    const sameOrOlder=held && (held.observedAt===gateway.lastHeartbeatAt || (Number.isFinite(previousHeartbeatMs) && (!Number.isFinite(heartbeatMs) || heartbeatMs<=previousHeartbeatMs)));
+    const heldAge=held?elapsedAge(held.ageSec,held.receivedAt,now):null;
+    const minimumAge=sameOrOlder && heldAge!==null?Math.max(heldAge,incomingAge??0):incomingAge;
+    ages[gateway.gatewayId]=incomingAge===null?null:minimumAge;
+    receipts[gateway.gatewayId]=now;
+    // Unknown/future timestamps cannot move the evidence watermark or poison later valid proof.
+    const preserveHeld=held && (incomingAge===null || (sameOrOlder && heldAge!==null && heldAge>=incomingAge));
+    heartbeatEvidence[gateway.gatewayId]=preserveHeld?held:{observedAt:incomingAge===null?null:(sameOrOlder?held.observedAt:gateway.lastHeartbeatAt??null),ageSec:minimumAge,receivedAt:now};
   };
   const store:RealtimeStore = {
     subscribe(listener) {listeners.add(listener);return ()=>listeners.delete(listener);},
@@ -56,9 +83,9 @@ export function createRealtimeStore(options: { now?: () => number; siteId?: stri
     disconnect:()=>publish({transport:'disconnected',events:event('Local mock transport disconnected; holding last confirmed telemetry','warning')}),
     requestResnapshot:reason=>{resync(reason);},
     beginSession(source,sessionId) {
-      identity=null;gatewayRevisions={};
+      identity=null;gatewayRevisions={};sourceEvidence={};heartbeatEvidence={};
       state={...state,events:[]};
-      publish({source,sessionId,elevators:[],gateways:[],telemetryReceivedAt:{},telemetryAgeAtReceipt:{},revision:null,transport:'resyncing',lastError:null,events:event(source==='demo'?'Entered isolated DEMO fixture session':'Entered isolated TEST fixture session')});
+      publish({source,sessionId,elevators:[],gateways:[],telemetryReceivedAt:{},telemetryAgeAtReceipt:{},heartbeatReceivedAt:{},heartbeatAgeAtReceipt:{},revision:null,transport:'resyncing',lastError:null,events:event(source==='demo'?'Entered isolated DEMO fixture session':'Entered isolated TEST fixture session')});
     },
     receive(input) {
       const parsed=validateFrame(input);
@@ -76,10 +103,18 @@ export function createRealtimeStore(options: { now?: () => number; siteId?: stri
         if (sameDataset && lifts.some(lift=>{const previous=state.elevators.find(item=>item.elevatorId===lift.elevatorId);return previous && BigInt(lift.serverStateRevision)<BigInt(previous.serverStateRevision);})) return resync('Snapshot contains older asset revision; resnapshot required');
         const receipts:Record<string,number>={...state.telemetryReceivedAt};const ages:Record<string,number|null>={...state.telemetryAgeAtReceipt};
         for (const lift of lifts) trackTelemetry(lift,sameDataset?state.elevators.find(item=>item.elevatorId===lift.elevatorId):undefined,receipts,ages);
-        for (const id of Object.keys(receipts)) if (!lifts.some(lift=>lift.elevatorId===id)) {delete receipts[id];delete ages[id];}
+        for (const id of Object.keys(receipts)) if (!lifts.some(lift=>lift.elevatorId===id)) {delete receipts[id];delete ages[id];delete sourceEvidence[id];}
+        const heartbeatReceipts:Record<string,number>={...state.heartbeatReceivedAt};const heartbeatAges:Record<string,number|null>={...state.heartbeatAgeAtReceipt};
+        const gateways=frame.data.gateways.map(gateway=>{
+          const previous=sameDataset?state.gateways.find(item=>item.gatewayId===gateway.gatewayId):undefined;
+          const next={...previous,...gateway};
+          trackHeartbeat(next,previous,frame.sentAt,heartbeatReceipts,heartbeatAges);
+          return next;
+        });
+        for (const id of Object.keys(heartbeatReceipts)) if (!gateways.some(gateway=>gateway.gatewayId===id)) {delete heartbeatReceipts[id];delete heartbeatAges[id];delete heartbeatEvidence[id];}
         identity={server:frame.serverInstanceId,dataset:frame.datasetEpoch,subscription:frame.subscriptionId};
         gatewayRevisions=sameDataset?Object.fromEntries(Object.entries(gatewayRevisions).filter(([id])=>frame.data.gateways.some(gateway=>gateway.gatewayId===id))):{};
-        publish({elevators:lifts,gateways:frame.data.gateways,telemetryReceivedAt:receipts,telemetryAgeAtReceipt:ages,revision:frame.data.watermark,transport:'connected',lastError:null,events:event('Accepted authorized SIMULATED snapshot')});
+        publish({elevators:lifts,gateways,telemetryReceivedAt:receipts,telemetryAgeAtReceipt:ages,heartbeatReceivedAt:heartbeatReceipts,heartbeatAgeAtReceipt:heartbeatAges,revision:frame.data.watermark,transport:'connected',lastError:null,events:event('Accepted authorized SIMULATED snapshot')});
         return 'accepted';
       }
       if (frame.type==='subscribe' || frame.type==='beacon' || frame.type==='pong') return reject('Rejected client-only message on fixture receive path');
@@ -94,7 +129,11 @@ export function createRealtimeStore(options: { now?: () => number; siteId?: stri
         if (previous!==undefined && revision<=previous) return 'ignored';
         if (previous!==undefined && revision>previous+1n) return resync('Local fixture gateway revision gap; resnapshot required');
         gatewayRevisions[frame.data.gatewayId]=revision;
-        publish({gateways:state.gateways.map(item=>item.gatewayId===frame.data.gatewayId?frame.data:item),events:event(`Gateway ${frame.data.connectionState}`)});
+        const previousGateway=state.gateways.find(item=>item.gatewayId===frame.data.gatewayId);
+        const nextGateway={...previousGateway,...frame.data};
+        const heartbeatReceipts={...state.heartbeatReceivedAt};const heartbeatAges={...state.heartbeatAgeAtReceipt};
+        trackHeartbeat(nextGateway,previousGateway,frame.sentAt,heartbeatReceipts,heartbeatAges);
+        publish({gateways:state.gateways.map(item=>item.gatewayId===frame.data.gatewayId?nextGateway:item),heartbeatReceivedAt:heartbeatReceipts,heartbeatAgeAtReceipt:heartbeatAges,events:event(`Gateway ${frame.data.connectionState}`)});
         return 'accepted';
       }
       if (frame.type==='elevator.state' && !permitted(frame.data)) return reject('Rejected non-SIMULATED or mismatched TEST/DEMO elevator');

@@ -1,0 +1,27 @@
+{
+  "status": "PASS",
+  "comparisonBase": "76e75765f8659e558da6ff945baa9365b3d98736",
+  "check": "Git comparison of protected tracked paths against correction base",
+  "checkedPaths": [
+    "contracts",
+    "database",
+    "packages/contracts",
+    "WORKFLOW_STATE.json",
+    "package.json",
+    "package-lock.json",
+    "docs/audit",
+    "docs/frontend/MILESTONE_01_REPORT.md",
+    "docs/frontend/evidence/dependency-audit.json"
+  ],
+  "changedPaths": [],
+  "contractVersion": "2.0.0-draft.2",
+  "contractHashRecorded": "sha256:ed2414fb8e830a9c281499c9a5cff8ba441668acb5b98fbb2265a6da5e4d18b3",
+  "gateState": "WAITING_FOR_G-A / BLOCKED_ON_POSTGRES_EXECUTION_EVIDENCE",
+  "preservedFindings": [
+    "C01 FAIL: docs/audit/evidence/LOCAL_CONTRACT_2026-09-14_FINAL.json",
+    "ui-enums draft mismatch: docs/frontend/MILESTONE_01_REPORT.md",
+    "root Ajv advisory: docs/frontend/evidence/dependency-audit.json"
+  ],
+  "liveIntegration": "NOT_RUN",
+  "deployment": "NOT_RUN"
+}

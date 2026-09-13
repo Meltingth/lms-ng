@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { createFixtureSnapshot, fixtureFrame, fixtureScenarios, TEST_SITE_ID } from '../fixtures/scenarios';
 import { createRealtimeStore } from './store';
-import { toElevatorViewModel } from '../model/viewModel';
+import { toElevatorViewModel, toGatewayViewModel } from '../model/viewModel';
 import { validateFrame } from './validation';
 
 function harness() {
@@ -93,15 +93,16 @@ describe('freshness and source isolation',()=>{
   it('ages using monotonic time and supplied freshnessSec; a status delta never renews telemetry',()=>{
     const {store,data,advance}=harness();advance(5000);
     store.receive(fixtureFrame('elevator.status',{elevatorId:data.elevators[0].elevatorId,connectionState:'ONLINE',serverStateRevision:'2'},{revision:'2'}));
-    advance(7000);const vm=toElevatorViewModel(store.getSnapshot().elevators[0],store.getSnapshot());
-    expect(vm.ageSec).toBe(12);expect(vm.isStale).toBe(true);expect(vm.canAnimate).toBe(false);
+    advance(25000);const vm=toElevatorViewModel(store.getSnapshot().elevators[0],store.getSnapshot());
+    expect(vm.ageSec).toBe(30);expect(vm.isStale).toBe(true);expect(vm.canAnimate).toBe(false);
   });
   it('does not freshen repeated snapshots or full state that carries the same observation',()=>{
     const {store,data,advance}=harness();advance(8000);store.receive(fixtureFrame('snapshot',data));advance(5000);
     const next={...data.elevators[0],activeAlarmCount:1,serverStateRevision:'2'};
     store.receive(fixtureFrame('elevator.state',next,{revision:'2'}));
     const vm=toElevatorViewModel(store.getSnapshot().elevators[0],store.getSnapshot());
-    expect(vm.ageSec).toBe(13);expect(vm.hasAlarm).toBe(true);expect(vm.isStale).toBe(true);
+    expect(vm.ageSec).toBe(13);expect(vm.hasAlarm).toBe(true);expect(vm.isStale).toBe(false);
+    advance(17000);expect(toElevatorViewModel(store.getSnapshot().elevators[0],store.getSnapshot()).isStale).toBe(true);
   });
   it('renews telemetry only for a distinct confirmed observation and preserves supplied age',()=>{
     const {store,data,advance}=harness();advance(20000);
@@ -155,5 +156,122 @@ describe('gateway reconciliation ordering regression',()=>{
     expect(store.receive(fixtureFrame('gateway.status',offline,{revision:'20'}))).toBe('accepted');
     expect(store.receive(fixtureFrame('snapshot',data,{datasetEpoch:'restored-dataset'}))).toBe('accepted');
     expect(store.receive(fixtureFrame('gateway.status',offline,{revision:'1',datasetEpoch:'restored-dataset'}))).toBe('accepted');
+  });
+});
+
+describe('source, heartbeat and server freshness remain independent',()=>{
+  it.each([[29999,'FRESH',false],[30000,'STALE',true]] as const)('SIM observation at %sms projects %s',(ageMs,expected,isStale)=>{
+    const {store,advance}=harness();advance(ageMs);
+    const state=store.getSnapshot();const vm=toElevatorViewModel(state.elevators[0],state);
+    expect(vm.sourceFreshness).toEqual({source:'SIM',ageSec:ageMs/1000,state:expected});
+    expect(vm.isStale).toBe(isStale);
+    expect(vm.fieldTransportFreshness).toEqual({state:'OK',ageSec:null,evidence:'SERVER_REPORTED'});
+  });
+  it.each([[29999,'ONLINE'],[30000,'OFFLINE']] as const)('heartbeat at %sms projects %s',(ageMs,expected)=>{
+    const {store,advance}=harness();advance(ageMs);
+    const state=store.getSnapshot();const gateway=toGatewayViewModel(state.gateways[0],state);
+    expect(gateway.gatewayHeartbeat).toEqual({ageSec:ageMs/1000,state:expected});
+    expect(gateway.connectionState).toBe('ONLINE');
+    expect(toElevatorViewModel(state.elevators[0],state).gatewayHeartbeat).toEqual(gateway.gatewayHeartbeat);
+  });
+  it('cancels both motion flags immediately on WS disconnect with fresh source and heartbeat unchanged',()=>{
+    const {store}=harness();const before=store.getSnapshot();const moving=toElevatorViewModel(before.elevators[0],before);
+    expect(moving.canAnimate).toBe(true);expect(moving.motionIsCurrent).toBe(true);
+    store.disconnect();const state=store.getSnapshot();const stopped=toElevatorViewModel(state.elevators[0],state);
+    expect(stopped).toMatchObject({serverConnection:'SERVER_DISCONNECTED',canAnimate:false,motionIsCurrent:false,ageSec:0,isStale:false,positionAnchor:moving.positionAnchor});
+    expect(stopped.sourceFreshness).toEqual(moving.sourceFreshness);
+    expect(stopped.fieldTransportFreshness).toEqual(moving.fieldTransportFreshness);
+    expect(stopped.gatewayHeartbeat).toEqual(moving.gatewayHeartbeat);
+    expect(state.elevators).toBe(before.elevators);
+  });
+  it('does not refresh either source or heartbeat at successive 15-second reconciliations',()=>{
+    const {store,data,advance}=harness();
+    for (const seconds of [15,30,45]) {
+      advance(15000);
+      expect(store.receive(fixtureFrame('snapshot',data,{sentAt:`2026-09-14T03:00:${seconds}Z`}))).toBe('accepted');
+      const state=store.getSnapshot();const vm=toElevatorViewModel(state.elevators[0],state);
+      expect(vm.ageSec).toBe(seconds);expect(vm.gatewayHeartbeat.ageSec).toBe(seconds);
+    }
+    const state=store.getSnapshot();const vm=toElevatorViewModel(state.elevators[0],state);
+    expect(vm.sourceFreshness.state).toBe('STALE');expect(vm.gatewayHeartbeat.state).toBe('OFFLINE');
+  });
+  it('does not refresh ST when its source observation is repackaged with a newer server receipt',()=>{
+    const {store,data,advance}=harness();advance(30000);
+    const repackaged={...data.elevators[0],serverReceivedAt:'2026-09-14T03:00:30Z',freshnessSec:0,serverStateRevision:'2'};
+    expect(store.receive(fixtureFrame('elevator.state',repackaged,{revision:'2'}))).toBe('accepted');
+    const state=store.getSnapshot();expect(toElevatorViewModel(state.elevators[0],state).sourceFreshness).toEqual({source:'SIM',ageSec:30,state:'STALE'});
+  });
+  it('does not refresh ST when an older source observation arrives at a higher state revision',()=>{
+    const {store,data,advance}=harness();advance(30000);
+    const older={...data.elevators[0],sourceObservedAt:'2026-09-14T02:59:59Z',serverReceivedAt:'2026-09-14T03:00:30Z',freshnessSec:0,serverStateRevision:'2'};
+    expect(store.receive(fixtureFrame('elevator.state',older,{revision:'2'}))).toBe('accepted');
+    const state=store.getSnapshot();expect(toElevatorViewModel(state.elevators[0],state).ageSec).toBe(30);
+  });
+  it('new heartbeat renews only heartbeat freshness, leaving ST stale and stopped',()=>{
+    const {store,data,advance}=harness();advance(35000);
+    const at='2026-09-14T03:00:35Z';
+    expect(store.receive(fixtureFrame('gateway.status',{...data.gateways[0],lastHeartbeatAt:at},{revision:'2',sentAt:at}))).toBe('accepted');
+    const state=store.getSnapshot();expect(toElevatorViewModel(state.elevators[0],state)).toMatchObject({sourceFreshness:{state:'STALE',ageSec:35},gatewayHeartbeat:{state:'ONLINE',ageSec:0},canAnimate:false});
+  });
+  it('connection-only gateway delta and a missing-heartbeat reconciliation do not renew heartbeat',()=>{
+    const {store,data,advance}=harness();advance(15000);
+    const gateway={gatewayId:data.gateways[0].gatewayId,gatewayCode:data.gateways[0].gatewayCode,connectionState:'ONLINE' as const};
+    expect(store.receive(fixtureFrame('gateway.status',gateway,{revision:'2'}))).toBe('accepted');
+    advance(15000);data.gateways=[gateway];expect(store.receive(fixtureFrame('snapshot',data))).toBe('accepted');
+    const state=store.getSnapshot();expect(toGatewayViewModel(state.gateways[0],state).gatewayHeartbeat).toEqual({ageSec:30,state:'OFFLINE'});
+  });
+  it('uses server envelope/heartbeat evidence at receipt, with no client wall-clock assumption',()=>{
+    const {store,data}=harness();data.gateways[0].lastHeartbeatAt='2026-09-14T02:59:30Z';
+    expect(store.receive(fixtureFrame('snapshot',data,{datasetEpoch:'heartbeat-baseline'}))).toBe('accepted');
+    const state=store.getSnapshot();expect(toGatewayViewModel(state.gateways[0],state).gatewayHeartbeat).toEqual({ageSec:30,state:'OFFLINE'});
+    expect(toElevatorViewModel(state.elevators[0],state)).toMatchObject({sourceFreshness:{state:'FRESH',ageSec:0},canAnimate:false});
+  });
+  it.each([null,'2026-09-14T03:00:01Z'])('unknown or future heartbeat %s is not considered online',(lastHeartbeatAt)=>{
+    const {store,data}=harness();data.gateways[0].lastHeartbeatAt=lastHeartbeatAt;
+    expect(store.receive(fixtureFrame('snapshot',data,{datasetEpoch:'unknown-heartbeat'}))).toBe('accepted');
+    const state=store.getSnapshot();expect(toGatewayViewModel(state.gateways[0],state).gatewayHeartbeat).toEqual({ageSec:null,state:'UNKNOWN'});
+    expect(toElevatorViewModel(state.elevators[0],state).canAnimate).toBe(false);
+  });
+});
+
+describe('freshness evidence survives replay and temporarily missing fields',()=>{
+  it('an older ST followed by the original ST cannot reset the source-age watermark',()=>{
+    const {store,data,advance}=harness();advance(30000);
+    const older={...data.elevators[0],sourceObservedAt:'2026-09-14T02:59:59Z',freshnessSec:0,serverStateRevision:'2'};
+    store.receive(fixtureFrame('elevator.state',older,{revision:'2'}));advance(1000);
+    store.receive(fixtureFrame('elevator.state',{...data.elevators[0],serverStateRevision:'3'},{revision:'3'}));
+    const state=store.getSnapshot();expect(toElevatorViewModel(state.elevators[0],state).ageSec).toBe(31);
+  });
+  it('missing ST age stays unknown and cannot erase earlier age evidence when the same ST returns',()=>{
+    const {store,data,advance}=harness();advance(30000);
+    store.receive(fixtureFrame('elevator.state',{...data.elevators[0],freshnessSec:null,serverStateRevision:'2'},{revision:'2'}));
+    let state=store.getSnapshot();expect(toElevatorViewModel(state.elevators[0],state).sourceFreshness.state).toBe('UNKNOWN');
+    advance(1000);store.receive(fixtureFrame('elevator.state',{...data.elevators[0],serverStateRevision:'3'},{revision:'3'}));
+    state=store.getSnapshot();expect(toElevatorViewModel(state.elevators[0],state).ageSec).toBe(31);
+  });
+  it('an older heartbeat followed by the original heartbeat cannot reset its age watermark',()=>{
+    const {store,data,advance}=harness();advance(30000);
+    store.receive(fixtureFrame('gateway.status',{...data.gateways[0],lastHeartbeatAt:'2026-09-14T02:59:59Z'},{revision:'2'}));advance(1000);
+    store.receive(fixtureFrame('gateway.status',data.gateways[0],{revision:'3'}));
+    const state=store.getSnapshot();expect(toGatewayViewModel(state.gateways[0],state).gatewayHeartbeat).toEqual({ageSec:31,state:'OFFLINE'});
+  });
+  it('explicit unknown heartbeat does not erase earlier age evidence when the same heartbeat returns',()=>{
+    const {store,data,advance}=harness();advance(30000);
+    store.receive(fixtureFrame('gateway.status',{...data.gateways[0],lastHeartbeatAt:null},{revision:'2'}));
+    let state=store.getSnapshot();expect(toGatewayViewModel(state.gateways[0],state).gatewayHeartbeat.state).toBe('UNKNOWN');
+    advance(1000);store.receive(fixtureFrame('gateway.status',data.gateways[0],{revision:'3'}));
+    state=store.getSnapshot();expect(toGatewayViewModel(state.gateways[0],state).gatewayHeartbeat).toEqual({ageSec:31,state:'OFFLINE'});
+  });
+});
+
+describe('valid heartbeat evidence can recover from an invalid future timestamp',()=>{
+  it('does not let a future heartbeat watermark prevent later genuine proof from renewing heartbeat age',()=>{
+    const {store,data,advance}=harness();advance(30000);
+    store.receive(fixtureFrame('gateway.status',{...data.gateways[0],lastHeartbeatAt:'2026-09-14T04:00:00Z'},{revision:'2',sentAt:'2026-09-14T03:00:30Z'}));
+    let state=store.getSnapshot();expect(toGatewayViewModel(state.gateways[0],state).gatewayHeartbeat.state).toBe('UNKNOWN');
+    advance(1000);const validAt='2026-09-14T03:00:31Z';
+    store.receive(fixtureFrame('gateway.status',{...data.gateways[0],lastHeartbeatAt:validAt},{revision:'3',sentAt:validAt}));
+    state=store.getSnapshot();expect(toGatewayViewModel(state.gateways[0],state).gatewayHeartbeat).toEqual({ageSec:0,state:'ONLINE'});
+    expect(toElevatorViewModel(state.elevators[0],state).sourceFreshness.state).toBe('STALE');
   });
 });

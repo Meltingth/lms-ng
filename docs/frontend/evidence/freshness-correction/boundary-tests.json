@@ -1,0 +1,107 @@
+{
+  "status": "PASS",
+  "testReport": "frontend-tests.json",
+  "totalFrontendTests": 131,
+  "requiredBoundaryCount": 11,
+  "boundaries": [
+    {
+      "name": "Revised Plan exact freshness boundaries SIM source age 29.999s is FRESH",
+      "status": "passed",
+      "file": "apps/web/src/model/freshness.test.ts",
+      "durationMs": 6.428400000000693
+    },
+    {
+      "name": "Revised Plan exact freshness boundaries SIM source age 30s is STALE",
+      "status": "passed",
+      "file": "apps/web/src/model/freshness.test.ts",
+      "durationMs": 0.4477000000006228
+    },
+    {
+      "name": "Revised Plan exact freshness boundaries REAL source age 89.999s is VALID",
+      "status": "passed",
+      "file": "apps/web/src/model/freshness.test.ts",
+      "durationMs": 0.29979999999977736
+    },
+    {
+      "name": "Revised Plan exact freshness boundaries REAL source age 90s is STALE",
+      "status": "passed",
+      "file": "apps/web/src/model/freshness.test.ts",
+      "durationMs": 0.27329999999983556
+    },
+    {
+      "name": "Revised Plan exact freshness boundaries REAL valid field frame age 74.999s is OK",
+      "status": "passed",
+      "file": "apps/web/src/model/freshness.test.ts",
+      "durationMs": 0.3786000000000058
+    },
+    {
+      "name": "Revised Plan exact freshness boundaries REAL valid field frame age 75s is AGING",
+      "status": "passed",
+      "file": "apps/web/src/model/freshness.test.ts",
+      "durationMs": 0.2393000000001848
+    },
+    {
+      "name": "Revised Plan exact freshness boundaries REAL valid field frame age 89.999s is AGING",
+      "status": "passed",
+      "file": "apps/web/src/model/freshness.test.ts",
+      "durationMs": 0.21680000000014843
+    },
+    {
+      "name": "Revised Plan exact freshness boundaries REAL valid field frame age 90s is NO_RXTX",
+      "status": "passed",
+      "file": "apps/web/src/model/freshness.test.ts",
+      "durationMs": 0.15319999999974243
+    },
+    {
+      "name": "Revised Plan exact freshness boundaries gateway heartbeat age 29.999s is ONLINE",
+      "status": "passed",
+      "file": "apps/web/src/model/freshness.test.ts",
+      "durationMs": 0.3239999999996144
+    },
+    {
+      "name": "Revised Plan exact freshness boundaries gateway heartbeat age 30s is OFFLINE",
+      "status": "passed",
+      "file": "apps/web/src/model/freshness.test.ts",
+      "durationMs": 0.28040000000055443
+    },
+    {
+      "name": "Revised Plan exact freshness boundaries WS disconnect projects SERVER_DISCONNECTED immediately, independently of source/field ages",
+      "status": "passed",
+      "file": "apps/web/src/model/freshness.test.ts",
+      "durationMs": 0.4866999999994732
+    }
+  ],
+  "integration": [
+    {
+      "name": "freshness correction adapter boundaries keeps the 15-second reconciliation cadence without renewing source or heartbeat ages",
+      "status": "passed",
+      "file": "apps/web/src/realtime/client.test.ts",
+      "durationMs": 20.68459999999959
+    },
+    {
+      "name": "freshness correction adapter boundaries disconnects an active observation without resetting its source age, session, or confirmed anchor",
+      "status": "passed",
+      "file": "apps/web/src/realtime/client.test.ts",
+      "durationMs": 2.4648999999999432
+    },
+    {
+      "name": "source, heartbeat and server freshness remain independent cancels both motion flags immediately on WS disconnect with fresh source and heartbeat unchanged",
+      "status": "passed",
+      "file": "apps/web/src/realtime/store.test.ts",
+      "durationMs": 1.261700000000019
+    },
+    {
+      "name": "source, heartbeat and server freshness remain independent does not refresh either source or heartbeat at successive 15-second reconciliations",
+      "status": "passed",
+      "file": "apps/web/src/realtime/store.test.ts",
+      "durationMs": 2.2244000000000597
+    },
+    {
+      "name": "independent displayed freshness axes announces server disconnect immediately without claiming source-state staleness",
+      "status": "passed",
+      "file": "apps/web/src/features/hud/OperationsHud.test.tsx",
+      "durationMs": 283.41480000000047
+    }
+  ],
+  "scope": "Local fixtures and pure policy tests. REAL transport classifier receives explicit valid-frame ages; no LIVE adapter is run."
+}

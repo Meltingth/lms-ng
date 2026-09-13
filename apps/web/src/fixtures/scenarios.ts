@@ -3,8 +3,7 @@ import type { ElevatorStatus, Frame, FrameType, SnapshotData } from '../model/ty
 export const TEST_SITE_ID = 'c0de0000-0000-4000-8000-000000000001';
 export const TEST_GATEWAY_ID = 'c0de0000-0000-4000-8000-000000000002';
 export const FIXTURE_EPOCH = '2026-09-14T03:00:00.000Z';
-// Local fixture presentation policy; these are not approved backend thresholds/profile units.
-export const FIXTURE_STALE_AFTER_SEC = 12;
+// Revised Plan reconciliation cadence; receipt of a snapshot is not a new source observation.
 export const FIXTURE_RECONCILE_MS = 15_000;
 export const FIXTURE_FLOOR_SCALE = [{label:'44',anchor:1},{label:'32',anchor:0.75},{label:'20',anchor:0.45},{label:'10',anchor:0.23},{label:'1',anchor:0.04},{label:'B1',anchor:0}];
 const scenarioDefinitions = [
@@ -38,13 +37,13 @@ export function createFixtureSnapshot(scenario: ScenarioId = 'normal', demo = fa
     origin:'SIMULATED',viewMode:demo?'DEMO':'TEST',producerEpoch:1,
     sourceObservedAt:FIXTURE_EPOCH,serverReceivedAt:FIXTURE_EPOCH,serverStateRevision:'1',...row,
   }));
-  if (scenario === 'stale') for (const lift of elevators) { lift.freshnessSec = 35; lift.connectionState = 'STALE'; lift.transportState = 'AGING'; }
+  if (scenario === 'stale') for (const lift of elevators) { lift.freshnessSec = 35; lift.connectionState = 'STALE'; lift.transportState = 'OK'; }
   if (scenario === 'gateway-offline') for (const lift of elevators) {lift.connectionState='GATEWAY_OFFLINE';lift.transportState='DISCONNECTED';lift.freshnessSec=45;}
   if (scenario === 'degraded') {elevators[0].quality=['CAPTURE_OK_DELIVERY_DEGRADED'];elevators[0].transportState='AGING';}
   if (scenario === 'time-uncertain') {elevators[0].quality=['TIME_UNCERTAIN'];elevators[0].dataQuality={clockQuality:'UNCERTAIN'};}
   if (scenario === 'unknown') { Object.assign(elevators[0],{direction:'UNKNOWN',motion:'UNKNOWN',floorRaw:null,floorDisplay:null,floorKind:null,displayAnchor:null,freshnessSec:null,connectionState:'UNKNOWN',sourceObservedAt:null,serverReceivedAt:null}); }
   if (scenario === 'alarm') {elevators[0].activeAlarmCount=1;elevators[0].statusPoints={fixtureAlarm:true};}
-  return {elevators,gateways:[{gatewayId:TEST_GATEWAY_ID,gatewayCode:'GW-SIM-01',connectionState:scenario==='gateway-offline'?'OFFLINE':'ONLINE',lastHeartbeatAt:FIXTURE_EPOCH,agentVersion:'fixture-only'}],watermark:'1'};
+  return {elevators,gateways:[{gatewayId:TEST_GATEWAY_ID,gatewayCode:'GW-SIM-01',connectionState:scenario==='gateway-offline'?'OFFLINE':'ONLINE',lastHeartbeatAt:scenario==='gateway-offline'?'2026-09-14T02:59:15.000Z':FIXTURE_EPOCH,agentVersion:'fixture-only'}],watermark:'1'};
 }
 export function fixtureFrame<T extends FrameType>(type:T,data:Frame<T>['data'],options:Partial<Omit<Frame<T>,'type'|'data'>> = {}): Frame<T> {
   return {v:2,type,source:'live',siteId:TEST_SITE_ID,serverInstanceId:'local-mock-server',datasetEpoch:'fixture-dataset-1',subscriptionId:'fixture-test-session',sentAt:FIXTURE_EPOCH,data,...options} as Frame<T>;

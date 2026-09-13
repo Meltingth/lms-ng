@@ -1,0 +1,462 @@
+{
+  "status": "PASS",
+  "browser": "153.0.8010.36",
+  "url": "http://127.0.0.1:5173/",
+  "checks": [
+    {
+      "name": "15-second reconciliation retains source age",
+      "result": "PASS",
+      "details": {
+        "initial": {
+          "source": "FRESH",
+          "transport": "OK",
+          "server": "CONNECTED",
+          "heartbeat": "ONLINE",
+          "ageText": "RUNNING↻ 0s",
+          "animating": "true"
+        },
+        "at15s": {
+          "source": "FRESH",
+          "transport": "OK",
+          "server": "CONNECTED",
+          "heartbeat": "ONLINE",
+          "ageText": "RUNNING↻ 15s",
+          "animating": "true"
+        }
+      }
+    },
+    {
+      "name": "SIM source boundary: 29.999 seconds fresh; 30 seconds stale",
+      "result": "PASS",
+      "details": {
+        "before": {
+          "source": "FRESH",
+          "transport": "OK",
+          "server": "CONNECTED",
+          "heartbeat": "ONLINE",
+          "ageText": "RUNNING↻ 29s",
+          "animating": "true"
+        },
+        "at": {
+          "source": "STALE",
+          "transport": "OK",
+          "server": "CONNECTED",
+          "heartbeat": "OFFLINE",
+          "ageText": "RUNNING↻ 30s · STALE",
+          "animating": "false"
+        },
+        "browserTickMs": 1000,
+        "exactPredicateBoundaryCoveredByUnitTests": true
+      }
+    },
+    {
+      "name": "Gateway heartbeat boundary: 29.999 seconds online; 30 seconds offline",
+      "result": "PASS",
+      "details": {
+        "before": "ONLINE",
+        "at": "OFFLINE"
+      }
+    },
+    {
+      "name": "Full HD five-shaft HUD and compact TEST provenance",
+      "result": "PASS",
+      "details": {
+        "width": 1920,
+        "height": 1080,
+        "scrollWidth": 1920,
+        "scrollHeight": 1080,
+        "panels": {
+          ".app-header": {
+            "x": 38,
+            "y": 28,
+            "right": 1882,
+            "bottom": 90,
+            "scrollHeight": 61,
+            "clientHeight": 61
+          },
+          ".kpi-grid": {
+            "x": 38,
+            "y": 144,
+            "right": 1882,
+            "bottom": 232,
+            "scrollHeight": 86,
+            "clientHeight": 86
+          },
+          ".workspace-grid": {
+            "x": 38,
+            "y": 240,
+            "right": 1882,
+            "bottom": 783,
+            "scrollHeight": 543,
+            "clientHeight": 543
+          },
+          ".detail-panel": {
+            "x": 1552,
+            "y": 240,
+            "right": 1882,
+            "bottom": 783,
+            "scrollHeight": 541,
+            "clientHeight": 541
+          },
+          ".simulation-controls": {
+            "x": 38,
+            "y": 791,
+            "right": 1882,
+            "bottom": 841,
+            "scrollHeight": 48,
+            "clientHeight": 48
+          },
+          ".lower-grid": {
+            "x": 38,
+            "y": 857,
+            "right": 1882,
+            "bottom": 1002,
+            "scrollHeight": 145,
+            "clientHeight": 145
+          },
+          ".health-footer": {
+            "x": 38,
+            "y": 1010,
+            "right": 1882,
+            "bottom": 1032,
+            "scrollHeight": 21,
+            "clientHeight": 21
+          }
+        }
+      }
+    },
+    {
+      "name": "WS disconnect immediately cancels render motion while source remains fresh",
+      "result": "PASS",
+      "details": {
+        "disconnected": {
+          "source": "FRESH",
+          "transport": "OK",
+          "server": "SERVER_DISCONNECTED",
+          "heartbeat": "ONLINE",
+          "ageText": "RUNNING↻ 0s",
+          "animating": "false"
+        },
+        "initialY": 478.546875,
+        "midY": 476.171875,
+        "stoppedY": 457.53125,
+        "heldY": 457.53125,
+        "doorTransitions": [
+          "0s",
+          "0s"
+        ],
+        "retainedAnchor": "0.475"
+      }
+    },
+    {
+      "name": "Reconnect requires the existing resnapshot path",
+      "result": "PASS",
+      "details": {
+        "anchor": "0.475"
+      }
+    },
+    {
+      "name": "Keyboard selection and uncalibrated W-05",
+      "result": "PASS",
+      "details": "Backend-provided raw code 22, no fabricated floor anchor"
+    },
+    {
+      "name": "Visible stale source and held confirmed position",
+      "result": "PASS",
+      "details": {
+        "source": "STALE",
+        "transport": "OK",
+        "server": "CONNECTED",
+        "heartbeat": "ONLINE",
+        "ageText": "RUNNING↻ 35s · STALE",
+        "animating": "false"
+      }
+    },
+    {
+      "name": "Alarm and delta-gap regression",
+      "result": "PASS",
+      "details": {
+        "behavior": "Alarm appears immediately; gap cancels motion pending resnapshot",
+        "gapGeometry": {
+          "width": 1920,
+          "height": 1080,
+          "scrollWidth": 1920,
+          "scrollHeight": 1080,
+          "panels": {
+            ".app-header": {
+              "x": 38,
+              "y": 28,
+              "right": 1882,
+              "bottom": 90,
+              "scrollHeight": 61,
+              "clientHeight": 61
+            },
+            ".kpi-grid": {
+              "x": 38,
+              "y": 144,
+              "right": 1882,
+              "bottom": 232,
+              "scrollHeight": 86,
+              "clientHeight": 86
+            },
+            ".workspace-grid": {
+              "x": 38,
+              "y": 240,
+              "right": 1882,
+              "bottom": 752,
+              "scrollHeight": 512,
+              "clientHeight": 512
+            },
+            ".detail-panel": {
+              "x": 1552,
+              "y": 240,
+              "right": 1882,
+              "bottom": 752,
+              "scrollHeight": 510,
+              "clientHeight": 510
+            },
+            ".simulation-controls": {
+              "x": 38,
+              "y": 760,
+              "right": 1882,
+              "bottom": 810,
+              "scrollHeight": 48,
+              "clientHeight": 48
+            },
+            ".lower-grid": {
+              "x": 38,
+              "y": 857,
+              "right": 1882,
+              "bottom": 1002,
+              "scrollHeight": 145,
+              "clientHeight": 145
+            },
+            ".health-footer": {
+              "x": 38,
+              "y": 1010,
+              "right": 1882,
+              "bottom": 1032,
+              "scrollHeight": 21,
+              "clientHeight": 21
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "DEMO/TEST isolation",
+      "result": "PASS",
+      "details": "Distinct provenance remains visible before and after exiting DEMO"
+    },
+    {
+      "name": "Native Full Screen toggle regression",
+      "result": "PASS",
+      "details": "Entered and exited browser Fullscreen API through button"
+    },
+    {
+      "name": "4K viewport containment after freshness correction",
+      "result": "PASS",
+      "details": {
+        "width": 3840,
+        "height": 2160,
+        "scrollWidth": 3840,
+        "scrollHeight": 2160,
+        "panels": {
+          ".app-header": {
+            "x": 76,
+            "y": 56,
+            "right": 3764,
+            "bottom": 180,
+            "scrollHeight": 122,
+            "clientHeight": 122
+          },
+          ".kpi-grid": {
+            "x": 76,
+            "y": 288,
+            "right": 3764,
+            "bottom": 464,
+            "scrollHeight": 172,
+            "clientHeight": 172
+          },
+          ".workspace-grid": {
+            "x": 76,
+            "y": 480,
+            "right": 3764,
+            "bottom": 1566,
+            "scrollHeight": 1086,
+            "clientHeight": 1086
+          },
+          ".detail-panel": {
+            "x": 3104,
+            "y": 480,
+            "right": 3764,
+            "bottom": 1566,
+            "scrollHeight": 1084,
+            "clientHeight": 1084
+          },
+          ".simulation-controls": {
+            "x": 76,
+            "y": 1582,
+            "right": 3764,
+            "bottom": 1682,
+            "scrollHeight": 96,
+            "clientHeight": 96
+          },
+          ".lower-grid": {
+            "x": 76,
+            "y": 1714,
+            "right": 3764,
+            "bottom": 2004,
+            "scrollHeight": 290,
+            "clientHeight": 290
+          },
+          ".health-footer": {
+            "x": 76,
+            "y": 2020,
+            "right": 3764,
+            "bottom": 2064,
+            "scrollHeight": 42,
+            "clientHeight": 42
+          }
+        }
+      }
+    },
+    {
+      "name": "4K stale viewport containment",
+      "result": "PASS",
+      "details": {
+        "width": 3840,
+        "height": 2160,
+        "scrollWidth": 3840,
+        "scrollHeight": 2160,
+        "panels": {
+          ".app-header": {
+            "x": 76,
+            "y": 56,
+            "right": 3764,
+            "bottom": 180,
+            "scrollHeight": 122,
+            "clientHeight": 122
+          },
+          ".kpi-grid": {
+            "x": 76,
+            "y": 288,
+            "right": 3764,
+            "bottom": 464,
+            "scrollHeight": 172,
+            "clientHeight": 172
+          },
+          ".workspace-grid": {
+            "x": 76,
+            "y": 480,
+            "right": 3764,
+            "bottom": 1566,
+            "scrollHeight": 1086,
+            "clientHeight": 1086
+          },
+          ".detail-panel": {
+            "x": 3104,
+            "y": 480,
+            "right": 3764,
+            "bottom": 1566,
+            "scrollHeight": 1084,
+            "clientHeight": 1084
+          },
+          ".simulation-controls": {
+            "x": 76,
+            "y": 1582,
+            "right": 3764,
+            "bottom": 1682,
+            "scrollHeight": 96,
+            "clientHeight": 96
+          },
+          ".lower-grid": {
+            "x": 76,
+            "y": 1714,
+            "right": 3764,
+            "bottom": 2004,
+            "scrollHeight": 290,
+            "clientHeight": 290
+          },
+          ".health-footer": {
+            "x": 76,
+            "y": 2020,
+            "right": 3764,
+            "bottom": 2064,
+            "scrollHeight": 42,
+            "clientHeight": 42
+          }
+        }
+      }
+    },
+    {
+      "name": "Mobile layout and independent service/commissioning states",
+      "result": "PASS",
+      "details": {
+        "width": 390,
+        "scrollWidth": 390,
+        "shaftWidth": 364,
+        "shaftScrollWidth": 811
+      }
+    },
+    {
+      "name": "Reduced-motion regression",
+      "result": "PASS",
+      "details": "Zero-duration interpolation when prefers-reduced-motion is enabled"
+    },
+    {
+      "name": "Browser runtime and local-only network boundary",
+      "result": "PASS",
+      "details": {
+        "pageErrors": [],
+        "externalRequests": []
+      }
+    }
+  ],
+  "screenshots": [
+    {
+      "file": "docs/frontend/evidence/freshness-correction/hud-desktop.png",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 669574,
+      "sha256": "8fd37225380e281dc419077409c4ff5d45df6995c38c3e523160d2bceca1d972"
+    },
+    {
+      "file": "docs/frontend/evidence/freshness-correction/hud-uncalibrated.png",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 675146,
+      "sha256": "bfe8f6e64bee9c1fda4a53f2d15cd1f9c38ce06f0e7695d0c9b70d1c83a48da8"
+    },
+    {
+      "file": "docs/frontend/evidence/freshness-correction/hud-stale.png",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 667104,
+      "sha256": "1b0266ed9e876f498697ad1babe5275b0ef50f1eb190d348ebb5073474323213"
+    },
+    {
+      "file": "docs/frontend/evidence/freshness-correction/hud-demo.png",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 670270,
+      "sha256": "acef25d5b69e25001c4261dcdf209d418b968a29622ea385ce0c0cb81f584a2f"
+    },
+    {
+      "file": "docs/frontend/evidence/freshness-correction/hud-mobile.png",
+      "width": 390,
+      "height": 2655,
+      "bytes": 397390,
+      "sha256": "86182e1915091cf6a7b1f5682a01333f6ed120cbf576971750f94f44c6889c92"
+    }
+  ],
+  "pageErrors": [],
+  "externalRequests": [],
+  "limits": [
+    "Local SIMULATED fixtures only; no LIVE integration",
+    "REAL freshness thresholds are exercised by frontend unit tests, not REAL transport",
+    "Screenshots are review evidence; no G-U or pixel-fidelity approval",
+    "No backend, hardware, Capture, COM or Scheduled Task execution"
+  ],
+  "nextAllowedAction": "WAIT_FOR_ARCHITECT"
+}

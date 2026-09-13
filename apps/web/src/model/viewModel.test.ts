@@ -45,3 +45,30 @@ describe('motion boundary failures',()=>{
     now=5000;store.tick();now=1000;store.tick();const state=store.getSnapshot();expect(toElevatorViewModel(state.elevators[0],state).ageSec).toBe(5);
   });
 });
+
+describe('independent freshness axes on direct local ViewModel projections',()=>{
+  it.each([[89.999,'VALID',false],[90,'STALE',true]] as const)('REAL state age %ss is %s without accepting LIVE data into the store',(age,expected,isStale)=>{
+    const store=createRealtimeStore({now:()=>0});const data=createFixtureSnapshot();data.elevators[0].freshnessSec=age;
+    store.receive(fixtureFrame('snapshot',data));const state=store.getSnapshot();
+    // Direct projection of a synthetic local value tests semantics only; the store still rejects LIVE origin.
+    const vm=toElevatorViewModel({...state.elevators[0],origin:'LIVE'},state);
+    expect(vm.sourceFreshness).toEqual({source:'REAL',ageSec:age,state:expected});
+    expect(vm.isStale).toBe(isStale);expect(vm.canAnimate).toBe(false);
+    expect(vm.fieldTransportFreshness).toEqual({state:'OK',ageSec:null,evidence:'SERVER_REPORTED'});
+  });
+  it('preserves reported field AGING alongside fresh SIM source state and connected server',()=>{
+    const store=createRealtimeStore({now:()=>0});store.receive(fixtureFrame('snapshot',createFixtureSnapshot('degraded')));
+    const state=store.getSnapshot();const vm=toElevatorViewModel(state.elevators[0],state);
+    expect(vm).toMatchObject({sourceFreshness:{state:'FRESH',ageSec:0},fieldTransportFreshness:{state:'AGING',ageSec:null},serverConnection:'CONNECTED',gatewayHeartbeat:{state:'ONLINE',ageSec:0},isStale:false});
+  });
+  it.each(['NO_RXTX','DISCONNECTED'] as const)('halts motion on reported field transport %s without inventing source staleness',(transportState)=>{
+    const store=createRealtimeStore({now:()=>0});const data=createFixtureSnapshot();data.elevators[0].transportState=transportState;
+    store.receive(fixtureFrame('snapshot',data));const state=store.getSnapshot();const vm=toElevatorViewModel(state.elevators[0],state);
+    expect(vm).toMatchObject({sourceFreshness:{state:'FRESH'},fieldTransportFreshness:{state:transportState},isStale:false,canAnimate:false,motionIsCurrent:false});
+  });
+  it('keeps server-declared STALE conservative while preserving independent source age evidence',()=>{
+    const store=createRealtimeStore({now:()=>0});const data=createFixtureSnapshot();data.elevators[0].connectionState='STALE';
+    store.receive(fixtureFrame('snapshot',data));const state=store.getSnapshot();
+    expect(toElevatorViewModel(state.elevators[0],state)).toMatchObject({sourceFreshness:{state:'FRESH',ageSec:0},connectionState:'STALE',isStale:true,canAnimate:false});
+  });
+});

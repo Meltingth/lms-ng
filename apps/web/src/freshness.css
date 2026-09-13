@@ -1,0 +1,14 @@
+/* Separate source state from the server-reported field transport and WS connection. */
+.shaft-status { display:flex; align-items:center; gap:calc(6 * var(--hud-unit)); }
+.source-state-label { display:inline-flex; }
+.detail-facts dd .source-state-label { vertical-align:middle; }
+.freshness-age { display:inline-block; margin-left:calc(7 * var(--hud-unit)); color:var(--muted); font:calc(8 * var(--hud-unit)) Consolas,monospace; }
+@media (min-width:1101px) and (min-height:650px) {
+  .detail-facts { grid-template-rows:repeat(11,minmax(calc(18 * var(--hud-unit)),1fr)); }
+  .detail-panel .section-heading { margin-bottom:calc(4 * var(--hud-unit)); }
+  .detail-identity { margin-bottom:calc(4 * var(--hud-unit)); }
+  .detail-facts { margin:calc(6 * var(--hud-unit)) 0; row-gap:calc(1 * var(--hud-unit)); }
+  .detail-floor { padding:calc(7 * var(--hud-unit)) 0; }
+  .detail-quality { font-size:calc(10 * var(--hud-unit)); line-height:1.4; padding-top:calc(6 * var(--hud-unit)); }
+  .alarm-summary { margin-top:calc(7 * var(--hud-unit)); }
+}

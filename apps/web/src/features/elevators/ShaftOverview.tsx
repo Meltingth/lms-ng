@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { ElevatorDoors } from './ElevatorDoors';
 import { Badge, NumericDisplay, SectionHeading } from '@lms-ng/ui-kit';
-import { ConnectionBadge, FreshnessBadge } from '../monitoring/StatusBadges';
+import { ConnectionBadge, FreshnessBadge, SourceStateBadge } from '../monitoring/StatusBadges';
 import { toElevatorViewModel } from '../../model/viewModel';
 import type { RealtimeState } from '../../realtime/store';
 const arrows: Record<string, string> = { UP: '↑', DOWN: '↓', IDLE: '—', UNKNOWN: '?' };
@@ -28,9 +28,9 @@ export function ShaftOverview({ state, selectedId, onSelect, motionEnabled }: { 
       const unplaced = vm.positionAnchor === null;
       const outOfService = lift.serviceStatus === 'OUT_OF_SERVICE';
       const animate = motionEnabled && vm.canAnimate && !viewportResync;
-      return <button key={lift.elevatorId} type="button" className={`shaft-card ${selected ? 'selected' : ''} ${outOfService ? 'out-of-service' : ''} ${vm.hasAlarm ? 'has-alarm' : ''}`} aria-label={`เลือกลิฟต์ ${lift.elevatorCode}`} aria-pressed={selected} onClick={() => onSelect(lift.elevatorId)} data-testid={`shaft-${lift.elevatorCode}`}>
+      return <button key={lift.elevatorId} type="button" className={`shaft-card ${selected ? 'selected' : ''} ${outOfService ? 'out-of-service' : ''} ${vm.hasAlarm ? 'has-alarm' : ''}`} aria-label={`เลือกลิฟต์ ${lift.elevatorCode}`} aria-pressed={selected} onClick={() => onSelect(lift.elevatorId)} data-testid={`shaft-${lift.elevatorCode}`} data-source-freshness={vm.sourceFreshness.state} data-transport-freshness={vm.fieldTransportFreshness.state} data-server-connection={vm.serverConnection}>
         <div className="shaft-heading"><span><b>{lift.elevatorCode}</b><small>{index === 4 ? 'SERVICE LIFT' : 'PASSENGER'}</small></span><span className="shaft-index">0{index + 1}</span></div>
-        <div className="shaft-status"><ConnectionBadge value={lift.connectionState} /></div>
+        <div className="shaft-status"><ConnectionBadge value={lift.connectionState} /><SourceStateBadge value={vm.sourceFreshness.state} /></div>
         <div className={`shaft-track ${unplaced ? 'unplaced' : ''}`} aria-label={unplaced ? 'ไม่ทราบตำแหน่งชั้นอาคาร' : 'ตำแหน่ง schematic จาก displayAnchor'}>
           <div className="rail rail-left" /><div className="rail rail-right" />
           <div className="track-grid" aria-hidden="true">{Array.from({ length: 9 }, (_, n) => <span key={n} />)}</div>
@@ -42,7 +42,7 @@ export function ShaftOverview({ state, selectedId, onSelect, motionEnabled }: { 
         </div>
         <div className="floor-readout"><NumericDisplay className={unplaced ? 'raw-label' : ''}>{vm.floorLabel}</NumericDisplay><span className="direction"><b aria-hidden="true">{arrows[lift.direction]}</b><small>{lift.direction}</small></span></div>
         <div className="floor-description">{unplaced ? (lift.floorKind ?? 'UNKNOWN') : 'ชั้นที่ยืนยันล่าสุด'} · {directionLabels[lift.direction]}</div>
-        <div className="shaft-bottom"><span>{lift.motion}</span><FreshnessBadge ageSec={vm.ageSec} stale={vm.isStale} /></div>
+        <div className="shaft-bottom"><span>{lift.motion}</span><FreshnessBadge ageSec={vm.sourceFreshness.ageSec} state={vm.sourceFreshness.state} /></div>
         <div className="shaft-flags">{vm.hasAlarm && <Badge tone="red">! {lift.activeAlarmCount} ALARM</Badge>}{outOfService ? <Badge tone="amber">OUT_OF_SERVICE</Badge> : <span className={vm.qualityFlags.length ? 'tone-amber' : 'tone-muted'}>{vm.qualityFlags.length ? vm.qualityFlags.join(' · ') : 'SIMULATED'}</span>}</div>
       </button>;
     })}</div>

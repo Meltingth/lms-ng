@@ -1,0 +1,32 @@
+
+> @lms-ng/web@0.1.0 test
+> vitest run --reporter=default --reporter=json --outputFile=../../docs/frontend/evidence/freshness-correction/frontend-tests.json
+
+
+ RUN  v4.1.11 C:/NST/Software Dev/lms-ng/apps/web
+
+ ✓ src/model/freshness.test.ts (19 tests) 25ms
+ ✓ src/motion/motionController.test.ts (4 tests) 16ms
+ ✓ src/features/display/FullscreenButton.test.tsx (8 tests) 744ms
+     ✓ enters fullscreen for the complete document only after an operator click  301ms
+ ✓ src/fixtures/scenarios.test.ts (3 tests) 67ms
+ ✓ src/model/viewModel.test.ts (19 tests) 54ms
+ ✓ src/realtime/client.test.ts (6 tests) 109ms
+ ✓ src/realtime/store.test.ts (49 tests) 166ms
+ ✓ src/features/elevators/ElevatorDoors.test.tsx (9 tests) 1537ms
+     ✓ uses RUNNING consistently for all five icons without placing W05 on a floor  393ms
+     ✓ opens and closes the same DOM panes on new motion observations  693ms
+ ✓ src/features/hud/OperationsHud.test.tsx (14 tests) 4829ms
+     ✓ shows five selectable shafts with explicit TEST / SIMULATED provenance  941ms
+     ✓ keeps Lift 4 OUT_OF_SERVICE commissioned and distinct from offline or installation  386ms
+     ✓ updates confirmed floor immediately while target moves only to the new known anchor  317ms
+     ✓ exposes offline, degraded and time-uncertain states without guessing normal status  491ms
+     ✓ holds state on disconnect or revision gap then resnapshots through local controls  628ms
+     ✓ isolates DEMO and resets its fixture session on exit  509ms
+
+ Test Files  9 passed (9)
+      Tests  131 passed (131)
+   Start at  02:24:40
+   Duration  12.53s (transform 8.28s, setup 11.56s, import 14.48s, tests 7.55s, environment 23.87s)
+
+JSON report written to C:/NST/Software Dev/lms-ng/docs/frontend/evidence/freshness-correction/frontend-tests.json

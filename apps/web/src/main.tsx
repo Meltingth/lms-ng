@@ -4,4 +4,5 @@ import '@lms-ng/ui-kit/tokens.css';
 import './styles.css';
 import './display.css';
 import './hud-window-frame.css';
+import './freshness.css';
 createRoot(document.getElementById('root')!).render(<OperationsHud />);

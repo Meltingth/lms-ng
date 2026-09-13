@@ -48,9 +48,12 @@ describe('Operations HUD truthfulness and interaction', () => {
     expect(within(screen.getByTestId('shaft-W-05')).getByText('UNKNOWN', {selector:'small'})).toBeVisible();
   });
   it('marks old data stale and disables motion while preserving the confirmed position', () => {
-    setup(); act(() => vi.advanceTimersByTime(13000));
+    setup(); act(() => vi.advanceTimersByTime(29_999));
+    expect(screen.getByTestId('shaft-W-01')).toHaveAttribute('data-source-freshness','FRESH');
+    expect(screen.getByTestId('car-W-01')).toHaveAttribute('data-animating','true');
+    act(() => vi.advanceTimersByTime(1));
     expect(screen.getByTestId('car-W-01')).toHaveAttribute('data-animating','false');
-    expect(within(screen.getByTestId('shaft-W-01')).getByText(/13s · STALE/)).toBeVisible();
+    expect(within(screen.getByTestId('shaft-W-01')).getByText(/30s · STALE/)).toBeVisible();
     expect(screen.getByTestId('car-W-01')).toHaveAttribute('data-confirmed-anchor','0.45');
   });
   it('exposes offline, degraded and time-uncertain states without guessing normal status', () => {
@@ -95,5 +98,33 @@ describe('Operations HUD truthfulness and interaction', () => {
     const {container}=render(<SourceBadge origin="LIVE" viewMode="LIVE"/>);
     expect(screen.getByText('LIVE · LIVE')).toHaveClass('tone-green');
     expect(container.querySelector('.tone-amber')).toBeNull();
+  });
+});
+
+describe('independent displayed freshness axes',()=>{
+  beforeEach(()=>vi.useFakeTimers());
+  afterEach(()=>vi.useRealTimers());
+  it('displays stale source and OK field transport separately',()=>{
+    render(<OperationsHud />);
+    fireEvent.change(screen.getByLabelText('เลือกสถานการณ์จำลอง'),{target:{value:'stale'}});
+    expect(screen.getByTestId('shaft-W-01')).toHaveAttribute('data-source-freshness','STALE');
+    expect(screen.getByTestId('shaft-W-01')).toHaveAttribute('data-transport-freshness','OK');
+    expect(screen.getByTestId('detail-source-freshness')).toHaveTextContent('STALE');
+    expect(screen.getByTestId('detail-transport-freshness')).toHaveTextContent('OK');
+    expect(screen.getByTestId('detail-transport-freshness')).toHaveTextContent('AGE UNKNOWN');
+  });
+  it('announces server disconnect immediately without claiming source-state staleness',()=>{
+    render(<OperationsHud />);
+    fireEvent.click(screen.getByRole('button',{name:/เดินข้อมูล 1 ขั้น/}));
+    fireEvent.change(screen.getByLabelText('เลือกสถานการณ์จำลอง'),{target:{value:'reconnect'}});
+    expect(screen.getByRole('alert')).toHaveTextContent('SERVER_DISCONNECTED');
+    expect(screen.getByTestId('shaft-W-01')).toHaveAttribute('data-server-connection','SERVER_DISCONNECTED');
+    expect(screen.getByTestId('shaft-W-01')).toHaveAttribute('data-source-freshness','FRESH');
+    expect(screen.getByTestId('shaft-W-01')).toHaveAttribute('data-transport-freshness','OK');
+    expect(screen.getByTestId('car-W-01')).toHaveAttribute('data-confirmed-anchor','0.475');
+    expect(screen.getByTestId('car-W-01')).toHaveAttribute('data-animating','false');
+    const doors=screen.getByTestId('car-W-01').querySelector('.car-doors');
+    expect(doors).toHaveAttribute('data-door-visual','unknown');
+    expect(doors).not.toHaveClass('doors-animate');
   });
 });

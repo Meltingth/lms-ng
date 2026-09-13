@@ -31,7 +31,12 @@ export function createMockAdapter(store:RealtimeStore, options:{autoTick?:boolea
       }
     },
     dispose() {clearInterval(tickTimer);clearInterval(reconcileTimer);started=false;},
-    setScenario(next:ScenarioId) {scenario=next;reset();},
+    setScenario(next:ScenarioId) {
+      scenario=next;
+      // Disconnect the active local session so in-flight rendering stops at its held observation.
+      if (next==='reconnect') {store.setScenario(next);store.disconnect();return;}
+      reset();
+    },
     setDemo(enabled:boolean) {demo=enabled;reset();},
     step() {
       if (store.getSnapshot().transport!=='connected') {snapshot();return;}
