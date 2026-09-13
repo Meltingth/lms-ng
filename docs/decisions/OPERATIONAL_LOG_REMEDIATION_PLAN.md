@@ -1,11 +1,12 @@
 ---
 docType: REMEDIATION_PLAN
-status: PROPOSED_NOT_EXECUTED
+status: ACCEPTED_CONCEPTUALLY_IMPLEMENTATION_DEFERRED
 appliesTo: "D:\\WhizdomLift capture_lift_1.log, capture_lift_2.log, capture_lift_2_before_gnd_fix.log, capture_lift_2_uncontrolled.log, capture_lift_3.log, capture_lift_3_part1.log, capture_lift_5.log, capture_launcher.log"
 preparedAt: 2026-09-13
+ownerDecision: "2026-09-13, G-A review round 3 -- accepted conceptually; implementation deferred until an allowed phase. Reaffirmed: no Git history rewrite, stop future commits/pushes of live operational log growth, do not delete local capture logs, use sanitized deterministic fixtures for tests instead of long-lived logs in source control going forward."
 ---
 
-# Operational log remediation plan — proposal only, nothing executed
+# Operational log remediation plan — accepted conceptually, implementation still deferred
 
 This is a plan for a **future, safe phase**. Nothing in this document has been carried out.
 Per the owner's decision this round: no history rewrite now, `user=Administrator` alone is not

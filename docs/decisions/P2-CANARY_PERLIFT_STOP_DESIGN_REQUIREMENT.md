@@ -1,8 +1,9 @@
 ---
 docType: DESIGN_REQUIREMENT
-status: RECORDED_NOT_IMPLEMENTED
+status: ACCEPTED_AS_REQUIREMENT_NOT_IMPLEMENTED
 targetPhase: P1-OFFLINE (build), gates P2-CANARY / G-C (consumes)
 recordedAt: 2026-09-13
+ownerDecision: "2026-09-13, G-A review round 3 -- per-lift hold/ownership design accepted as a requirement. Implementation/deployment remains forbidden before an allowed phase. log_lift.py stays unedited."
 ---
 
 # Design requirement: per-lift capture ownership/hold, without touching `log_lift.py`

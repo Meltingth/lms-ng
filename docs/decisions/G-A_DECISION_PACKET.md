@@ -65,7 +65,7 @@ Dashboard.html` was never seen.** No row below claims anything is absent system-
 | Check | Status |
 |---|---|
 | Static SQL lint | **PASS** (sqlglot-static — weaker than real grammar, disclosed) |
-| Fresh migration on Postgres 16 | **BLOCKED** — Dell unreachable (confirmed again this round: DNS/ARP both fail), no Docker/Postgres started on this Gateway |
+| Fresh migration on Postgres 16 | **BLOCKED** — `LMS-SRV` not reachable from the inspected Gateway through the attempted hostname/current network path this round (DNS/ARP both fail); power state, IP, subnet, and alternate management-path reachability not independently verified. No Docker/Postgres started on this Gateway. |
 | WHZ seed / TEST seed execution | **BLOCKED** — same reason |
 | Seed rerun / idempotency | **BLOCKED** (designed for it — `ON CONFLICT` throughout, verified by inspection — untested live) |
 | Constraints/assertions | **BLOCKED** for DB execution; **PASS** for the underlying facts via `C07`'s independent text-level re-derivation (a different, weaker claim, kept distinct) |

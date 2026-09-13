@@ -12,10 +12,14 @@ checks syntax only; it never executes a statement, never opens a connection, nev
 constraint. Where that distinction matters, both the static result and the execution status are
 shown separately, and the execution status governs whether the row counts as done.
 
-**Environment check performed this turn:** the Dell (`LMS-SRV`) is unreachable from this
-session — `ping`/`nslookup LMS-SRV` both fail to resolve, and the ARP table shows only the
-local router and multicast addresses, no other host on this network segment. **No Docker or
-Postgres stack was started on this Gateway machine to work around that** — the owner's
+**Environment check performed this turn:** `LMS-SRV` was not reachable from the inspected
+Gateway through the attempted hostname/current network path this session — `ping`/`nslookup
+LMS-SRV` both fail to resolve, and the ARP table shows only the local router and multicast
+addresses, no other host on this network segment. Its actual power state, IP, subnet, and any
+alternate management-path reachability were **not independently verified** — this is a
+same-segment-hostname-lookup result, not proof the machine is off or unreachable by every
+possible path. **No Docker or Postgres stack was started on this Gateway machine to work
+around that** — the owner's
 instruction is explicit that G-A stays BLOCKED rather than have this round manufacture a pass
 that way, and this document honors that.
 
