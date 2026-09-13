@@ -31,7 +31,7 @@ reflecting all of that.
 | File count hashed | 38 (unchanged from draft.1 — same files, different bytes in one of them) |
 | Reproduced by | Three independent implementations this round: `lms-ng/scripts/contracts-hash.ps1`, `WhizdomLift/scripts/sync-contracts.ps1 -Check`, `WhizdomLift/tests/test_contracts.py` (from-scratch Python). All three agree on the hash above. |
 | Tamper detection | Deliberately re-tested this round: appended a byte to the vendored `contracts/VERSION`, confirmed `sync-contracts.ps1 -Check` reports MISMATCH (exit 1), then restored via `-Update` and reconfirmed clean (exit 0). |
-| lms-ng commit | `2881d70` (contains this candidate's contract bytes + the D-07 change + DB verification/remediation/design docs below; local only, no remote configured) |
+| lms-ng commit | `a93891b` (contains this candidate's contract bytes + the D-07 change + DB verification/remediation/design docs below; local only, no remote configured) |
 | WhizdomLift vendored copy | branch `feature/lms-ng-revise-v2`, commit `5a2fb55` — the draft.2 re-vendor, committed **locally only** (`aba4310` remains the last commit actually **pushed** to `origin`); no push instruction was given this turn, see section 9 |
 
 ## 2. Decision table D-01 through D-13 — final, for `2.0.0-draft.2`
