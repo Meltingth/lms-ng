@@ -1,0 +1,50 @@
+[
+  {
+    "testId": "C01",
+    "description": "Baseline inventory does not lose S2/S3; diff covers required topics",
+    "result": "PASS",
+    "detail": "S2/S3 present; diff document covers all 11 required topics"
+  },
+  {
+    "testId": "C02",
+    "description": "Python/Node schema parity across all fixtures",
+    "result": "PASS",
+    "detail": ""
+  },
+  {
+    "testId": "C03",
+    "description": "Object closure: valid payload passes, extra field rejected by closure",
+    "result": "PASS",
+    "detail": "valid fixture valid=True errors=[]; extra-property fixture valid=False errors=[\"[]: Unevaluated properties are not allowed ('tripCount' was unexpected)\"]"
+  },
+  {
+    "testId": "C04",
+    "description": "streamSeq is a decimal string; JS-unsafe integers never silently truncate",
+    "result": "PASS",
+    "detail": "number-typed streamSeq rejected=True (errors=[\"[]: Unevaluated properties are not allowed ('bootId', 'clockQuality', 'eventTime', 'gatewayId', 'messageId', 'observedAt', 'organizationId', 'origin', 'producerEpoch', 'producerId', 'schemaVersion', 'siteId', 'streamId', 'streamSeq' were unexpected)\", \"['streamSeq']: 184221 is not of type 'string'\"]); string-typed streamSeq accepted=True; int64 max representable and compared correctly=True; overflow value (9223372036854775808) caught by numeric range check=True"
+  },
+  {
+    "testId": "C05",
+    "description": "elevatorId=null rejected for a state message (non-null required)",
+    "result": "PASS",
+    "detail": "correctly rejected"
+  },
+  {
+    "testId": "C06",
+    "description": "Contract bundle stays DRAFT and unapproved unless a human approves it",
+    "result": "PASS",
+    "detail": "RELEASE_MANIFEST.json status='DRAFT' approvedBy=None approvedAt=None; contracts/VERSION='2.0.0-draft.1' matches manifest.version=True"
+  },
+  {
+    "testId": "C07",
+    "description": "Floor seeds/evidence: passenger 46/43, W-05 47->44 with 3..46 uncalibrated",
+    "result": "PASS",
+    "detail": "OK  WHZ-PAX has 46 codes\nOK  WHZ-PAX has 43 landings\nOK  WHZ-PAX anchors match exactly\nOK  WHZ-SERVICE has exactly 3 calibrated codes\nOK  WHZ-SERVICE calibrated = {1:B1, 2:1, 47:44}"
+  },
+  {
+    "testId": "C08",
+    "description": "ACK/presence schema exceptions: no fake occurredAt, ACK fields correct",
+    "result": "PASS",
+    "detail": "LWT presence valid=True (errors=[]), no occurredAt field=True; fake-occurredAt fixture correctly rejected=True (errors=[\"[]: Unevaluated properties are not allowed ('occurredAt' was unexpected)\"]); ack fixture valid=True (errors=[])"
+  }
+]

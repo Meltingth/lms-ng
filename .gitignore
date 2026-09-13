@@ -1,0 +1,12 @@
+# Local, isolated dev environment for this round (plan section 0.3 / MACHINE_CAPABILITIES.md
+# section 3) -- never committed, never touches system site-packages or the Edge's vendor/.
+.venv/
+node_modules/
+
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# npm
+# package-lock.json is TRACKED intentionally (reproducible installs) -- do not add it here.

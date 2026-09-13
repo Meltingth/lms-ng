@@ -1,0 +1,30 @@
+[
+  {
+    "file": "database\\migrations\\0001_schema_v2_draft.sql",
+    "result": "PASS",
+    "detail": "sqlglot-static: 45 statements parsed under dialect=postgres; 1 fell back to untyped 'Command' parsing (syntax sqlglot does not model -- listed below, not a failure but not a real grammar check either)",
+    "statements": 45,
+    "errors": [],
+    "unmodeled_fallbacks": [
+      "'CREATE EXTENSION IF NOT EXISTS pgcrypto' contains unsupported syntax. Falling back to parsing as a 'Command'."
+    ]
+  },
+  {
+    "file": "database\\seeds\\whz.sql",
+    "result": "PASS",
+    "detail": "sqlglot-static: 18 statements parsed under dialect=postgres; 1 fell back to untyped 'Command' parsing (syntax sqlglot does not model -- listed below, not a failure but not a real grammar check either)",
+    "statements": 18,
+    "errors": [],
+    "unmodeled_fallbacks": [
+      "'DO $$\nBEGIN\n    ASSERT (SELECT count(*) FROM core.floor_mapping WHERE profile_id = 'WHZ-PAX' AND ver' contains unsupported syntax. Falling back to parsing as a 'Command'."
+    ]
+  },
+  {
+    "file": "database\\seeds\\test.sql",
+    "result": "PASS",
+    "detail": "sqlglot-static: 8 statements parsed under dialect=postgres",
+    "statements": 8,
+    "errors": [],
+    "unmodeled_fallbacks": []
+  }
+]

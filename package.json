@@ -1,0 +1,12 @@
+{
+  "name": "lms-ng",
+  "private": true,
+  "version": "0.0.0",
+  "description": "LMS-NG platform monorepo (contracts round: validators only)",
+  "type": "module",
+  "engines": { "node": ">=16.20.2" },
+  "devDependencies": {
+    "ajv": "8.17.1",
+    "ajv-formats": "3.0.1"
+  }
+}

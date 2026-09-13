@@ -1,0 +1,80 @@
+{
+  "planId": "LMS-NG-WHZ-REVISE-2.0",
+  "currentPhase": "A-DRAFT",
+  "status": "A-DRAFT_COMPLETE_STOPPED_AT_G-A",
+  "machineRole": "development-machine (also the Gateway PC, GW-WHZ-01, per Backend Plan v1.3 section 1)",
+  "edgeCommit": null,
+  "edgeCommitNote": "D:\\WhizdomLift-wt\\feature-lms-ng-revise-v2, branch feature/lms-ng-revise-v2. Left null rather than guessed: this file is committed as part of this round's own commit, so it cannot name that commit's hash in advance (the same chicken-and-egg RELEASE_MANIFEST.json documents about not hashing itself). Run `git -C D:\\WhizdomLift-wt\\feature-lms-ng-revise-v2 log -1` for the real value; the PRE-0 commit immediately before this round's A-DRAFT commit is 7c4e80b.",
+  "platformCommit": null,
+  "platformCommitNote": "D:\\lms-ng, branch main, no remote configured (REMOTE_UNAVAILABLE -- see docs/preflight/BASELINE_INVENTORY.md section 1). Same reason as edgeCommitNote: left null rather than guessed. Run `git -C D:\\lms-ng log -1` for the real value.",
+  "contractVersion": "2.0.0-draft.1",
+  "contractHash": "sha256:c80b2a1889d0ce8ce56f0f5e8c87634fbe43a37be340d42633c8d854ea5ae225",
+  "contractHashMethod": "scripts/contracts-hash.ps1 -- SHA-256 over every file under contracts/ except RELEASE_MANIFEST.json and SOURCE.md, LF-normalised, combined via a sorted relpath:hash manifest. Reproduced identically by three independent implementations (contracts-hash.ps1, WhizdomLift's sync-contracts.ps1, and a from-scratch Python reimplementation in WhizdomLift/tests/test_contracts.py) before being recorded here -- see docs/decisions/G-A_DECISION_PACKET.md section 7.1 for a real ordinal-sort bug this cross-check caught and the fix that made all three agree.",
+  "lastCompletedStep": "A-DRAFT: contracts candidate 2.0.0-draft.1 drafted (MQTT/JSON-Schema/OpenAPI/UI-enums/PostgreSQL migration+seed draft), cross-validated (C01-C08 PASS=8 FAIL=0 BLOCKED=0), vendored into the WhizdomLift feature worktree with an independent hash-parity check, G-A decision packet written. Stopped here per the plan's explicit instruction, awaiting owner approval.",
+  "testResults": [
+    { "testId": "C01", "phase": "A-DRAFT", "result": "PASS", "evidencePath": "docs/evidence/contract_test_results.json" },
+    { "testId": "C02", "phase": "A-DRAFT", "result": "PASS", "evidencePath": "docs/evidence/contract_test_results.json" },
+    { "testId": "C03", "phase": "A-DRAFT", "result": "PASS", "evidencePath": "docs/evidence/contract_test_results.json" },
+    { "testId": "C04", "phase": "A-DRAFT", "result": "PASS", "evidencePath": "docs/evidence/contract_test_results.json" },
+    { "testId": "C05", "phase": "A-DRAFT", "result": "PASS", "evidencePath": "docs/evidence/contract_test_results.json" },
+    { "testId": "C06", "phase": "A-DRAFT", "result": "PASS", "evidencePath": "docs/evidence/contract_test_results.json" },
+    { "testId": "C07", "phase": "A-DRAFT", "result": "PASS", "evidencePath": "docs/evidence/contract_test_results.json" },
+    { "testId": "C08", "phase": "A-DRAFT", "result": "PASS", "evidencePath": "docs/evidence/contract_test_results.json" },
+    { "testId": "SQL-LINT", "phase": "A-DRAFT", "result": "PASS", "evidencePath": "docs/evidence/sql_lint_results.json", "caveat": "sqlglot-static, weaker than a real Postgres-grammar parse -- pglast (original candidate) failed to build, no C/C++ toolchain on this machine" },
+    { "testId": "TREE-HASH-REPRO", "phase": "A-DRAFT", "result": "PASS", "evidencePath": "docs/evidence/validate_contracts_results.json", "caveat": "PASS only after fixing a real Sort-Object-is-not-ordinal bug this cross-check caught -- see G-A packet section 7.1" },
+    { "testId": "SYNC-CHECK", "phase": "A-DRAFT", "result": "PASS", "evidencePath": "WhizdomLift-wt/.../scripts/sync-contracts.ps1 -Check output", "caveat": "deliberately tampered one vendored file mid-round to confirm -Check actually detects drift before recording this as PASS" },
+    { "testId": "SECRET-SCAN", "phase": "A-DRAFT", "result": "PASS", "evidencePath": "docs/evidence/A-DRAFT_report.md", "caveat": "1 match reviewed and confirmed benign (an OpenAPI schema type declaration, not a literal credential)" }
+  ],
+  "blockedItems": [
+    {
+      "item": "dbmate up against a live Postgres 16",
+      "reason": "Dell (LMS-SRV) unreachable from this session -- DELL_TESTS_BLOCKED, docs/preflight/MACHINE_CAPABILITIES.md section 5. Only sqlglot-static syntax parsing ran."
+    },
+    {
+      "item": "Whether a private lms-ng GitHub repo already exists under another account/org",
+      "reason": "No GitHub token this session. An unauthenticated 404 on api.github.com/repos/Meltingth/lms-ng does not distinguish 'does not exist' from 'exists, private, no token to see it' -- docs/preflight/BASELINE_INVENTORY.md section 1.1. Resolve before D:\\lms-ng ever gets a remote."
+    },
+    {
+      "item": "Per-lift capture stop mechanism",
+      "reason": "log_lift.py implements exactly one stop mechanism (a single global STOP_CAPTURE file that stops every lift sharing that directory) -- contradicts revision R04. Not designed or attempted this round; blocks P2-CANARY regardless of G-A's outcome until Deliverable B/P1-OFFLINE closes it."
+    },
+    {
+      "item": "All TEST_MATRIX.md tests outside C01-C08 (G01-G15, I01-I12, O01-O06, S01-S05, U01-U12, P01-P09, F01-F05)",
+      "reason": "Require the Dell, a running MQTT broker/Postgres/Redis, or an authorized field window -- none exist/are authorized in PRE-0/A-DRAFT scope. beforeCanary=true on most of these means they must pass before G-C, not that they were expected to run this round."
+    }
+  ],
+  "nextAllowedAction": "STOP at Gate G-A. Hand docs/decisions/G-A_DECISION_PACKET.md to the owner for review. Do NOT proceed to P0-SERVER, P1-OFFLINE, or P1-SHADOW until the owner records explicit approval (approvedBy/approvedAt filled in by the owner, never inferred or defaulted by this repository). Approving G-A authorizes contract candidate 2.0.0-draft.1 as a basis for P0-SERVER/P1-OFFLINE/P1-SHADOW/HUD-CORE/P2-TEST work only -- it does NOT authorize G-C (single-lift canary) or G-R (fleet rollout), each of which needs its own separate, explicit authorization per the plan.",
+  "gates": {
+    "G-A": {
+      "status": "AWAITING_OWNER_DECISION",
+      "approvedBy": null,
+      "approvedAt": null,
+      "evidenceRef": "docs/decisions/G-A_DECISION_PACKET.md"
+    },
+    "G-U": {
+      "status": "PENDING",
+      "approvedBy": null,
+      "approvedAt": null,
+      "evidenceRef": null
+    },
+    "G-C": {
+      "status": "PENDING",
+      "approvedBy": null,
+      "approvedAt": null,
+      "evidenceRef": null
+    },
+    "G-R": {
+      "status": "PENDING",
+      "approvedBy": null,
+      "approvedAt": null,
+      "evidenceRef": null
+    },
+    "G-H": {
+      "status": "PENDING",
+      "approvedBy": null,
+      "approvedAt": null,
+      "evidenceRef": null
+    }
+  },
+  "updatedAt": "2026-09-13T22:00:00+07:00"
+}

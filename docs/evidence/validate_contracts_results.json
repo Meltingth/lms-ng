@@ -1,0 +1,21 @@
+﻿[
+    {
+        "step":  1,
+        "description":  "C01-C08 contract schema tests (Python jsonschema + Node ajv parity)",
+        "exitCode":  0,
+        "result":  "PASS"
+    },
+    {
+        "step":  2,
+        "description":  "sqlglot-static SQL syntax lint (migration + seeds)",
+        "exitCode":  0,
+        "result":  "PASS"
+    },
+    {
+        "step":  3,
+        "description":  "Reproducible contracts/ tree hash",
+        "exitCode":  0,
+        "result":  "PASS",
+        "treeHash":  "sha256:c80b2a1889d0ce8ce56f0f5e8c87634fbe43a37be340d42633c8d854ea5ae225"
+    }
+]
