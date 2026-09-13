@@ -7,6 +7,33 @@ recordedAt: 2026-09-13
 
 # Design requirement: per-lift capture ownership/hold, without touching `log_lift.py`
 
+**Updated 2026-09-13 (G-A review round 2)** — the owner reaffirmed this requirement and gave an
+explicit six-item capability list. Traceability table added below; the design itself (further
+down this document) is unchanged, since it already covered five of the six and the sixth
+("rollback health verification") is now called out as its own explicit bullet rather than left
+implicit inside the rollback command's description.
+
+## Required capabilities — owner's explicit list, mapped to this design
+
+| # | Owner's requirement (verbatim intent) | Where this design covers it |
+|---|---|---|
+| 1 | HOLD เฉพาะหนึ่ง lift (hold exactly one lift) | "Required shape" item 1 — per-lift hold marker, never a single global flag |
+| 2 | Verified PID/ownership before stopping | "Required shape" item 2 |
+| 3 | Scheduled Task ไม่ restart logger ตัวที่ HOLD (the Scheduled Task must not restart a held logger) | "Required shape" item 4, "Watchdog awareness" |
+| 4 | lift อื่นยัง capture ต่อ (the other lifts keep capturing) | "Required shape" item 3, third bullet — the rollback command "does NOT touch the other three lifts' running processes, PID files, or hold markers at any point" |
+| 5 | known-good logger rollback ไม่ import module ใหม่ (rollback never imports a new module) | "Explicit constraint" section, and "Required shape" item 3, second bullet — restarts from the immutable release copy's own vendored `pyserial`, not a new dependency |
+| 6 | **Rollback health verification** | **New, explicit below** — was previously only implied inside the rollback command's description; now its own requirement |
+
+**Requirement 6, made explicit:** after a per-lift rollback restarts the known-good logger, the
+control-plane layer must independently confirm that lift is actually healthy before considering
+the rollback complete — not merely that the process started. The existing
+`capture_status.py`/`lift_health.py` tools already define what "healthy" means for a lift
+(`CAPTURING` vs `STALE` vs `DEGRADED`, per CLAUDE.md's own tool table) and should be the
+verification mechanism reused here, called against the one rolled-back lift specifically, not
+assumed from "the process is still running" alone (a process can be running and stalled —
+CLAUDE.md's own `STALL` vs `RESTART` distinction in `board_alive.py` exists for exactly this
+reason).
+
 **This document records a requirement. It implements nothing.** No code in this repository or
 in the WhizdomLift feature worktree implements this mechanism. It is out of scope until G-A is
 approved and P1-OFFLINE is reached, and even then it is design/build work, not something this
@@ -78,5 +105,7 @@ existing G01-G15 group — specifically: holding lift N does not affect lifts M�
 state; a hold + rollback cycle on lift N, executed while the other three keep capturing,
 produces zero gap in their logs; the watchdog does not restart a held lift; the rollback
 command's port-release check genuinely blocks on the OS actually releasing the handle, not on a
-fixed sleep. These are not written this round — recorded here so P1-OFFLINE's test plan does
-not have to rediscover them from scratch.
+fixed sleep; **and — requirement 6 — a rollback that restarts a process but leaves it `STALE`
+or `DEGRADED` (per `capture_status.py`'s own classification) must be reported as an incomplete
+rollback, not silently treated as done because the process exists.** These are not written this
+round — recorded here so P1-OFFLINE's test plan does not have to rediscover them from scratch.

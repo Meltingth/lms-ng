@@ -44,8 +44,10 @@ Approval evidence and scope (null if pending): null — none requested this phas
 
 ## Remaining work and risks
 BLOCKED:
-- No PostgreSQL schema baseline and no UI-enums baseline exist anywhere reachable this round
-  (`BASELINE_INVENTORY.md` §2) — carried into A-DRAFT as "drafted from prose, not diffed."
+- No PostgreSQL schema baseline and no UI-enums baseline were found within the inspected
+  repositories, this machine's local filesystem, and the supplied revision-pack artifacts;
+  the Dell/server environment was not inspected (`BASELINE_INVENTORY.md` §2) — carried into
+  A-DRAFT as "drafted from prose, not diffed."
 - Whether a private `lms-ng` GitHub repo already exists cannot be resolved without a GitHub
   token (`BASELINE_INVENTORY.md` §1.1) — open item for the owner, tracked in the G-A packet.
 - Per-lift capture stop does not exist (`log_lift.py`'s only stop mechanism is the single

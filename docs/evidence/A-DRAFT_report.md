@@ -101,9 +101,13 @@ P01-P09, F01-F05) — all require the Dell, a running broker/DB, or an authorize
 none of which exist/are authorized in this round. `beforeCanary=true` on most of these means
 "must exist and pass before G-C," not "expected this round."
 Accepted risks (owner / scope / expiry): none accepted this round — nothing live changed, so
-there is nothing to accept risk on yet. Two open decisions are recorded as **owner input needed**,
-not as accepted risk: REST base path `/api/v1` reuse (no deployed v1 consumer found, but this
-round's search may not be exhaustive) and the `lms-ng` repo-existence ambiguity above.
+there is nothing to accept risk on yet. Two open decisions were recorded as **owner input
+needed**, not as accepted risk: REST base path `/api/v1` reuse (no deployed v1 consumer found
+within the repositories, this machine's local filesystem, and the supplied artifacts this
+round could inspect — the Dell/server environment and the excluded `LMS-NG Live Dashboard.html`
+were not reached) and the `lms-ng` repo-existence ambiguity above. **Addendum, resolved by the
+owner during G-A review: base path changed to `/api/v2` — see "Addendum: candidate 2.0.0-draft.2"
+at the end of this report.**
 
 ## Next permitted action
 Exact next phase/step: **STOP at Gate G-A.** Hand `docs/decisions/G-A_DECISION_PACKET.md` to the

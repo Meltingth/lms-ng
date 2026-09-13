@@ -1,52 +1,58 @@
 {
   "planId": "LMS-NG-WHZ-REVISE-2.0",
   "currentPhase": "A-DRAFT",
-  "status": "A-DRAFT_COMPLETE_STOPPED_AT_G-A",
+  "status": "WAITING_FOR_G-A",
   "machineRole": "development-machine (also the Gateway PC, GW-WHZ-01, per Backend Plan v1.3 section 1)",
-  "edgeCommit": null,
-  "edgeCommitNote": "D:\\WhizdomLift-wt\\feature-lms-ng-revise-v2, branch feature/lms-ng-revise-v2. Left null rather than guessed: this file is committed as part of this round's own commit, so it cannot name that commit's hash in advance (the same chicken-and-egg RELEASE_MANIFEST.json documents about not hashing itself). Run `git -C D:\\WhizdomLift-wt\\feature-lms-ng-revise-v2 log -1` for the real value; the PRE-0 commit immediately before this round's A-DRAFT commit is 7c4e80b.",
-  "platformCommit": null,
-  "platformCommitNote": "D:\\lms-ng, branch main, no remote configured (REMOTE_UNAVAILABLE -- see docs/preflight/BASELINE_INVENTORY.md section 1). Same reason as edgeCommitNote: left null rather than guessed. Run `git -C D:\\lms-ng log -1` for the real value.",
-  "contractVersion": "2.0.0-draft.1",
-  "contractHash": "sha256:c80b2a1889d0ce8ce56f0f5e8c87634fbe43a37be340d42633c8d854ea5ae225",
-  "contractHashMethod": "scripts/contracts-hash.ps1 -- SHA-256 over every file under contracts/ except RELEASE_MANIFEST.json and SOURCE.md, LF-normalised, combined via a sorted relpath:hash manifest. Reproduced identically by three independent implementations (contracts-hash.ps1, WhizdomLift's sync-contracts.ps1, and a from-scratch Python reimplementation in WhizdomLift/tests/test_contracts.py) before being recorded here -- see docs/decisions/G-A_DECISION_PACKET.md section 7.1 for a real ordinal-sort bug this cross-check caught and the fix that made all three agree.",
-  "lastCompletedStep": "A-DRAFT: contracts candidate 2.0.0-draft.1 drafted (MQTT/JSON-Schema/OpenAPI/UI-enums/PostgreSQL migration+seed draft), cross-validated (C01-C08 PASS=8 FAIL=0 BLOCKED=0), vendored into the WhizdomLift feature worktree with an independent hash-parity check, G-A decision packet written. Stopped here per the plan's explicit instruction, awaiting owner approval.",
+  "edgeCommit": "5a2fb55",
+  "edgeCommitNote": "D:\\WhizdomLift-wt\\feature-lms-ng-revise-v2, branch feature/lms-ng-revise-v2. 5a2fb55 = the draft.2 re-vendor commit (LOCAL ONLY, not pushed -- no push instruction was given this turn). Last PUSHED commit remains aba4310. Run `git -C D:\\WhizdomLift-wt\\feature-lms-ng-revise-v2 log --oneline -3` and `git status` to confirm current state before assuming either value.",
+  "platformCommit": "2881d70",
+  "platformCommitNote": "D:\\lms-ng, branch main, no remote configured (REMOTE_UNAVAILABLE -- see docs/preflight/BASELINE_INVENTORY.md section 1). 2881d70 is the last commit made this round (candidate 2.0.0-draft.2 + DB verification/remediation/design docs). Run `git -C D:\\lms-ng log -1` to confirm current.",
+  "contractVersion": "2.0.0-draft.2",
+  "contractHash": "sha256:ed2414fb8e830a9c281499c9a5cff8ba441668acb5b98fbb2265a6da5e4d18b3",
+  "supersedesContractVersion": "2.0.0-draft.1",
+  "supersedesContractHash": "sha256:c80b2a1889d0ce8ce56f0f5e8c87634fbe43a37be340d42633c8d854ea5ae225 (retired -- REST base path reversed to /api/v2 per owner decision; not reused)",
+  "contractHashMethod": "scripts/contracts-hash.ps1 -- SHA-256 over every file under contracts/ except RELEASE_MANIFEST.json and SOURCE.md, LF-normalised, combined via a sorted relpath:hash manifest, ordinal-sorted via [System.StringComparer]::Ordinal. Reproduced identically by three independent implementations (contracts-hash.ps1, WhizdomLift's sync-contracts.ps1, and a from-scratch Python reimplementation in WhizdomLift/tests/test_contracts.py) both for draft.1 and again for draft.2 -- see docs/decisions/G-A_DECISION_PACKET.md section 5 for this round's rerun and the tamper-detection re-test.",
+  "lastCompletedStep": "G-A review round 2: owner rejected draft.1's REST base-path decision (D-07), required /api/v2; contract bumped to 2.0.0-draft.2, hash recomputed and cross-checked 3 ways plus tamper-detection re-test, C01-C08 rerun PASS=8. Evidence-wording corrected throughout preflight/decision docs per owner instruction. PostgreSQL 16 execution evidence still owed (Dell unreachable, confirmed again this round; no Docker/Postgres run on Gateway to work around it) -- docs/decisions/DB_VERIFICATION_STATUS.md. Operational-log remediation plan written, not executed. P2-CANARY design requirement updated with explicit 6-item traceability table. G-A still WAITING_FOR_G-A.",
   "testResults": [
-    { "testId": "C01", "phase": "A-DRAFT", "result": "PASS", "evidencePath": "docs/evidence/contract_test_results.json" },
-    { "testId": "C02", "phase": "A-DRAFT", "result": "PASS", "evidencePath": "docs/evidence/contract_test_results.json" },
-    { "testId": "C03", "phase": "A-DRAFT", "result": "PASS", "evidencePath": "docs/evidence/contract_test_results.json" },
-    { "testId": "C04", "phase": "A-DRAFT", "result": "PASS", "evidencePath": "docs/evidence/contract_test_results.json" },
-    { "testId": "C05", "phase": "A-DRAFT", "result": "PASS", "evidencePath": "docs/evidence/contract_test_results.json" },
-    { "testId": "C06", "phase": "A-DRAFT", "result": "PASS", "evidencePath": "docs/evidence/contract_test_results.json" },
-    { "testId": "C07", "phase": "A-DRAFT", "result": "PASS", "evidencePath": "docs/evidence/contract_test_results.json" },
-    { "testId": "C08", "phase": "A-DRAFT", "result": "PASS", "evidencePath": "docs/evidence/contract_test_results.json" },
-    { "testId": "SQL-LINT", "phase": "A-DRAFT", "result": "PASS", "evidencePath": "docs/evidence/sql_lint_results.json", "caveat": "sqlglot-static, weaker than a real Postgres-grammar parse -- pglast (original candidate) failed to build, no C/C++ toolchain on this machine" },
-    { "testId": "TREE-HASH-REPRO", "phase": "A-DRAFT", "result": "PASS", "evidencePath": "docs/evidence/validate_contracts_results.json", "caveat": "PASS only after fixing a real Sort-Object-is-not-ordinal bug this cross-check caught -- see G-A packet section 7.1" },
-    { "testId": "SYNC-CHECK", "phase": "A-DRAFT", "result": "PASS", "evidencePath": "WhizdomLift-wt/.../scripts/sync-contracts.ps1 -Check output", "caveat": "deliberately tampered one vendored file mid-round to confirm -Check actually detects drift before recording this as PASS" },
-    { "testId": "SECRET-SCAN", "phase": "A-DRAFT", "result": "PASS", "evidencePath": "docs/evidence/A-DRAFT_report.md", "caveat": "1 match reviewed and confirmed benign (an OpenAPI schema type declaration, not a literal credential)" }
+    { "testId": "C01", "phase": "A-DRAFT", "result": "PASS", "evidencePath": "docs/evidence/contract_test_results.json", "note": "rerun against 2.0.0-draft.2 bytes" },
+    { "testId": "C02", "phase": "A-DRAFT", "result": "PASS", "evidencePath": "docs/evidence/contract_test_results.json", "note": "rerun against 2.0.0-draft.2 bytes" },
+    { "testId": "C03", "phase": "A-DRAFT", "result": "PASS", "evidencePath": "docs/evidence/contract_test_results.json", "note": "rerun against 2.0.0-draft.2 bytes" },
+    { "testId": "C04", "phase": "A-DRAFT", "result": "PASS", "evidencePath": "docs/evidence/contract_test_results.json", "note": "rerun against 2.0.0-draft.2 bytes" },
+    { "testId": "C05", "phase": "A-DRAFT", "result": "PASS", "evidencePath": "docs/evidence/contract_test_results.json", "note": "rerun against 2.0.0-draft.2 bytes" },
+    { "testId": "C06", "phase": "A-DRAFT", "result": "PASS", "evidencePath": "docs/evidence/contract_test_results.json", "note": "rerun against 2.0.0-draft.2 bytes" },
+    { "testId": "C07", "phase": "A-DRAFT", "result": "PASS", "evidencePath": "docs/evidence/contract_test_results.json", "note": "rerun against 2.0.0-draft.2 bytes" },
+    { "testId": "C08", "phase": "A-DRAFT", "result": "PASS", "evidencePath": "docs/evidence/contract_test_results.json", "note": "rerun against 2.0.0-draft.2 bytes" },
+    { "testId": "SQL-LINT", "phase": "A-DRAFT", "result": "PASS", "evidencePath": "docs/evidence/sql_lint_results.json", "caveat": "sqlglot-static, weaker than a real Postgres-grammar parse -- pglast failed to build, no C/C++ toolchain on this machine. No SQL file changed this round; result unchanged from draft.1." },
+    { "testId": "TREE-HASH-REPRO", "phase": "A-DRAFT", "result": "PASS", "evidencePath": "docs/evidence/validate_contracts_results.json", "note": "recomputed for draft.2; 3 independent implementations agree on sha256:ed2414fb..." },
+    { "testId": "SYNC-CHECK", "phase": "A-DRAFT", "result": "PASS", "evidencePath": "WhizdomLift-wt/.../scripts/sync-contracts.ps1 -Check output", "caveat": "tamper-detection re-tested this round for draft.2 specifically: tampered VERSION, confirmed MISMATCH exit 1, restored, reconfirmed clean" },
+    { "testId": "DB-STATIC-LINT-ONLY", "phase": "A-DRAFT", "result": "PASS", "evidencePath": "docs/decisions/DB_VERIFICATION_STATUS.md", "caveat": "static only -- every DB-execution row in that document is BLOCKED, not PASS; Dell unreachable, confirmed again this round" }
   ],
   "blockedItems": [
     {
-      "item": "dbmate up against a live Postgres 16",
-      "reason": "Dell (LMS-SRV) unreachable from this session -- DELL_TESTS_BLOCKED, docs/preflight/MACHINE_CAPABILITIES.md section 5. Only sqlglot-static syntax parsing ran."
+      "item": "PostgreSQL 16 execution evidence (fresh migration, WHZ seed, TEST seed, seed rerun/idempotency, constraints/assertions execution, transaction/rollback behavior, migration status/version table)",
+      "reason": "Dell (LMS-SRV) unreachable from this session -- confirmed again this round via ping/nslookup (both fail) and ARP table (only the local router visible). No Docker/Postgres started on this Gateway to work around it, per explicit owner instruction. Full itemized status: docs/decisions/DB_VERIFICATION_STATUS.md. G-A stays blocked on this axis until real evidence exists from the Dell or another explicitly authorized non-Gateway scratch environment."
     },
     {
       "item": "Whether a private lms-ng GitHub repo already exists under another account/org",
-      "reason": "No GitHub token this session. An unauthenticated 404 on api.github.com/repos/Meltingth/lms-ng does not distinguish 'does not exist' from 'exists, private, no token to see it' -- docs/preflight/BASELINE_INVENTORY.md section 1.1. Resolve before D:\\lms-ng ever gets a remote."
+      "reason": "No GitHub token this session. An unauthenticated 404 on api.github.com/repos/Meltingth/lms-ng does not distinguish 'not found within this session's reach' from 'exists, private, no token to see it' -- docs/preflight/BASELINE_INVENTORY.md section 1.1. Resolve before D:\\lms-ng ever gets a remote."
     },
     {
       "item": "Per-lift capture stop mechanism",
-      "reason": "log_lift.py implements exactly one stop mechanism (a single global STOP_CAPTURE file that stops every lift sharing that directory) -- contradicts revision R04. Not designed or attempted this round; blocks P2-CANARY regardless of G-A's outcome until Deliverable B/P1-OFFLINE closes it."
+      "reason": "log_lift.py implements exactly one stop mechanism (a single global STOP_CAPTURE file that stops every lift sharing that directory) -- contradicts revision R04. Design requirement recorded and updated this round with an explicit 6-item capability traceability table (docs/decisions/P2-CANARY_PERLIFT_STOP_DESIGN_REQUIREMENT.md); still not implemented. Blocks P2-CANARY regardless of G-A's outcome until P1-OFFLINE builds and tests it."
+    },
+    {
+      "item": "Operational log tracking policy (WhizdomLift CLAUDE.md 'publish everything' vs. LMS-NG plan R17)",
+      "reason": "Owner decided this round: stop pushing further capture_lift_*.log/capture_launcher.log growth, no history rewrite, no local file deletion. A remediation plan is written (docs/decisions/OPERATIONAL_LOG_REMEDIATION_PLAN.md) but not executed. The underlying conflict between the two standing rules is flagged, not resolved."
     },
     {
       "item": "All TEST_MATRIX.md tests outside C01-C08 (G01-G15, I01-I12, O01-O06, S01-S05, U01-U12, P01-P09, F01-F05)",
       "reason": "Require the Dell, a running MQTT broker/Postgres/Redis, or an authorized field window -- none exist/are authorized in PRE-0/A-DRAFT scope. beforeCanary=true on most of these means they must pass before G-C, not that they were expected to run this round."
     }
   ],
-  "nextAllowedAction": "STOP at Gate G-A. Hand docs/decisions/G-A_DECISION_PACKET.md to the owner for review. Do NOT proceed to P0-SERVER, P1-OFFLINE, or P1-SHADOW until the owner records explicit approval (approvedBy/approvedAt filled in by the owner, never inferred or defaulted by this repository). Approving G-A authorizes contract candidate 2.0.0-draft.1 as a basis for P0-SERVER/P1-OFFLINE/P1-SHADOW/HUD-CORE/P2-TEST work only -- it does NOT authorize G-C (single-lift canary) or G-R (fleet rollout), each of which needs its own separate, explicit authorization per the plan.",
+  "nextAllowedAction": "WAIT_FOR_OWNER_G-A. Hand docs/decisions/G-A_DECISION_PACKET.md (round 2, candidate 2.0.0-draft.2) to the owner for review. Do NOT proceed to P0-SERVER, P1-OFFLINE, or P1-SHADOW until the owner records explicit approval (approvedBy/approvedAt filled in by the owner, never inferred or defaulted by this repository). Do NOT treat any static-lint PASS as PostgreSQL execution evidence. Approving G-A authorizes contract candidate 2.0.0-draft.2 as a basis for P0-SERVER/P1-OFFLINE/P1-SHADOW/HUD-CORE/P2-TEST work only -- it does NOT authorize G-C (single-lift canary), G-R (fleet rollout), or constitute PostgreSQL execution evidence, each of which needs its own separate, explicit step.",
   "gates": {
     "G-A": {
-      "status": "AWAITING_OWNER_DECISION",
+      "status": "WAITING_FOR_G-A",
       "approvedBy": null,
       "approvedAt": null,
       "evidenceRef": "docs/decisions/G-A_DECISION_PACKET.md"
@@ -76,5 +82,5 @@
       "evidenceRef": null
     }
   },
-  "updatedAt": "2026-09-13T22:00:00+07:00"
+  "updatedAt": "2026-09-13T23:00:00+07:00"
 }

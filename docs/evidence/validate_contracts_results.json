@@ -16,6 +16,6 @@
         "description":  "Reproducible contracts/ tree hash",
         "exitCode":  0,
         "result":  "PASS",
-        "treeHash":  "sha256:c80b2a1889d0ce8ce56f0f5e8c87634fbe43a37be340d42633c8d854ea5ae225"
+        "treeHash":  "sha256:ed2414fb8e830a9c281499c9a5cff8ba441668acb5b98fbb2265a6da5e4d18b3"
     }
 ]

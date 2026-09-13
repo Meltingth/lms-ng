@@ -4,21 +4,26 @@ phaseId: PRE-0 / A-DRAFT
 status: DRAFT
 preparedAt: 2026-09-13T21:00:00+07:00
 baselineSource: "reference/legacy-contracts/LMS_NG_MQTT_Topic_Specification_v1.yaml (S2), reference/legacy-contracts/LMS_NG_OpenAPI_v1.yaml (S3)"
-candidateVersion: "2.0.0-draft.1"
+candidateVersion: "2.0.0-draft.2"
+supersedesCandidate: "2.0.0-draft.1 (hash sha256:c80b2a1889d0ce8ce56f0f5e8c87634fbe43a37be340d42633c8d854ea5ae225, retired -- REST base path decision reversed, see section 5)"
 ---
 
-# Contract baseline diff — v1 baseline (S2/S3) vs. candidate 2.0.0-draft.1
+# Contract baseline diff — v1 baseline (S2/S3) vs. candidate 2.0.0-draft.2
 
 This compares the two legacy contract files shipped inside the revision pack against the
 candidate contracts this round drafts. Every row is KEEP, CHANGE, or REMOVE, with the reason
 and which test proves it. S2/S3 are read-only references (plan §A.0: "S2/S3 เป็น read-only
 references ไม่ใช่แฟ้มให้ rewrite") — nothing in `reference/` is edited by this round.
 
-**No PostgreSQL schema baseline exists to diff.** Searched the pack, WhizdomLift, and GitHub;
-none found (`BASELINE_INVENTORY.md` §2). `0001_schema_v2_draft.sql` in this round has no v1
-predecessor — it is drafted directly from Backend Plan §6 / revised plan §A.9 prose, not diffed
-against prior SQL. Likewise no UI-enums baseline file exists; the enum list is drafted from
-Backend Plan §5/§6/§13 and revised plan §A.11 directly.
+**No PostgreSQL schema baseline was found to diff against, within the scope this round could
+inspect.** Searched: the revision pack, the WhizdomLift repository, and the parts of GitHub
+reachable without an authentication token (an unauthenticated 404 does not prove a private
+repo doesn't exist elsewhere — `BASELINE_INVENTORY.md` §1.1). **Not inspected:** the Dell/server
+environment, and any location outside these repositories and this machine's local filesystem.
+`0001_schema_v2_draft.sql` in this round has no v1 predecessor found within that scope — it is
+drafted directly from Backend Plan §6 / revised plan §A.9 prose, not diffed against prior SQL.
+Likewise no UI-enums baseline file was found within the same scope; the enum list is drafted
+from Backend Plan §5/§6/§13 and revised plan §A.11 directly.
 
 ## 1. Topic root and identity scheme
 
@@ -75,7 +80,7 @@ Backend Plan §5/§6/§13 and revised plan §A.11 directly.
 
 | Aspect | v1 baseline (S3) | Candidate v2 | KEEP/CHANGE | Reason | Test |
 |---|---|---|---|---|---|
-| Base path | `/api/v1` | `/api/v1` **kept as-is** | **KEEP (explicit decision, not an oversight)** | Revised plan §A.0: "REST คง base `/api/v1` ได้เฉพาะเมื่อไม่มี deployed consumer ที่เข้ากันไม่ได้." This round's own `BASELINE_INVENTORY.md` §1 confirms no Platform API of any version has ever been deployed (no `lms-ng` repo, no running service) — there is no consumer to break, so keeping `/api/v1` rather than minting `/api/v2` avoids a pointless rename with zero compatibility benefit. If a real v1 API is ever found deployed somewhere this round didn't reach, this decision must be revisited before G-A closes. | (documented decision, no dedicated test — see G-A packet's open-question list) |
+| Base path | `/api/v1` | `/api/v2` (**decision D-07, reversed during G-A review — supersedes candidate `2.0.0-draft.1`'s "kept as `/api/v1`" choice**) | **CHANGE** | Original `draft.1` reasoning: revised plan §A.0 permits keeping `/api/v1` only when no incompatible deployed consumer exists, and PRE-0's search found no Platform API of any version deployed within the inspected repositories, this machine's local filesystem, and the supplied revision-pack artifacts — that search did not reach the Dell/server environment or the deliberately-excluded `LMS-NG Live Dashboard.html` (`BASELINE_INVENTORY.md` §2), so it was never strong enough on its own to justify reuse. **Owner decision (this round): a legacy v1 OpenAPI baseline already exists, this candidate changes multiple field semantics that are breaking regardless of base path, and the consumer search has unreached scope — so `/api/v2` is the safer default.** Recorded in `contracts/CHANGELOG.md`'s `2.0.0-draft.2` entry. | (owner decision, not a dedicated test — see G-A packet D-07) |
 | `ElevatorStatus.elevatorId` etc. | `format: uuid` | same | **KEEP** | Already aligned with the UUID-identity decision (§1 above). | C05 |
 | `ElevatorStatus.connectionState` enum | 6 values, no `PENDING_INSTALL`/`AWAITING_FRESH_PROOF` | extended per §4 above | **CHANGE** | See §4. | U05, O06 |
 | `ElevatorStatus.floorDisplay` | present, `type: [string, null]`, Backend-facing (this is the REST response, not the MQTT wire — so v1's REST shape having `floorDisplay` was already correct; only the *MQTT* payload was wrong, see §4) | kept, now explicitly documented as Backend-computed from `core.floor_mapping` with a `floorProfileVersion` alongside it | **KEEP (endpoint-shape), CHANGE (documentation/versioning)** | Confirms the v1 REST design already had the right idea for the API surface; the correction in this round is entirely on the MQTT side. | C07 |
@@ -102,8 +107,12 @@ Backend Plan §5/§6/§13 and revised plan §A.11 directly.
 
 ## 8. Summary counts
 
-- **KEEP:** 9 items (topic root pattern reused with v2 suffix, `direction` enum, `floorRaw` type, `floorDisplay` REST-side shape, `activeAlarmCount`, REST base path, `bearerAuth` scheme, heartbeat cadence/QoS, diagnostics topic role).
-- **CHANGE:** 19 items, the two most consequential being (a) the envelope's sequence/identity scheme (`bootId`+int → `streamId`/`producerEpoch`/`streamSeq` decimal string) and (b) removing `floorDisplay` from the Edge's MQTT payload, which corrects a real contradiction between the v1 baseline contract and this project's own governing documents rather than being a stylistic choice.
+Updated for candidate `2.0.0-draft.2` (REST base path decision reversed during G-A review —
+see §5's Base path row). Counts below reflect `draft.2`; `draft.1`'s now-superseded count had
+9 KEEP / 18 CHANGE.
+
+- **KEEP:** 8 items (topic root pattern reused with v2 suffix, `direction` enum, `floorRaw` type, `floorDisplay` REST-side shape, `activeAlarmCount`, `bearerAuth` scheme, heartbeat cadence/QoS, diagnostics topic role).
+- **CHANGE:** 20 items, the three most consequential being (a) the envelope's sequence/identity scheme (`bootId`+int → `streamId`/`producerEpoch`/`streamSeq` decimal string), (b) removing `floorDisplay` from the Edge's MQTT payload, which corrects a real contradiction between the v1 baseline contract and this project's own governing documents rather than being a stylistic choice, and (c) the REST base path moving from `/api/v1` to `/api/v2` (owner decision, `draft.2`).
 - **REMOVE:** 2 items (`telemetry/.../signals/{signalCode}` point-level topic; Edge-reported `tripCount`).
 - **NEW:** 7 items with no v1 precedent (`origin`, `clockQuality`, `sourceRef`, `motion`, `changes[]`, the full WS envelope, snapshot/delta reconciliation protocol).
 - **DEFER:** 2 items (command request/result topics, config desired/reported topics) — explicitly reasoned, not silently dropped.

@@ -33,7 +33,7 @@
     "testId": "C06",
     "description": "Contract bundle stays DRAFT and unapproved unless a human approves it",
     "result": "PASS",
-    "detail": "RELEASE_MANIFEST.json status='DRAFT' approvedBy=None approvedAt=None; contracts/VERSION='2.0.0-draft.1' matches manifest.version=True"
+    "detail": "RELEASE_MANIFEST.json status='DRAFT' approvedBy=None approvedAt=None; contracts/VERSION='2.0.0-draft.2' matches manifest.version=True"
   },
   {
     "testId": "C07",
