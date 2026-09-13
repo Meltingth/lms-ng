@@ -57,8 +57,14 @@ body { background: radial-gradient(ellipse at 20% 0, #13324866, transparent 42%)
 .elevator-car { position:absolute; width:72%; left:14%; height:50px; transform:translateY(50%); background:#153346; border:1px solid #7bd6f2; box-shadow:0 0 19px #49c3f324; }
 .elevator-car.interpolate { transition:bottom 1000ms cubic-bezier(.22,.61,.36,1); }
 .car-topline { height:4px; background:#83dcf2; box-shadow:0 0 13px #7fe2ff55; }
-.car-doors { display:flex; gap:3px; padding:5px 7px 1px; height:27px; }
-.car-doors span { width:50%; border:1px solid #437794; background:linear-gradient(120deg,#1e4d67,#173141); }
+.car-doors { position:relative; height:22px; margin:5px 7px 1px; overflow:hidden; border:1px solid #437794; background:radial-gradient(ellipse at 50% 100%,#38758f,#112a39 80%); }
+.door-panel { position:absolute; top:0; bottom:0; width:50%; border:1px solid #2b4a5e; background:linear-gradient(100deg,#07111a,#10212d); transform:translateX(0); }
+.door-panel-left { left:0; }.door-panel-right { right:0; }
+.doors-animate .door-panel { transition:transform 700ms cubic-bezier(.22,.61,.36,1); }
+.doors-open .door-panel-left { transform:translateX(-90%); }.doors-open .door-panel-right { transform:translateX(90%); }
+.doors-unknown .door-panel { background:repeating-linear-gradient(135deg,#1b2934,#1b2934 3px,#253b4a 3px,#253b4a 6px); border-color:#587082; }
+.door-unknown { position:absolute; inset:0; display:grid; place-items:center; font:13px Consolas,monospace; color:#b2c5d2; }
+.raw-car-icon { width:72%; height:50px; border:1px dashed #6b8495; background:#153346; flex-shrink:0; }
 .car-code { display:block; text-align:center; font:8px Consolas,monospace; color:#8ed8ee; letter-spacing:2px; }
 .last-known { position:absolute; bottom:7px; left:0; right:0; text-align:center; font:8px Consolas,monospace; color:var(--amber); letter-spacing:.4px; background:#171a1ddd; padding:3px 0; }
 .shaft-track.unplaced { background:repeating-linear-gradient(135deg,#1e304322 0,#1e304322 5px,transparent 5px,transparent 14px); border-color:#465b6d; }

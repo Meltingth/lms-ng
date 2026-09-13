@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { ElevatorDoors } from './ElevatorDoors';
 import { Badge, NumericDisplay, SectionHeading } from '@lms-ng/ui-kit';
 import { ConnectionBadge, FreshnessBadge } from '../monitoring/StatusBadges';
 import { toElevatorViewModel } from '../../model/viewModel';
@@ -33,8 +34,8 @@ export function ShaftOverview({ state, selectedId, onSelect, motionEnabled }: { 
         <div className={`shaft-track ${unplaced ? 'unplaced' : ''}`} aria-label={unplaced ? 'ไม่ทราบตำแหน่งชั้นอาคาร' : 'ตำแหน่ง schematic จาก displayAnchor'}>
           <div className="rail rail-left" /><div className="rail rail-right" />
           <div className="track-grid" aria-hidden="true">{Array.from({ length: 9 }, (_, n) => <span key={n} />)}</div>
-          {unplaced ? <div className="raw-code-track"><span>RAW CODE</span><strong>{vm.floorLabel}</strong><small>POSITION UNKNOWN</small><span className="raw-dashes">┆ ┆ ┆ ┆ ┆ ┆ ┆</span><small>ไม่มี anchor ที่ยืนยัน</small></div> : <div className="car-travel"><div className={`elevator-car ${animate ? 'interpolate' : ''}`} style={{ bottom: `${vm.positionAnchor! * 100}%` }} data-testid={`car-${lift.elevatorCode}`} data-confirmed-anchor={vm.positionAnchor} data-animating={animate}>
-            <div className="car-topline" /><div className="car-doors"><span /><span /></div><span className="car-code">{lift.elevatorCode}</span>
+          {unplaced ? <div className="raw-code-track"><span>RAW CODE</span><strong>{vm.floorLabel}</strong><small>POSITION UNKNOWN</small><div className="raw-car-icon" data-testid={`unplaced-icon-${lift.elevatorCode}`}><div className="car-topline" /><ElevatorDoors motion={lift.motion} current={vm.motionIsCurrent} animate={motionEnabled && !viewportResync} /><span className="car-code">{lift.elevatorCode}</span></div><small>ไม่มี anchor ที่ยืนยัน</small></div> : <div className="car-travel"><div className={`elevator-car ${animate ? 'interpolate' : ''}`} style={{ bottom: `${vm.positionAnchor! * 100}%` }} data-testid={`car-${lift.elevatorCode}`} data-confirmed-anchor={vm.positionAnchor} data-animating={animate}>
+            <div className="car-topline" /><ElevatorDoors motion={lift.motion} current={vm.motionIsCurrent} animate={motionEnabled && !viewportResync} /><span className="car-code">{lift.elevatorCode}</span>
           </div></div>}
           {outOfService && <div className="service-overlay"><span>Ⅱ</span><b>ปิดใช้งาน</b><small>OUT_OF_SERVICE</small></div>}
           {vm.isStale && <span className="last-known">LAST CONFIRMED</span>}
@@ -45,6 +46,6 @@ export function ShaftOverview({ state, selectedId, onSelect, motionEnabled }: { 
         <div className="shaft-flags">{vm.hasAlarm && <Badge tone="red">! {lift.activeAlarmCount} ALARM</Badge>}{outOfService ? <Badge tone="amber">OUT_OF_SERVICE</Badge> : <span className={vm.qualityFlags.length ? 'tone-amber' : 'tone-muted'}>{vm.qualityFlags.length ? vm.qualityFlags.join(' · ') : 'SIMULATED'}</span>}</div>
       </button>;
     })}</div>
-    <div className="shaft-legend"><span><i className="legend-car" />ตำแหน่งจาก displayAnchor</span><span><i className="legend-unknown" />UNKNOWN ไม่ระบุตำแหน่งชั้น</span><span>การเคลื่อนที่เป็น schematic interpolation</span></div>
+    <div className="shaft-legend"><span><i className="legend-car" />ตำแหน่งจาก displayAnchor</span><span><i className="legend-unknown" />UNKNOWN ไม่ระบุตำแหน่งชั้น</span><span>การเคลื่อนที่เป็น schematic interpolation</span><span>รูปประตูแสดงวิ่ง/จอด · ไม่ใช่สัญญาณประตูจริง</span></div>
   </section>;
 }

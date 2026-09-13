@@ -13,9 +13,10 @@ const scenarioDefinitions = [
   { id: 'time-uncertain', label: 'Time uncertain' }, { id: 'unknown', label: 'Unknown state' },
   { id: 'alarm', label: 'Active alarm' }, { id: 'reconnect', label: 'WS reconnect' },
   { id: 'delta-gap', label: 'Delta gap' },
+  { id: 'door-cycle', label: 'ประตู: วิ่ง ↔ จอด (จำลอง)' },
 ] as const;
 export type ScenarioId = typeof scenarioDefinitions[number]['id'];
-export const fixtureScenarios = scenarioDefinitions.map(scenario => ({...scenario,description: 'Local SIMULATED fixture: ' + scenario.label}));
+export const fixtureScenarios = scenarioDefinitions.map(scenario => ({...scenario,description: scenario.id === 'door-cycle' ? 'กดเดินข้อมูล 1 ขั้น เพื่อสลับวิ่ง/จอดของ W-01 และ W-02 · รูปประตูเป็นภาพแทน motion เท่านั้น' : 'Local SIMULATED fixture: ' + scenario.label}));
 export const fixtureFloorScale = FIXTURE_FLOOR_SCALE;
 export const elevatorId = (index: number) => `c0de0000-0000-4000-8000-00000000010${index}`;
 

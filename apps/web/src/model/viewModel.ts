@@ -14,6 +14,7 @@ export function toElevatorViewModel(lift:ElevatorStatus,state:RealtimeState) {
   const hasAlarm=(lift.activeAlarmCount??0)>0;
   // All five fixture elevators belong to this one explicit TEST gateway; production mapping is not inferred.
   const gatewayReady=state.gateways.find(gateway=>gateway.gatewayId===TEST_GATEWAY_ID)?.connectionState==='ONLINE';
-  const canAnimate=gatewayReady && state.lastError===null && state.transport==='connected' && lift.connectionState==='ONLINE' && !isStale && lift.motion!=='UNKNOWN' && lift.floorKind!==null && lift.floorDisplay!==null && lift.sourceObservedAt!==null && lift.serverReceivedAt!==null && positionAnchor!==null && lift.origin==='SIMULATED' && !qualityFlags.includes('POSITION_BIT_SUSPECT');
-  return {...lift,ageSec,isStale,canAnimate,positionAnchor,floorLabel,qualityFlags,hasAlarm,qualityLabel:qualityFlags.length?qualityFlags.join(' · '):'No reported quality flags'};
+  const motionIsCurrent=gatewayReady && state.lastError===null && state.transport==='connected' && lift.connectionState==='ONLINE' && !isStale && lift.motion!=='UNKNOWN' && lift.sourceObservedAt!==null && lift.serverReceivedAt!==null && lift.origin==='SIMULATED' && !qualityFlags.includes('POSITION_BIT_SUSPECT');
+  const canAnimate=motionIsCurrent && lift.floorKind!==null && lift.floorDisplay!==null && positionAnchor!==null;
+  return {...lift,ageSec,isStale,motionIsCurrent,canAnimate,positionAnchor,floorLabel,qualityFlags,hasAlarm,qualityLabel:qualityFlags.length?qualityFlags.join(' · '):'No reported quality flags'};
 }

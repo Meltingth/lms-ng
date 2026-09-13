@@ -1,0 +1,72 @@
+import { chromium } from 'playwright';
+import { existsSync } from 'node:fs';
+import { mkdir, writeFile } from 'node:fs/promises';
+import { fileURLToPath } from 'node:url';
+import path from 'node:path';
+import assert from 'node:assert/strict';
+
+const out=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../../../docs/frontend/evidence/doors');
+await mkdir(out,{recursive:true});
+const executablePath=process.env.HUD_BROWSER_EXECUTABLE || ['C:/Program Files/Google/Chrome/Application/chrome.exe','C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe'].find(existsSync);
+const browser=await chromium.launch({headless:true,...(executablePath?{executablePath}:{})});
+const page=await browser.newPage({viewport:{width:1440,height:1100},deviceScaleFactor:1});
+const errors=[];page.on('pageerror',error=>errors.push(error.message));
+const checks=[];
+const pass=name=>checks.push({name,result:'PASS'});
+const offset=async locator=>locator.evaluate(node=>new DOMMatrixReadOnly(getComputedStyle(node).transform).m41);
+try {
+  await page.goto('http://127.0.0.1:5173/');
+  await page.getByLabel('เลือกสถานการณ์จำลอง').selectOption('door-cycle');
+  assert.equal(await page.locator('.car-doors').count(),5);
+  assert.equal(await page.getByTestId('car-W-05').count(),0);
+  assert.equal(await page.getByTestId('unplaced-icon-W-05').locator('.car-doors').getAttribute('data-door-visual'),'unknown');
+  pass('All five glyphs render; unknown W05 remains unplaced and neutral');
+  const car=page.getByTestId('car-W-01');
+  const doors=car.locator('.car-doors');
+  const left=doors.locator('.door-panel-left');const right=doors.locator('.door-panel-right');
+  assert.equal(await doors.getAttribute('data-door-visual'),'closed');
+  assert.equal(await offset(left),0);assert.equal(await offset(right),0);
+  assert.ok((await left.evaluate(node=>getComputedStyle(node).backgroundImage)).includes('rgb(7, 17, 26)'));
+  await page.locator('.shaft-overview').screenshot({path:path.join(out,'running-closed.jpg'),type:'jpeg',quality:86});
+  pass('RUNNING panes are closed with dark surfaces');
+
+  const anchor=await car.getAttribute('data-confirmed-anchor');
+  await page.getByRole('button',{name:/เดินข้อมูล 1 ขั้น/}).click();
+  assert.equal(await doors.getAttribute('data-door-visual'),'open');
+  await page.waitForTimeout(180);
+  const middleLeft=await offset(left);const middleRight=await offset(right);
+  await page.waitForTimeout(700);
+  const endLeft=await offset(left);const endRight=await offset(right);
+  assert.ok(endLeft<middleLeft && middleLeft<0,JSON.stringify({middleLeft,endLeft}));
+  assert.ok(endRight>middleRight && middleRight>0,JSON.stringify({middleRight,endRight}));
+  assert.equal(await car.getAttribute('data-confirmed-anchor'),anchor);
+  await page.waitForTimeout(200);assert.equal(await offset(left),endLeft);
+  await page.locator('.shaft-overview').screenshot({path:path.join(out,'stopped-open.jpg'),type:'jpeg',quality:86});
+  pass('STOPPED slides both panes apart once and does not move the floor');
+  await page.getByRole('button',{name:/เดินข้อมูล 1 ขั้น/}).click();
+  await page.waitForTimeout(820);
+  assert.equal(await doors.getAttribute('data-door-visual'),'closed');
+  assert.equal(await offset(left),0);assert.equal(await offset(right),0);
+  pass('Returning to RUNNING closes both panes');
+
+  await page.getByLabel('เลือกสถานการณ์จำลอง').selectOption('stale');
+  assert.deepEqual(await page.locator('.car-doors').evaluateAll(nodes=>nodes.map(node=>node.dataset.doorVisual)),Array(5).fill('unknown'));
+  assert.equal(await page.locator('.car-doors .door-panel').first().evaluate(node=>getComputedStyle(node).transitionDuration),'0s');
+  pass('Stale data snaps to neutral with no opening animation');
+  await page.getByLabel('เลือกสถานการณ์จำลอง').selectOption('door-cycle');
+  await page.emulateMedia({reducedMotion:'reduce'});
+  await page.getByRole('button',{name:/เดินข้อมูล 1 ขั้น/}).click();
+  assert.equal(await doors.getAttribute('data-door-visual'),'open');
+  assert.equal(await left.evaluate(node=>getComputedStyle(node).transitionDuration),'0s');
+  pass('Reduced motion preserves open pose without sliding');
+
+  await page.setViewportSize({width:390,height:844});
+  await page.getByRole('button',{name:'เลือกลิฟต์ W-05'}).click();
+  const viewport=await page.evaluate(()=>({width:innerWidth,scroll:document.documentElement.scrollWidth}));
+  assert.ok(viewport.scroll<=viewport.width);
+  assert.ok(await page.getByText('POSITION UNKNOWN').isVisible());
+  pass('Mobile layout has no page overflow and retains unknown-position labels');
+  assert.deepEqual(errors,[]);
+  await writeFile(path.join(out,'verification.json'),JSON.stringify({status:'PASS',browser:browser.version(),checks,pageErrors:errors,scope:'Local SIMULATED motion metaphor only; no physical door state is claimed'},null,2)+'\n');
+  console.log(JSON.stringify({status:'PASS',checks:checks.length,evidence:out}));
+} finally {await browser.close();}
