@@ -1,0 +1,72 @@
+{
+  "status": "PASS",
+  "browser": "153.0.8010.36",
+  "url": "http://127.0.0.1:5173/",
+  "checks": [
+    {
+      "name": "Five shafts and TEST/SIMULATED banner",
+      "result": "PASS",
+      "details": "1440x1100 Chrome; all five shafts visible"
+    },
+    {
+      "name": "Actual CSS interpolation",
+      "result": "PASS",
+      "details": "Confirmed floor changed immediately; intermediate rendered position measured; car stopped at its confirmed anchor"
+    },
+    {
+      "name": "Car endpoint containment",
+      "result": "PASS",
+      "details": "Geometry-only CSS probe at normalized anchors 0 and 1; no telemetry modification"
+    },
+    {
+      "name": "Keyboard selection and uncalibrated detail",
+      "result": "PASS",
+      "details": "W-05 shows code 22 with no fabricated shaft position"
+    },
+    {
+      "name": "Alarm, disconnect and gap recovery",
+      "result": "PASS",
+      "details": "Alarm rendered immediately; reconnect and gap require resnapshot"
+    },
+    {
+      "name": "Stale telemetry cancels CSS transition",
+      "result": "PASS",
+      "details": "Transition duration 0s; retained confirmed position and visible age"
+    },
+    {
+      "name": "DEMO boundary",
+      "result": "PASS",
+      "details": "DEMO banner present and isolated TEST state restored on exit"
+    },
+    {
+      "name": "Reduced motion",
+      "result": "PASS",
+      "details": "Browser prefers-reduced-motion produces zero-duration movement"
+    },
+    {
+      "name": "Responsive mobile and Lift 4",
+      "result": "PASS",
+      "details": "390x844; document has no horizontal overflow; shaft region scrolls; service and commissioning remain independent"
+    },
+    {
+      "name": "Browser runtime and network boundary",
+      "result": "PASS",
+      "details": "No page errors or external resource requests"
+    }
+  ],
+  "pageErrors": [],
+  "externalRequests": [],
+  "screenshots": [
+    "hud-desktop.png",
+    "hud-uncalibrated.png",
+    "hud-stale.png",
+    "hud-demo.png",
+    "hud-mobile.png"
+  ],
+  "limits": [
+    "Local SIMULATED fixtures only",
+    "No real backend/WebSocket/auth/hardware validation",
+    "Visual snapshots are evidence, not an owner-approved regression baseline",
+    "FPS, field latency and long-duration memory performance NOT_RUN"
+  ]
+}

@@ -1,0 +1,22 @@
+
+> lms-ng@0.0.0 build
+> npm run build --workspace @lms-ng/web
+
+
+> @lms-ng/web@0.1.0 build
+> tsc --noEmit && vite build
+
+vite v7.3.6 building client environment for production...
+transforming...
+✓ 354 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                   0.58 kB │ gzip:   0.37 kB
+dist/assets/index-D-VaTHqy.css   17.10 kB │ gzip:   4.45 kB
+dist/assets/index-CY4xZ7wR.js   523.11 kB │ gzip: 161.34 kB
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 9.85s

@@ -1,0 +1,10 @@
+
+> @lms-ng/web@0.1.0 test:browser
+> node scripts/browser-qa.mjs
+
+{
+  "status": "PASS",
+  "checks": 10,
+  "browser": "153.0.8010.36",
+  "evidence": "C:\\NST\\Software Dev\\lms-ng\\docs\\frontend\\evidence"
+}

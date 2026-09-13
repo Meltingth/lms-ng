@@ -1,0 +1,180 @@
+{
+  "capturedAt": "2026-09-13T17:32:26.728761+00:00",
+  "source": "current local working tree; not a Claude commit audit",
+  "contract": {
+    "result": "PASS",
+    "scope": "Frozen bundle identity only; no contract correctness or gate approval asserted",
+    "expectedVersion": "2.0.0-draft.2",
+    "actualVersion": "2.0.0-draft.2",
+    "expectedHash": "sha256:ed2414fb8e830a9c281499c9a5cff8ba441668acb5b98fbb2265a6da5e4d18b3",
+    "actualHash": "sha256:ed2414fb8e830a9c281499c9a5cff8ba441668acb5b98fbb2265a6da5e4d18b3",
+    "excludedNames": [
+      "RELEASE_MANIFEST.json",
+      "SOURCE.md"
+    ],
+    "fileCount": 38,
+    "files": [
+      {
+        "path": "CHANGELOG.md",
+        "sha256": "d64ba899ba7c321cb9fee944075df8ff8abc1f680103d9c860bc08fb7b9e3d52"
+      },
+      {
+        "path": "README.md",
+        "sha256": "4d72ad3b7db7d8a53b9e6f9dc8b1c9b66a0e106277511393e28985a7497ffc75"
+      },
+      {
+        "path": "VERSION",
+        "sha256": "f6f9365c861f9068240283b29b5ff4f5113ebc0258df57d5c3ff63db06303e05"
+      },
+      {
+        "path": "enums/ui-enums.yaml",
+        "sha256": "afc484cb10e2e36d1742c8b70237be81eb5bce09975ee092848d19108e707e2e"
+      },
+      {
+        "path": "fixtures/README.md",
+        "sha256": "ca7ab28eaa250ff26c27db4e6b6e974e24df2ce624cb137e990acda11a4ac129"
+      },
+      {
+        "path": "fixtures/invalid/presence_lwt_fake_occurredAt.json",
+        "sha256": "1cd900382e1ffc890e11403bfcc2f990c26f14087297c335f28f095e893264a5"
+      },
+      {
+        "path": "fixtures/invalid/state_elevatorId_null.json",
+        "sha256": "f38404e7f22feb228af925f68c84e636999bfba773296876e3ec4c541e2dc2b9"
+      },
+      {
+        "path": "fixtures/invalid/state_floorDisplay_on_wire.json",
+        "sha256": "f77399ade0c09ee7596c1b19853b570ac7ec028103357d105c47084bfecaecc7"
+      },
+      {
+        "path": "fixtures/invalid/state_missing_running_statuspoint.json",
+        "sha256": "a73638e52853f8e30e667f129d907d1e592337c948e5273cdb5d39b997091dd4"
+      },
+      {
+        "path": "fixtures/invalid/state_streamSeq_as_number.json",
+        "sha256": "481f98925a3afc03646760cf3b7d0212272e28ebbd10e65db5aef127069a27d8"
+      },
+      {
+        "path": "fixtures/invalid/state_unknown_extra_property.json",
+        "sha256": "40ef0ac2c964a147b8bded2f6c4b8e7f73c349c1293101e7ee7eab772213d1cf"
+      },
+      {
+        "path": "fixtures/valid/ack_db_committed.json",
+        "sha256": "4178fe5bd71920d4c4423685dbd7065a5ab15faab56bcae6111f3035f915a760"
+      },
+      {
+        "path": "fixtures/valid/presence_lwt_offline.json",
+        "sha256": "34c0f0dbbb893bf5b5659a5387da4d9fbc9f0fc9a3966ba216e8ada0630f5d41"
+      },
+      {
+        "path": "fixtures/valid/state_w02_climbing.json",
+        "sha256": "6fd889f46313234ed5d7ff5032380c9d4959ab946c9e6f89742f75f494ecf4da"
+      },
+      {
+        "path": "fixtures/valid/state_w05_uncalibrated_code47.json",
+        "sha256": "7669cfe2ce1a4e57bffafbf09d2aea7caf9a738a30d30a99b6394e493d7509df"
+      },
+      {
+        "path": "json-schema/common/enums.schema.json",
+        "sha256": "df9ae2e7f0c5d41afa02397b9ff7265f3f8dad6b2df0b1b4b8c9dcd8a4380cc1"
+      },
+      {
+        "path": "json-schema/common/ids.schema.json",
+        "sha256": "f70e27454beb65bc017602ab8d28b4b6c744eb0315491c4c76ca6de6cc7b39b3"
+      },
+      {
+        "path": "json-schema/common/time.schema.json",
+        "sha256": "5c9c2be1c14cf11dacf5cc196d2461f804be87d7f48ca45998dd6c17f4182175"
+      },
+      {
+        "path": "json-schema/mqtt/ack.schema.json",
+        "sha256": "2d23cdf8bfafddf7f335359876943f6d5dbc950cc9431ac4953d0f9d7d163f2c"
+      },
+      {
+        "path": "json-schema/mqtt/diagnostics-network.schema.json",
+        "sha256": "82e2268e39e53c613a867654a5e228a27e32ec7ffc2766b1e66179482384956e"
+      },
+      {
+        "path": "json-schema/mqtt/envelope.schema.json",
+        "sha256": "89e6e05b76a2b8350729b18d7eaeb7279b8766741202209fb88b425de70f1268"
+      },
+      {
+        "path": "json-schema/mqtt/event.schema.json",
+        "sha256": "e5fdfd49e2f193c1d7cff9f52fd1a92e193693b1b44ff561b99157a0a970ff9b"
+      },
+      {
+        "path": "json-schema/mqtt/heartbeat.schema.json",
+        "sha256": "e6a1e345e42a02f4a301a66c75f0c06c84e8b963dbeb7d30e873e95395951884"
+      },
+      {
+        "path": "json-schema/mqtt/presence.schema.json",
+        "sha256": "1f2388ecea30b767a09ff384979862cd86c7aaf50ac0f98ced566d7d3bec1ee7"
+      },
+      {
+        "path": "json-schema/mqtt/snapshot.schema.json",
+        "sha256": "ad8ceacbc7b5cd64d289fe890ae4d37ab84246c4de3a64fb4bddec6d4c85fc78"
+      },
+      {
+        "path": "json-schema/mqtt/state.schema.json",
+        "sha256": "8d4ea406e803574e45d7f214f4fde9afc196921896c93c367982ec04599a65b6"
+      },
+      {
+        "path": "json-schema/ws/envelope.schema.json",
+        "sha256": "58227e824bbbffc48461cccbfeed7b32aded1973e225be64cad214118db5eaa8"
+      },
+      {
+        "path": "json-schema/ws/messages.schema.json",
+        "sha256": "a3859aad13c0a06c38272432b61fd9b7b4d14061c66db721248fea7e8139aa45"
+      },
+      {
+        "path": "mqtt/LMS_NG_MQTT_Topic_Specification_v2.yaml",
+        "sha256": "68b75325802be0008d16039fd3d755b47237c8f42897c71c793ab8ba57039a82"
+      },
+      {
+        "path": "mqtt/examples/ack.db-committed.json",
+        "sha256": "4178fe5bd71920d4c4423685dbd7065a5ab15faab56bcae6111f3035f915a760"
+      },
+      {
+        "path": "mqtt/examples/ack.nack-identity-payload-conflict.json",
+        "sha256": "663bfa24c733a7870fbb11678634ed14c9161822199cfd0c398f2712273f9799"
+      },
+      {
+        "path": "mqtt/examples/diagnostics-network.gw-whz-01.json",
+        "sha256": "c253cbcad5d2c7151f0fe60aed0d71663530dcdfcc5898b8c7ba725c60726781"
+      },
+      {
+        "path": "mqtt/examples/event.board-restart.w-02.json",
+        "sha256": "b1b1de1cd76535cfaea60296e0b2ac6bcc7f30f62d46a371944dbed82420a850"
+      },
+      {
+        "path": "mqtt/examples/heartbeat.gw-whz-01.json",
+        "sha256": "0d2b298933d81a0c7d09718a8fd187e3ef9763d4314e1e543e8f939c754cab34"
+      },
+      {
+        "path": "mqtt/examples/presence.connect-online.gw-whz-01.json",
+        "sha256": "af15f29bf1ac605fb933f62e9fea0f12f4deb4db5ae8bd7d3c70e63a2f842856"
+      },
+      {
+        "path": "mqtt/examples/presence.lwt-offline.gw-whz-01.json",
+        "sha256": "34c0f0dbbb893bf5b5659a5387da4d9fbc9f0fc9a3966ba216e8ada0630f5d41"
+      },
+      {
+        "path": "mqtt/examples/state.w-02.json",
+        "sha256": "6fd889f46313234ed5d7ff5032380c9d4959ab946c9e6f89742f75f494ecf4da"
+      },
+      {
+        "path": "openapi/LMS_NG_OpenAPI.yaml",
+        "sha256": "2a8def89cddffdb5846df2d9196dda588d3adfcbb6f993605097e4566171fd2c"
+      }
+    ],
+    "findings": []
+  },
+  "workflow": {
+    "result": "PASS",
+    "scope": "Recorded gate state only; environment availability not independently verified",
+    "status": "WAITING_FOR_G-A / BLOCKED_ON_POSTGRES_EXECUTION_EVIDENCE"
+  },
+  "gate": "WAITING_FOR_G-A",
+  "blocker": "BLOCKED_ON_POSTGRES_EXECUTION_EVIDENCE",
+  "nextAllowedAction": "WAIT_FOR_ARCHITECT"
+}
