@@ -6,6 +6,7 @@ import { fixtureScenarios, type ScenarioId } from '../../fixtures/scenarios';
 import { toElevatorViewModel } from '../../model/viewModel';
 import { DemoBanner } from '../demo/DemoBanner';
 import { FullscreenButton } from '../display/FullscreenButton';
+import { HudWindowFrame } from '../display/HudWindowFrame';
 import { ShaftOverview } from '../elevators/ShaftOverview';
 import { ElevatorDetail } from '../elevators/ElevatorDetail';
 import { RecentEvents } from '../events/RecentEvents';
@@ -36,6 +37,7 @@ export function OperationsHud() {
   const alarmTotal = state.elevators.every(lift => lift.activeAlarmCount !== undefined) ? state.elevators.reduce((sum, lift) => sum + (lift.activeAlarmCount ?? 0), 0) : null;
   const scenarioDescription = fixtureScenarios.find(item => item.id === state.scenario)?.description;
   return <main className="app-shell">
+    <HudWindowFrame />
     <header className="app-header"><div className="brand"><span className="brand-symbol" aria-hidden="true"><i /><i /><i /></span><div><span className="brand-name">The Whizdom</span><span className="brand-subtitle">LMS-NG / OPERATIONS CONTROL</span></div></div>
       <div className="site-context"><span className="eyebrow">BUILDING / SITE</span><strong>Whizdom · TEST replica</strong><span>5 ELEVATORS / 1 SIMULATED GATEWAY</span></div>
       <div className="display-controls"><DemoBanner demo={demo} /><FullscreenButton /></div><div className="header-time"><NumericDisplay>{clock.toLocaleTimeString('en-GB', { timeZone: 'Asia/Bangkok', hour12: false })}</NumericDisplay><span>{clock.toLocaleDateString('en-GB', { timeZone: 'Asia/Bangkok', day: '2-digit', month: 'short', year: 'numeric' })} · ICT</span></div>

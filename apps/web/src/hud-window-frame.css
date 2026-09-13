@@ -1,0 +1,30 @@
+.hud-window-frame { display:none; pointer-events:none; user-select:none; }
+
+/* Full HD / 4K monitor layouts, including Windows 125%, 150% and 200% scaling.
+   Allow browser chrome around the viewport; ordinary laptop/mobile layouts stay unchanged. */
+@media (min-width:1800px) and (min-height:900px),
+       (min-width:1440px) and (min-height:750px) and (min-resolution:1.25dppx),
+       (min-width:1200px) and (min-height:650px) and (min-resolution:1.5dppx) {
+  .app-shell { padding:calc(28 * var(--hud-unit)) calc(38 * var(--hud-unit)) calc(26 * var(--hud-unit)); gap:calc(8 * var(--hud-unit)); }
+  .hud-window-frame {
+    display:block;
+    position:fixed;
+    inset:calc(8 * var(--hud-unit));
+    width:calc(100% - 16 * var(--hud-unit));
+    height:calc(100dvh - 16 * var(--hud-unit));
+    z-index:5;
+    color:var(--cyan);
+    fill:none;
+    stroke:currentColor;
+    stroke-width:1;
+    stroke-linejoin:bevel;
+    filter:drop-shadow(0 0 calc(4 * var(--hud-unit)) #63dcf926);
+  }
+  .hud-window-frame__outline { opacity:.48; }
+  .hud-window-frame__inner { stroke:var(--muted); opacity:.25; }
+  .hud-window-frame__accent { stroke-width:1.8; opacity:.9; }
+  .hud-window-frame__rail { stroke-width:3; opacity:.62; }
+  .hud-window-frame__ticks { opacity:.4; }
+  .hud-window-frame__connector { opacity:.7; }
+  .hud-window-frame__node { fill:currentColor; stroke:none; }
+}
