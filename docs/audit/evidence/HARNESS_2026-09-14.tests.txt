@@ -1,0 +1,27 @@
+StartedUTC: 2026-09-13T17:17:48.558162+00:00
+Command: python -B -m unittest discover -s tests/audit -p test_*.py -v
+Python: 3.14.4 (tags/v3.14.4:23116f9, Apr  7 2026, 14:10:54) [MSC v.1944 64 bit (AMD64)]
+test_cli_exit_distinguishes_blocked_from_pass (test_audit.GitEvidenceTests.test_cli_exit_distinguishes_blocked_from_pass) ... ok
+test_external_diff_is_not_executed (test_audit.GitEvidenceTests.test_external_diff_is_not_executed) ... ok
+test_frozen_change_in_target_fails_without_repair (test_audit.GitEvidenceTests.test_frozen_change_in_target_fails_without_repair) ... ok
+test_git_replace_cannot_substitute_submitted_content (test_audit.GitEvidenceTests.test_git_replace_cannot_substitute_submitted_content) ... ok
+test_never_overwrites_prior_report_or_evidence (test_audit.GitEvidenceTests.test_never_overwrites_prior_report_or_evidence) ... ok
+test_phase_cannot_escape_audit_directory (test_audit.GitEvidenceTests.test_phase_cannot_escape_audit_directory) ... ok
+test_reads_submitted_commit_despite_dirty_worktree_and_newer_head (test_audit.GitEvidenceTests.test_reads_submitted_commit_despite_dirty_worktree_and_newer_head) ... ok
+test_removed_gate_cannot_pass_gate_preservation_check (test_audit.GitEvidenceTests.test_removed_gate_cannot_pass_gate_preservation_check) ... ok
+test_report_blocked_and_complete_not_an_audit_pass (test_audit.GitEvidenceTests.test_report_blocked_and_complete_not_an_audit_pass) ... ok
+test_requires_exact_commit_sha (test_audit.GitEvidenceTests.test_requires_exact_commit_sha) ... ok
+test_workflow_approval_is_a_failure_not_pass (test_audit.GitEvidenceTests.test_workflow_approval_is_a_failure_not_pass) ... ok
+test_changed_added_removed_and_renamed_files_change_identity (test_audit.HashTests.test_changed_added_removed_and_renamed_files_change_identity) ... ok
+test_empty_bundle_refused (test_audit.HashTests.test_empty_bundle_refused) ... ok
+test_excluded_release_manifest_still_has_separate_approval_guard (test_audit.HashTests.test_excluded_release_manifest_still_has_separate_approval_guard) ... ok
+test_hash_matches_documented_independent_manifest (test_audit.HashTests.test_hash_matches_documented_independent_manifest) ... ok
+test_line_endings_normalized_without_decoding_bytes (test_audit.HashTests.test_line_endings_normalized_without_decoding_bytes) ... ok
+test_ordinal_order_matches_utf16 (test_audit.HashTests.test_ordinal_order_matches_utf16) ... ok
+
+----------------------------------------------------------------------
+Ran 17 tests in 51.266s
+
+OK
+
+ExitCode: 0

@@ -1,0 +1,91 @@
+{
+  "capturedAt": "2026-09-13T17:22:34.507092+00:00",
+  "scope": "Current-worktree C01-C08 only; not a submitted-Claude-SHA audit or gate approval",
+  "python": "3.14.4 (tags/v3.14.4:23116f9, Apr  7 2026, 14:10:54) [MSC v.1944 64 bit (AMD64)]",
+  "pythonExecutable": "C:\\Python314\\python.exe",
+  "collectorSha256": "6511c3230fcaa21ef157e3d4b871b8aa5f6e0156de8da31b81df6c0712101789",
+  "command": "python -B scripts/audit/run_local_contract_checks.py --evidence-name LOCAL_CONTRACT_2026-09-14_FINAL",
+  "results": [
+    {
+      "testId": "C01",
+      "description": "Baseline inventory does not lose S2/S3",
+      "result": "FAIL",
+      "detail": "missing: C:\\NST\\Software Dev\\WhizdomLift-wt\\feature-lms-ng-revise-v2\\docs\\revisions\\LMS_NG_Revised_Execution_Pack_v2_0\\reference\\legacy-contracts\\LMS_NG_MQTT_Topic_Specification_v1.yaml\nmissing: C:\\NST\\Software Dev\\WhizdomLift-wt\\feature-lms-ng-revise-v2\\docs\\revisions\\LMS_NG_Revised_Execution_Pack_v2_0\\reference\\legacy-contracts\\LMS_NG_OpenAPI_v1.yaml"
+    },
+    {
+      "testId": "C02",
+      "description": "Python/Node schema parity across all fixtures",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "testId": "C03",
+      "description": "Object closure: valid payload passes, extra field rejected by closure",
+      "result": "PASS",
+      "detail": "valid fixture valid=True errors=[]; extra-property fixture valid=False errors=[\"[]: Unevaluated properties are not allowed ('tripCount' was unexpected)\"]"
+    },
+    {
+      "testId": "C04",
+      "description": "streamSeq is a decimal string; JS-unsafe integers never silently truncate",
+      "result": "PASS",
+      "detail": "number-typed streamSeq rejected=True (errors=[\"[]: Unevaluated properties are not allowed ('bootId', 'clockQuality', 'eventTime', 'gatewayId', 'messageId', 'observedAt', 'organizationId', 'origin', 'producerEpoch', 'producerId', 'schemaVersion', 'siteId', 'streamId', 'streamSeq' were unexpected)\", \"['streamSeq']: 184221 is not of type 'string'\"]); string-typed streamSeq accepted=True; int64 max representable and compared correctly=True; overflow value (9223372036854775808) caught by numeric range check=True"
+    },
+    {
+      "testId": "C05",
+      "description": "elevatorId=null rejected for a state message (non-null required)",
+      "result": "PASS",
+      "detail": "correctly rejected"
+    },
+    {
+      "testId": "C06",
+      "description": "Contract bundle stays DRAFT and unapproved unless a human approves it",
+      "result": "PASS",
+      "detail": "RELEASE_MANIFEST.json status='DRAFT' approvedBy=None approvedAt=None; contracts/VERSION='2.0.0-draft.2' matches manifest.version=True"
+    },
+    {
+      "testId": "C07",
+      "description": "Floor seeds/evidence: passenger 46/43, W-05 47->44 with 3..46 uncalibrated",
+      "result": "PASS",
+      "detail": "OK  WHZ-PAX has 46 codes\nOK  WHZ-PAX has 43 landings\nOK  WHZ-PAX anchors match exactly\nOK  WHZ-SERVICE has exactly 3 calibrated codes\nOK  WHZ-SERVICE calibrated = {1:B1, 2:1, 47:44}"
+    },
+    {
+      "testId": "C08",
+      "description": "ACK/presence schema exceptions: no fake occurredAt, ACK fields correct",
+      "result": "PASS",
+      "detail": "LWT presence valid=True (errors=[]), no occurredAt field=True; fake-occurredAt fixture correctly rejected=True (errors=[\"[]: Unevaluated properties are not allowed ('occurredAt' was unexpected)\"]); ack fixture valid=True (errors=[])"
+    }
+  ],
+  "gate": "WAITING_FOR_G-A",
+  "blocker": "BLOCKED_ON_POSTGRES_EXECUTION_EVIDENCE",
+  "dependencies": {
+    "jsonschema": {
+      "version": "4.26.0",
+      "path": "C:\\Users\\Lenovo\\AppData\\Roaming\\Python\\Python314\\site-packages\\jsonschema\\__init__.py"
+    },
+    "referencing": {
+      "version": "0.37.0",
+      "path": "C:\\Users\\Lenovo\\AppData\\Roaming\\Python\\Python314\\site-packages\\referencing\\__init__.py"
+    },
+    "rpds": {
+      "version": "2026.6.3",
+      "path": "C:\\Users\\Lenovo\\AppData\\Roaming\\Python\\Python314\\site-packages\\rpds\\__init__.py"
+    },
+    "yaml": {
+      "version": "6.0.3",
+      "path": "C:\\Users\\Lenovo\\AppData\\Roaming\\Python\\Python314\\site-packages\\yaml\\__init__.py"
+    }
+  },
+  "sourceSha256": {
+    "tests/contract/test_schemas.py": "b92a18bfe128fe6be0ccffca6078ebfad73b17d2825f71ac31a4885a9e622ad8",
+    "tests/contract/parity.mjs": "02b1bc0a0f57965eaa2cd3b316e4291b88b3074cf1b865aac50dbaa5e01df301",
+    "package-lock.json": "8c80fedd099244053a48d3046b807bf77a2dc8c204f5a23361813f42711f388d"
+  },
+  "contextHead": "bd75c1839a3ed82c1e06ed3b0d307589375c46b7",
+  "summary": {
+    "PASS": 7,
+    "FAIL": 1,
+    "BLOCKED": 0,
+    "NOT_RUN": 0
+  },
+  "exitCode": 1
+}
