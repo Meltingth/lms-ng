@@ -1,0 +1,20 @@
+test_candidate_mismatch_not_silently_rewritten (test_prepare_postgres_verification.PreparationTests.test_candidate_mismatch_not_silently_rewritten) ... ok
+test_explicit_root_portable_between_dev_and_server_layouts (test_prepare_postgres_verification.PreparationTests.test_explicit_root_portable_between_dev_and_server_layouts) ... ok
+test_final_rollback_precedes_failed_check_exit (test_prepare_postgres_verification.PreparationTests.test_final_rollback_precedes_failed_check_exit) ... ok
+test_guards_precede_every_application_write (test_prepare_postgres_verification.PreparationTests.test_guards_precede_every_application_write) ... ok
+test_incomplete_source_rejected (test_prepare_postgres_verification.PreparationTests.test_incomplete_source_rejected) ... ok
+test_invalid_marker_order_or_duplicates_rejected (test_prepare_postgres_verification.PreparationTests.test_invalid_marker_order_or_duplicates_rejected) ... ok
+test_negative_probes_rollback_successes_and_verify_sqlstate (test_prepare_postgres_verification.PreparationTests.test_negative_probes_rollback_successes_and_verify_sqlstate) ... ok
+test_only_up_segment_embedded (test_prepare_postgres_verification.PreparationTests.test_only_up_segment_embedded) ... ok
+test_output_never_clobbers_existing_files_or_source (test_prepare_postgres_verification.PreparationTests.test_output_never_clobbers_existing_files_or_source) ... ok
+test_plan_is_explicitly_not_execution (test_prepare_postgres_verification.PreparationTests.test_plan_is_explicitly_not_execution) ... ok
+test_real_inputs_unchanged_and_raw_hashes_recorded (test_prepare_postgres_verification.PreparationTests.test_real_inputs_unchanged_and_raw_hashes_recorded) ... ok
+test_seed_rerun_snapshots_keep_multiplicity_and_identity (test_prepare_postgres_verification.PreparationTests.test_seed_rerun_snapshots_keep_multiplicity_and_identity) ... ok
+test_sql_lexer_handles_seed_asserts_comments_and_quoted_semicolons (test_prepare_postgres_verification.PreparationTests.test_sql_lexer_handles_seed_asserts_comments_and_quoted_semicolons) ... ok
+test_transaction_and_metacommand_escape_rejected (test_prepare_postgres_verification.PreparationTests.test_transaction_and_metacommand_escape_rejected) ... ok
+test_unsafe_or_non_scratch_database_names_rejected (test_prepare_postgres_verification.PreparationTests.test_unsafe_or_non_scratch_database_names_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 15 tests in 0.314s
+
+OK

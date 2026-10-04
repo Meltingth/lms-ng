@@ -1,0 +1,26 @@
+{
+  "mode": "PREPARATION_ONLY",
+  "databaseExecution": "NOT_RUN",
+  "sourcePaths": [
+    "database/migrations/0001_schema_v2_draft.sql",
+    "database/seeds/whz.sql",
+    "database/seeds/test.sql",
+    "contracts/VERSION"
+  ],
+  "serverMajorRequired": 16,
+  "output": "psql script; dedicated lms_ng_verify_* scratch database only; final ROLLBACK",
+  "checksPrepared": [
+    "version, exact database name, empty application schemas and enabled assertions guards",
+    "migrate:up only; WHZ and TEST seed assertions",
+    "seed rerun row counts, stable identity and row contents via EXCEPT ALL snapshots",
+    "candidate version consistency and floor profile counts/anchors",
+    "selected CHECK/FK constraints, signed int64 bounds, both ingest dedupe keys",
+    "savepoint rollback across receipt/current/event/outbox writes; final schema absence"
+  ],
+  "notProven": [
+    "any PostgreSQL execution until an authorized operator runs the script",
+    "migration-runner bookkeeping, durable COMMIT, backup/restore or deployed migration",
+    "fresh-database-from-zero rerun across separate databases or stable fresh-seed UUIDs",
+    "all constraints, concurrent transactions, backend ingestion/ACK semantics or Contract approval"
+  ]
+}

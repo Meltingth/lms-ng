@@ -61,6 +61,6 @@ C01 FAIL, the ui-enums draft mismatch and the root Ajv advisory remain recorded 
 
 ## Verification evidence
 
-Current-run results will be recorded in `evidence/readiness-2026-10-04/`. Historical evidence remains unchanged. Browser artifacts measure local rendering, not hardware telemetry or physical-client acceptance.
+Current-run results are in `evidence/readiness-2026-10-04/`: frontend 138/138 PASS, build PASS, browser 16/16 PASS, display 9/9 PASS, and SQL-generator tests 15/15 PASS. See [runtime verification](RUNTIME_READINESS_REVIEW_2026-10-04.md) and [database preparation review](DATABASE_PREPARATION_REVIEW_2026-10-04.md). PostgreSQL execution remains NOT_RUN. Historical evidence remains unchanged. Browser artifacts measure local rendering, not hardware telemetry or physical-client acceptance.
 
 Immediate external prerequisite: **CONNECT_TEST_HOST**. Backend execution remains **WAIT_FOR_TEST_HOST_CONNECTION** until host identity and scratch scope are verified. The former WAIT_FOR_CLAUDE_DRAFT4 dependency is replaced by the owner's instruction for Codex to implement the missing work; independent candidate review remains required.
