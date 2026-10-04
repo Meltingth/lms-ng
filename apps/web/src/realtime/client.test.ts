@@ -4,6 +4,16 @@ import { createRealtimeStore } from './store';
 import { toElevatorViewModel } from '../model/viewModel';
 
 describe('local mock adapter',()=>{
+  it('does not reconcile or dispatch controls while inactive',()=>{
+    const store=createRealtimeStore({now:()=>0});const adapter=createMockAdapter(store,{autoTick:false});
+    const initial=store.getSnapshot();
+    adapter.reconcile();adapter.step();adapter.setScenario('alarm');adapter.setDemo(true);
+    expect(store.getSnapshot()).toBe(initial);
+    adapter.start();adapter.step();adapter.dispose();
+    const held=store.getSnapshot();
+    adapter.reconcile();adapter.step();adapter.setScenario('alarm');adapter.setDemo(true);
+    expect(store.getSnapshot()).toBe(held);
+  });
   it('steps only between received, known fixture positions',()=>{
     const store=createRealtimeStore({now:()=>0});const adapter=createMockAdapter(store,{autoTick:false});adapter.start();
     expect(store.getSnapshot().elevators[0].floorDisplay).toBe('20');adapter.step();

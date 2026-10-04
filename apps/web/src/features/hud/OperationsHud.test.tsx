@@ -1,7 +1,9 @@
 import { act, fireEvent, render, screen, within } from '@testing-library/react';
+import { StrictMode } from 'react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { OperationsHud } from './OperationsHud';
 import { SourceBadge } from '../monitoring/StatusBadges';
+import { createSimulatedRuntime, type HudRuntime } from '../../realtime/runtime';
 
 describe('Operations HUD truthfulness and interaction', () => {
   beforeEach(() => vi.useFakeTimers());
@@ -98,6 +100,48 @@ describe('Operations HUD truthfulness and interaction', () => {
     const {container}=render(<SourceBadge origin="LIVE" viewMode="LIVE"/>);
     expect(screen.getByText('LIVE · LIVE')).toHaveClass('tone-green');
     expect(container.querySelector('.tone-amber')).toBeNull();
+  });
+});
+
+describe('injected local HUD runtime', () => {
+  beforeEach(() => vi.useFakeTimers());
+  afterEach(() => vi.useRealTimers());
+
+  it('owns one active runtime through StrictMode setup/cleanup and stops writes on unmount', () => {
+    const runtime = createSimulatedRuntime();
+    const createRuntime = () => runtime;
+    const mounted = render(<StrictMode><OperationsHud createRuntime={createRuntime} /></StrictMode>);
+    expect(screen.getAllByRole('button', { name: /เลือกลิฟต์ W-/ })).toHaveLength(5);
+    expect(vi.getTimerCount()).toBe(3);
+    fireEvent.click(screen.getByRole('button', { name: /เดินข้อมูล 1 ขั้น/ }));
+    expect(runtime.store.getSnapshot().elevators[0].floorDisplay).toBe('21');
+    const activeSession = runtime.store.getSnapshot().sessionId;
+    mounted.rerender(<StrictMode><OperationsHud createRuntime={createRuntime} /></StrictMode>);
+    expect(runtime.store.getSnapshot().sessionId).toBe(activeSession);
+    expect(vi.getTimerCount()).toBe(3);
+    mounted.unmount();
+    const held = runtime.store.getSnapshot();
+    act(() => {
+      runtime.simulation!.step();
+      runtime.simulation!.setScenario('alarm');
+      runtime.simulation!.setDemo(true);
+      vi.advanceTimersByTime(60_000);
+    });
+    expect(runtime.store.getSnapshot()).toBe(held);
+    expect(vi.getTimerCount()).toBe(0);
+  });
+
+  it('renders a read-only simulated runtime without requiring scenario commands on its adapter', () => {
+    const simulated = createSimulatedRuntime();
+    const runtime: HudRuntime = { origin: 'SIMULATED', store: simulated.store, adapter: simulated.adapter };
+    const mounted = render(<OperationsHud createRuntime={() => runtime} />);
+    expect(screen.getAllByRole('button', { name: /เลือกลิฟต์ W-/ })).toHaveLength(5);
+    expect(screen.getByText('TEST · SIMULATED')).toBeVisible();
+    expect(screen.queryByRole('region', { name: 'เครื่องมือทดสอบข้อมูลจำลอง' })).not.toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: /เดินข้อมูล 1 ขั้น/ })).not.toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: 'สาธิต' })).not.toBeInTheDocument();
+    mounted.unmount();
+    expect(vi.getTimerCount()).toBe(0);
   });
 });
 

@@ -1,0 +1,28 @@
+
+> @lms-ng/web@0.1.0 test
+> vitest run --reporter=default --reporter=json --outputFile=../../docs/frontend/evidence/readiness-2026-10-04/frontend-tests.json
+
+
+ RUN  v4.1.11 C:/NST/Software Dev/lms-ng/apps/web
+
+ ✓ src/model/freshness.test.ts (19 tests) 19ms
+ ✓ src/motion/motionController.test.ts (4 tests) 12ms
+ ✓ src/features/display/FullscreenButton.test.tsx (8 tests) 565ms
+     ✓ enters fullscreen for the complete document only after an operator click  301ms
+ ✓ src/model/viewModel.test.ts (19 tests) 51ms
+ ✓ src/realtime/runtime.test.ts (4 tests) 63ms
+ ✓ src/fixtures/scenarios.test.ts (3 tests) 78ms
+ ✓ src/realtime/client.test.ts (7 tests) 65ms
+ ✓ src/realtime/store.test.ts (49 tests) 107ms
+ ✓ src/features/elevators/ElevatorDoors.test.tsx (9 tests) 803ms
+     ✓ opens and closes the same DOM panes on new motion observations  317ms
+ ✓ src/features/hud/OperationsHud.test.tsx (16 tests) 3013ms
+     ✓ shows five selectable shafts with explicit TEST / SIMULATED provenance  436ms
+     ✓ holds state on disconnect or revision gap then resnapshots through local controls  304ms
+
+ Test Files  10 passed (10)
+      Tests  138 passed (138)
+   Start at  10:40:34
+   Duration  7.69s (transform 3.51s, setup 7.09s, import 9.64s, tests 4.78s, environment 18.83s)
+
+JSON report written to C:/NST/Software Dev/lms-ng/docs/frontend/evidence/readiness-2026-10-04/frontend-tests.json

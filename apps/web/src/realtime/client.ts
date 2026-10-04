@@ -1,13 +1,21 @@
 import type { ElevatorStatus, SnapshotData } from '../model/types';
 import type { RealtimeStore } from './store';
+import type { RealtimeAdapter } from './adapter';
 import { createFixtureSnapshot, fixtureFrame, FIXTURE_EPOCH, FIXTURE_RECONCILE_MS, type ScenarioId } from '../fixtures/scenarios';
 
+export interface MockAdapter extends RealtimeAdapter {
+  setScenario(scenario: ScenarioId): void;
+  setDemo(enabled: boolean): void;
+  step(): void;
+  reconcile(): void;
+}
+
 /** Local in-memory TEST adapter. There is deliberately no network/serial/MQTT implementation. */
-export function createMockAdapter(store:RealtimeStore, options:{autoTick?:boolean}={}) {
+export function createMockAdapter(store:RealtimeStore, options:{autoTick?:boolean}={}): MockAdapter {
   let scenario:ScenarioId='normal';let demo=false;let sessionSequence=0;let stepSequence=0;
   let sessionId='fixture-test-session';let current:SnapshotData=createFixtureSnapshot();
   let tickTimer:ReturnType<typeof setInterval>|undefined;let reconcileTimer:ReturnType<typeof setInterval>|undefined;
-  let started=false;
+  let started=false;let generation=0;
   const context=()=>({source:demo?'demo' as const:'live' as const,subscriptionId:sessionId});
   const snapshot=()=>store.receive(fixtureFrame('snapshot',current,context()));
   function reset() {
@@ -24,21 +32,24 @@ export function createMockAdapter(store:RealtimeStore, options:{autoTick?:boolea
   return {
     start() {
       if (started) return;started=true;reset();
+      const activeGeneration=++generation;
       if (options.autoTick!==false) {
-        tickTimer=setInterval(()=>store.tick(),1000);
+        tickTimer=setInterval(()=>{if(started && generation===activeGeneration) store.tick();},1000);
         // Reconciliation does not create a new observation and cannot reset its age.
-        reconcileTimer=setInterval(()=>{if(store.getSnapshot().transport==='connected') snapshot();},FIXTURE_RECONCILE_MS);
+        reconcileTimer=setInterval(()=>{if(started && generation===activeGeneration && store.getSnapshot().transport==='connected') snapshot();},FIXTURE_RECONCILE_MS);
       }
     },
-    dispose() {clearInterval(tickTimer);clearInterval(reconcileTimer);started=false;},
+    dispose() {started=false;generation++;clearInterval(tickTimer);clearInterval(reconcileTimer);tickTimer=undefined;reconcileTimer=undefined;},
     setScenario(next:ScenarioId) {
+      if (!started) return;
       scenario=next;
       // Disconnect the active local session so in-flight rendering stops at its held observation.
       if (next==='reconnect') {store.setScenario(next);store.disconnect();return;}
       reset();
     },
-    setDemo(enabled:boolean) {demo=enabled;reset();},
+    setDemo(enabled:boolean) {if (!started) return;demo=enabled;reset();},
     step() {
+      if (!started) return;
       if (store.getSnapshot().transport!=='connected') {snapshot();return;}
       if (scenario==='stale' || scenario==='gateway-offline' || scenario==='unknown') {store.tick();return;}
       stepSequence++;
@@ -66,6 +77,6 @@ export function createMockAdapter(store:RealtimeStore, options:{autoTick?:boolea
         store.receive(fixtureFrame('elevator.state',next,{...context(),revision,sentAt:at}));
       }
     },
-    reconcile:()=>snapshot(),
+    reconcile:()=>{if (started) snapshot();},
   };
 }

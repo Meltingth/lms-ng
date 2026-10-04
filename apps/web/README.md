@@ -25,3 +25,11 @@ The ViewModel keeps source freshness, field transport, gateway heartbeat and bro
 For the freshness correction review, run `node apps/web/scripts/freshness-qa.mjs` from the repository root with the preview running. It exports the actual `hud-desktop.png`, `hud-uncalibrated.png`, `hud-stale.png`, `hud-demo.png` and `hud-mobile.png` under `docs/frontend/evidence/freshness-correction/`, with browser results and SHA-256 metadata. Historical milestone evidence is retained.
 
 See docs/design/HUD_SPEC_V2.md, docs/design/HUD_ACCEPTANCE.md, docs/design/ANALYTICS_DEFINITIONS.md and docs/frontend/MILESTONE_01_REPORT.md. This preview does not approve G-A/G-U or authorize deployment.
+
+## Runtime preparation for TEST integration
+
+`OperationsHud` accepts a `createRuntime` factory; its default remains `createSimulatedRuntime`. The runtime exposes a read-only store view and a lifecycle-only adapter (`start`/`dispose`). Optional simulation controls are separate from that adapter. Disposal cancels timers and ignores retained controls/old timer callbacks; a deliberate restart starts a new fixture session. Remount the HUD to change its runtime. This seam is SIMULATED-only and does not provide REST, WebSocket, authentication or REAL ingestion.
+
+Both `scripts/freshness-qa.mjs` and `scripts/frame-qa.mjs` accept `HUD_PREVIEW_URL` for a loopback preview and `HUD_QA_OUTPUT_DIR` for a separate evidence directory. Run from the repository root and choose a new evidence directory per review so accepted screenshots are retained. A production-build preview can be tested separately from the user's running development tab.
+
+See [the operational readiness plan](../../docs/frontend/OPERATIONAL_READINESS_PLAN_2026-10-04.md) and [TEST host connection steps](../../docs/frontend/TEST_HOST_CODEX_SETUP.md) for prerequisites and the remaining gated work.

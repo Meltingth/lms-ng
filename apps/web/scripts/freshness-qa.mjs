@@ -8,7 +8,7 @@ import assert from 'node:assert/strict';
 
 // Independent review evidence: every screenshot is captured from this local UI run.
 const repo = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../..');
-const out = path.join(repo, 'docs/frontend/evidence/freshness-correction');
+const out = process.env.HUD_QA_OUTPUT_DIR ? path.resolve(process.env.HUD_QA_OUTPUT_DIR) : path.join(repo, 'docs/frontend/evidence/freshness-correction');
 const base = process.env.HUD_PREVIEW_URL || 'http://127.0.0.1:5173/';
 const target = new URL(base);
 assert.ok(['http:', 'https:'].includes(target.protocol) && ['127.0.0.1', 'localhost'].includes(target.hostname), 'Only a loopback preview URL is permitted.');

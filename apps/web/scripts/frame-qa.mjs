@@ -6,6 +6,9 @@ import { fileURLToPath } from 'node:url';
 import assert from 'node:assert/strict';
 
 const out = process.env.HUD_QA_OUTPUT_DIR ? path.resolve(process.env.HUD_QA_OUTPUT_DIR) : path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../../docs/frontend/evidence/frame');
+const base = process.env.HUD_PREVIEW_URL || 'http://127.0.0.1:5173/';
+const target = new URL(base);
+assert.ok(['http:', 'https:'].includes(target.protocol) && ['127.0.0.1', 'localhost'].includes(target.hostname), 'Only a loopback preview URL is permitted.');
 const executablePath = process.env.HUD_BROWSER_EXECUTABLE || [
   'C:/Program Files/Google/Chrome/Application/chrome.exe',
   'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe',
@@ -93,7 +96,7 @@ try {
     try {
       const page = await context.newPage();
       page.on('pageerror', error => pageErrors.push({ case: spec.name, message: error.message }));
-      await page.goto('http://127.0.0.1:5173/');
+      await page.goto(base);
       await page.getByRole('button', { name: 'เลือกลิฟต์ W-01', exact: true }).waitFor();
       await page.evaluate(() => document.fonts.ready);
       const frame = page.locator('.hud-window-frame');

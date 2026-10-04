@@ -1,0 +1,9 @@
+full-hd: PASS (frame visible)
+4k: PASS (frame visible)
+4k-dpi-200: PASS (frame visible)
+full-hd-window: PASS (frame visible)
+full-hd-dpi-125: PASS (frame visible)
+full-hd-dpi-150: PASS (frame visible)
+standard-desktop: PASS (frame hidden)
+mobile: PASS (frame hidden)
+{"status":"PASS","checks":9,"evidence":"C:\\NST\\Software Dev\\lms-ng\\docs\\frontend\\evidence\\readiness-2026-10-04\\display"}

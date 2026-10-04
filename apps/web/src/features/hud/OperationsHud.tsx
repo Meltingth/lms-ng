@@ -1,8 +1,7 @@
 import { useEffect, useState, useSyncExternalStore } from 'react';
 import { Badge, NumericDisplay } from '@lms-ng/ui-kit';
-import { createRealtimeStore } from '../../realtime/store';
-import { createMockAdapter } from '../../realtime/client';
-import { fixtureScenarios, type ScenarioId } from '../../fixtures/scenarios';
+import { createSimulatedRuntime, type HudRuntime } from '../../realtime/runtime';
+import type { ScenarioId } from '../../fixtures/scenarios';
 import { toElevatorViewModel, toGatewayViewModel } from '../../model/viewModel';
 import { DemoBanner } from '../demo/DemoBanner';
 import { FullscreenButton } from '../display/FullscreenButton';
@@ -11,9 +10,10 @@ import { ShaftOverview } from '../elevators/ShaftOverview';
 import { ElevatorDetail } from '../elevators/ElevatorDetail';
 import { RecentEvents } from '../events/RecentEvents';
 import { AnalyticsSummary } from '../analytics/AnalyticsSummary';
-export function OperationsHud() {
-  const [store] = useState(() => createRealtimeStore());
-  const [adapter] = useState(() => createMockAdapter(store));
+export function OperationsHud({ createRuntime = createSimulatedRuntime }: { createRuntime?: () => HudRuntime } = {}) {
+  // One runtime belongs to this mounted HUD. Remount to select another runtime.
+  const [runtime] = useState(createRuntime);
+  const { store, adapter, simulation } = runtime;
   const state = useSyncExternalStore(store.subscribe, store.getSnapshot);
   const [selectedId, setSelectedId] = useState('');
   const [motionEnabled, setMotionEnabled] = useState(() => !window.matchMedia('(prefers-reduced-motion: reduce)').matches);
@@ -39,7 +39,7 @@ export function OperationsHud() {
   const fresh = state.elevators.filter(lift => lift.monitoringEnabled && ['FRESH','VALID'].includes(toElevatorViewModel(lift, state).sourceFreshness.state)).length;
   const outOfService = state.elevators.filter(lift => lift.serviceStatus === 'OUT_OF_SERVICE').length;
   const alarmTotal = state.elevators.every(lift => lift.activeAlarmCount !== undefined) ? state.elevators.reduce((sum, lift) => sum + (lift.activeAlarmCount ?? 0), 0) : null;
-  const scenarioDescription = fixtureScenarios.find(item => item.id === state.scenario)?.description;
+  const scenarioDescription = simulation?.scenarios.find(item => item.id === state.scenario)?.description;
   return <main className="app-shell">
     <HudWindowFrame />
     <header className="app-header"><div className="brand"><span className="brand-symbol" aria-hidden="true"><i /><i /><i /></span><div><span className="brand-name">The Whizdom</span><span className="brand-subtitle">LMS-NG / OPERATIONS CONTROL</span></div></div>
@@ -55,13 +55,13 @@ export function OperationsHud() {
       <div className="kpi"><span className="eyebrow">SERVICE / ปิดใช้งาน</span><div><NumericDisplay className="tone-amber">{String(outOfService).padStart(2,'0')}</NumericDisplay><span>OUT OF SERVICE</span></div><small>สัญญาณเตือน {alarmTotal === null ? 'UNKNOWN' : alarmTotal} ACTIVE · SIMULATED</small></div>
     </section>
     <div className="workspace-grid"><ShaftOverview key={state.sessionId + state.transport + state.resnapshotCount} state={state} selectedId={selected} onSelect={setSelectedId} motionEnabled={motionEnabled} /><ElevatorDetail state={state} selectedId={selected} /></div>
-    <section className="simulation-controls" aria-label="เครื่องมือทดสอบข้อมูลจำลอง"><div className="control-label"><span className="eyebrow">LOCAL TEST LAB</span><strong>สถานการณ์จำลอง</strong></div>
-      <label className="scenario-field"><span className="sr-only">เลือกสถานการณ์จำลอง</span><select aria-label="เลือกสถานการณ์จำลอง" value={state.scenario} onChange={event => adapter.setScenario(event.target.value as ScenarioId)}>{fixtureScenarios.map(scenario => <option key={scenario.id} value={scenario.id}>{scenario.label}</option>)}</select></label>
-      <button className="control-button" onClick={() => adapter.step()}>เดินข้อมูล 1 ขั้น <span aria-hidden="true">→</span></button>
+    {simulation && <section className="simulation-controls" aria-label="เครื่องมือทดสอบข้อมูลจำลอง"><div className="control-label"><span className="eyebrow">LOCAL TEST LAB</span><strong>สถานการณ์จำลอง</strong></div>
+      <label className="scenario-field"><span className="sr-only">เลือกสถานการณ์จำลอง</span><select aria-label="เลือกสถานการณ์จำลอง" value={state.scenario} onChange={event => simulation.setScenario(event.target.value as ScenarioId)}>{simulation.scenarios.map(scenario => <option key={scenario.id} value={scenario.id}>{scenario.label}</option>)}</select></label>
+      <button className="control-button" onClick={() => simulation.step()}>เดินข้อมูล 1 ขั้น <span aria-hidden="true">→</span></button>
       <label className="motion-control"><input type="checkbox" checked={motionEnabled} onChange={event => setMotionEnabled(event.target.checked)} /> Animation</label>
-      <button className={`control-button demo-button ${demo ? 'active' : ''}`} aria-pressed={demo} onClick={() => adapter.setDemo(!demo)}>{demo ? 'ออกจาก DEMO' : 'สาธิต'}</button>
+      <button className={`control-button demo-button ${demo ? 'active' : ''}`} aria-pressed={demo} onClick={() => simulation.setDemo(!demo)}>{demo ? 'ออกจาก DEMO' : 'สาธิต'}</button>
       <p className="scenario-description">{scenarioDescription}</p>
-    </section>
+    </section>}
     {streamWarning && <div className="stream-warning" role="alert" data-server-connection={serverConnection}>{streamWarning}</div>}
     <div className="lower-grid"><RecentEvents events={state.events} /><AnalyticsSummary /></div>
     <footer className="health-footer"><div><span className={state.transport === 'connected' ? 'tone-cyan' : 'tone-amber'}>●</span> MOCK STREAM · {serverConnection}<span className="footer-divider">/</span>RESNAPSHOT {state.resnapshotCount}</div><div>API / DB / REDIS <b>NOT CONNECTED</b></div><div className="gate-state">G-A: WAITING <span>· POSTGRES EVIDENCE BLOCKED</span></div></footer>
